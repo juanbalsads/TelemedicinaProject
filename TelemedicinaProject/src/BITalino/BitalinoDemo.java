@@ -1,5 +1,7 @@
 package BITalino;
 
+import POJOs.Phydata;
+import java.util.Calendar;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -7,7 +9,10 @@ import javax.bluetooth.RemoteDevice;
 
 public class BitalinoDemo {
 
+    public static Phydata phydata;
+
     public static Frame[] frame;
+    public static Calendar cal;
 
     public static void main(String[] args) {
         int seconds = 0;
@@ -25,19 +30,19 @@ public class BitalinoDemo {
             String macAddress = "20:16:02:26:61:47";
 
             //Sampling rate, should be 10, 100 or 1000
-            int SamplingRate = 1000;
+            int SamplingRate = 10;
             bitalino.open(macAddress, SamplingRate);
 
             // Start acquisition on analog channels A2 and A6
             // For example, If you want A1, A3 and A4 you should use {0,2,3}
-            int[] channelsToAcquire = {1};
+            int[] channelsToAcquire = {1};//CHANGE this
             bitalino.start(channelsToAcquire);
 
             //Read in total 10000000 times
             for (int j = 0; j < 100; j++) {
 
                 //Each time read a block of 10 samples
-                int block_size = 100;
+                int block_size = 10;
                 frame = bitalino.read(block_size);
 
                 System.out.println("size block: " + frame.length);
@@ -60,6 +65,9 @@ public class BitalinoDemo {
             }
             //stop acquisition
             bitalino.stop();
+            cal = Calendar.getInstance();
+            phydata = new Phydata(frame, cal);
+
         } catch (BITalinoException ex) {
             Logger.getLogger(BitalinoDemo.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Throwable ex) {
