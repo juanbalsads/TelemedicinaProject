@@ -76,7 +76,7 @@ public class RecordFr extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         System.out.println("funciona");
-        jPanel1.setBackground(Color.red);
+        jPanel1.setBackground(Color.yellow);
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
