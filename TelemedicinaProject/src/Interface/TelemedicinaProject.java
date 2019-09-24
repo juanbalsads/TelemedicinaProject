@@ -15,7 +15,7 @@ public class TelemedicinaProject {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        RecordFr intro = new RecordFr();
+        MatchDeviceFr intro = new MatchDeviceFr();
         intro.setVisible(true);
 
     }
