@@ -27,7 +27,7 @@ public class BitalinoDemo {
 
             //You need TO CHANGE THE MAC ADDRESS
             //You should have the MAC ADDRESS in a sticker in the Bitalino
-            String macAddress = "20:16:02:26:61:47";
+            String macAddress = "20:17:11:20:50:77";
 
             //Sampling rate, should be 10, 100 or 1000
             int SamplingRate = 10;

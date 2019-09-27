@@ -5,8 +5,16 @@
  */
 package Interface;
 
+import BITalino.BITalino;
+import BITalino.BITalinoException;
+import BITalino.BitalinoDemo;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.bluetooth.RemoteDevice;
+import javax.swing.JFrame;
 
 /**
  *
@@ -15,13 +23,13 @@ import java.awt.Dimension;
 public class MatchDeviceFr extends javax.swing.JFrame {
 
     public MatchDeviceFr() {
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         initComponents();
         this.setSize(new Dimension(800, 540));
         this.setLocationRelativeTo(null);
         jPanel1.setSize(this.getSize());
         jPanel1.setBackground(new Color(153, 204, 0));
-        //jTextField1.setFont(new Font("Century Gothic", Font.BOLD, 20));
-        jTextField1.setText("00:00:00:00:");
+        jTextField1.setText("20:17:11:20:50:77");
 
     }
 
@@ -32,7 +40,7 @@ public class MatchDeviceFr extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        SearchButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,13 +58,13 @@ public class MatchDeviceFr extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(0, 153, 0));
-        jButton1.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Search");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        SearchButton.setBackground(new java.awt.Color(0, 153, 0));
+        SearchButton.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        SearchButton.setForeground(new java.awt.Color(255, 255, 255));
+        SearchButton.setText("Search");
+        SearchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                SearchButtonActionPerformed(evt);
             }
         });
 
@@ -69,11 +77,11 @@ public class MatchDeviceFr extends javax.swing.JFrame {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(267, 267, 267)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGap(325, 325, 325)
-                            .addComponent(jButton1))))
+                            .addComponent(SearchButton))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(267, 267, 267)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(335, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -84,7 +92,7 @@ public class MatchDeviceFr extends javax.swing.JFrame {
                 .addGap(44, 44, 44)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41)
-                .addComponent(jButton1)
+                .addComponent(SearchButton)
                 .addContainerGap(206, Short.MAX_VALUE))
         );
 
@@ -108,14 +116,45 @@ public class MatchDeviceFr extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        RecordFr recordFr = new RecordFr();
-        this.setVisible(false);
-        recordFr.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void SearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchButtonActionPerformed
+        BITalino bitalino = new BITalino();
+        String macAddress = null;
+        try {
+
+            // Code to find Devices
+            //Only works on some OS
+            Vector<RemoteDevice> devices = bitalino.findDevices();
+            System.out.println(devices);
+
+            //You need TO CHANGE THE MAC ADDRESS
+            //You should have the MAC ADDRESS in a sticker in the Bitalino
+            macAddress = "20:17:11:20:50:77";
+            //macAddress = jTextField1.getText();
+
+            //Sampling rate, should be 10, 100 or 1000
+            int SamplingRate = 1000;
+            bitalino.open(macAddress, SamplingRate);
+            System.out.println(macAddress);
+            this.setVisible(false);
+            RecordFr recordFr = new RecordFr(bitalino, macAddress);
+            recordFr.setVisible(true);
+
+        } catch (Throwable ex) {
+            Logger.getLogger(BitalinoDemo.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (bitalino != null) {
+                    bitalino.close();
+                }
+            } catch (BITalinoException ex) {
+                Logger.getLogger(BitalinoDemo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+    }//GEN-LAST:event_SearchButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton SearchButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
