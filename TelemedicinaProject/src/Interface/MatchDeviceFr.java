@@ -132,11 +132,11 @@ public class MatchDeviceFr extends javax.swing.JFrame {
             //macAddress = jTextField1.getText();
 
             //Sampling rate, should be 10, 100 or 1000
-            int SamplingRate = 1000;
+            int SamplingRate = 100;
             bitalino.open(macAddress, SamplingRate);
             System.out.println(macAddress);
             this.setVisible(false);
-            RecordFr recordFr = new RecordFr(bitalino, macAddress);
+            RecordFr recordFr = new RecordFr(bitalino, macAddress, SamplingRate);
             recordFr.setVisible(true);
 
         } catch (Throwable ex) {

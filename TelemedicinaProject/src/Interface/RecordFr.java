@@ -14,8 +14,10 @@ import POJOs.Phydata;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.Calendar;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.bluetooth.RemoteDevice;
 import javax.swing.JFrame;
 
 /**
@@ -26,14 +28,15 @@ public class RecordFr extends javax.swing.JFrame {
 
     private Phydata phydata;
     private String macAddress;
-
+    private int SamplingRate;
     private BITalino bitalino = null;
     int seconds = 0;
 
-    public RecordFr(BITalino bitalino, String macAddress) {
+    public RecordFr(BITalino bitalino, String macAddress, int SamplingRate) {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.macAddress = macAddress;
         this.bitalino = bitalino;
+        this.SamplingRate = SamplingRate;
         initComponents();
         this.setSize(new Dimension(800, 540));
         this.setLocationRelativeTo(null);
@@ -110,8 +113,20 @@ public class RecordFr extends javax.swing.JFrame {
 
         try {
 
-            int SamplingRate = 10;
+            // Code to find Devices
+            //Only works on some OS
+            Vector<RemoteDevice> devices = bitalino.findDevices();
+            System.out.println(devices);
+
+            //You need TO CHANGE THE MAC ADDRESS
+            //You should have the MAC ADDRESS in a sticker in the Bitalino
+            macAddress = "20:17:11:20:50:77";
+            //macAddress = jTextField1.getText();
+
+            //Sampling rate, should be 10, 100 or 1000
+            int SamplingRate = 100;
             bitalino.open(macAddress, SamplingRate);
+
             // For example, If you want A1, A3 and A4 you should use {0,2,3}
             int[] channelsToAcquire = {0};//CHANGE this
             bitalino.start(channelsToAcquire);
@@ -136,6 +151,8 @@ public class RecordFr extends javax.swing.JFrame {
                 System.out.println("Seconds: " + seconds);
 
             }
+            System.out.println("se fini");
+
             //stop acquisition
             bitalino.stop();
             cal = Calendar.getInstance();
