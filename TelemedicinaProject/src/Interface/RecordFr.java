@@ -115,7 +115,7 @@ public class RecordFr extends javax.swing.JFrame {
     private void EMGButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EMGButtonActionPerformed
 
         try {
-
+//holalalasdsdj
             // Code to find Devices
             //Only works on some OS
             //Vector<RemoteDevice> devices = bitalino.findDevices();
