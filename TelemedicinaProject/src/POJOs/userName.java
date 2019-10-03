@@ -12,6 +12,7 @@ import java.util.ArrayList;
  * @author juanb
  */
 public class userName {
+////
 
     private String name;
     private String password;
