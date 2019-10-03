@@ -37,7 +37,7 @@ public class RecordFr extends javax.swing.JFrame {
 
     public RecordFr(BITalino bitalino, String macAddress, int SamplingRate) {
         initComponents();
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Poner siempre
         this.macAddress = macAddress;
         this.bitalino = bitalino;
         this.SamplingRate = SamplingRate;
@@ -163,7 +163,7 @@ public class RecordFr extends javax.swing.JFrame {
             File file = new File("datos.dat");
             fileOutputStream = new FileOutputStream(file);
             objectOutputStream = new ObjectOutputStream(fileOutputStream);
-            objectOutputStream.writeObject(new Date());
+            objectOutputStream.writeObject(phydata);
             System.out.println("Everything correct");
 
         } catch (BITalinoException ex) {

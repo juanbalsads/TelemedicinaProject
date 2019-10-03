@@ -36,5 +36,8 @@ public class Phydata {
     public void setDate(Date date) {
         this.date = date;
     }
+    //Date date = new Date(); // this object contains the current date value
+    //SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+    //System.out.println(formatter.format(date));
 
 }
