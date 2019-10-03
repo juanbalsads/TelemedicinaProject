@@ -8,16 +8,17 @@ package Interface;
 import BITalino.BITalino;
 import BITalino.BITalinoException;
 import BITalino.BitalinoDemo;
-import static BITalino.BitalinoDemo.cal;
 import static BITalino.BitalinoDemo.frame;
 import POJOs.Phydata;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.util.Calendar;
-import java.util.Vector;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.bluetooth.RemoteDevice;
 import javax.swing.JFrame;
 
 /**
@@ -31,13 +32,15 @@ public class RecordFr extends javax.swing.JFrame {
     private int SamplingRate;
     private BITalino bitalino = null;
     int seconds = 0;
+    private FileOutputStream fileOutputStream = null;
+    private ObjectOutputStream objectOutputStream = null;
 
     public RecordFr(BITalino bitalino, String macAddress, int SamplingRate) {
+        initComponents();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.macAddress = macAddress;
         this.bitalino = bitalino;
         this.SamplingRate = SamplingRate;
-        initComponents();
         this.setSize(new Dimension(800, 540));
         this.setLocationRelativeTo(null);
         jPanel1.setSize(this.getSize());
@@ -115,16 +118,14 @@ public class RecordFr extends javax.swing.JFrame {
 
             // Code to find Devices
             //Only works on some OS
-            Vector<RemoteDevice> devices = bitalino.findDevices();
-            System.out.println(devices);
-
+            //Vector<RemoteDevice> devices = bitalino.findDevices();
+            //System.out.println(devices);
             //You need TO CHANGE THE MAC ADDRESS
             //You should have the MAC ADDRESS in a sticker in the Bitalino
-            macAddress = "20:17:11:20:50:77";
+            //macAddress = "20:17:11:20:50:77";
             //macAddress = jTextField1.getText();
-
             //Sampling rate, should be 10, 100 or 1000
-            int SamplingRate = 100;
+            //int SamplingRate = 100;
             bitalino.open(macAddress, SamplingRate);
 
             // For example, If you want A1, A3 and A4 you should use {0,2,3}
@@ -155,8 +156,15 @@ public class RecordFr extends javax.swing.JFrame {
 
             //stop acquisition
             bitalino.stop();
-            cal = Calendar.getInstance();
-            phydata = new Phydata(frame, cal);
+            Date date = new Date();
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            String dateS = formatter.format(date);
+            phydata = new Phydata(frame, date);
+            File file = new File("datos.dat");
+            fileOutputStream = new FileOutputStream(file);
+            objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(new Date());
+            System.out.println("Everything correct");
 
         } catch (BITalinoException ex) {
             Logger.getLogger(BitalinoDemo.class.getName()).log(Level.SEVERE, null, ex);
@@ -176,7 +184,67 @@ public class RecordFr extends javax.swing.JFrame {
     }//GEN-LAST:event_EMGButtonActionPerformed
 
     private void AccButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccButtonActionPerformed
-        // TODO add your handling code here:
+
+        try {
+
+            // Code to find Devices
+            //Only works on some OS
+            //Vector<RemoteDevice> devices = bitalino.findDevices();
+            //System.out.println(devices);
+            //You need TO CHANGE THE MAC ADDRESS
+            //You should have the MAC ADDRESS in a sticker in the Bitalino
+            //macAddress = "20:17:11:20:50:77";
+            //macAddress = jTextField1.getText();
+            //Sampling rate, should be 10, 100 or 1000
+            //int SamplingRate = 100;
+            bitalino.open(macAddress, SamplingRate);
+
+            // For example, If you want A1, A3 and A4 you should use {0,2,3}
+            int[] channelsToAcquire = {4};//CHANGE this
+            bitalino.start(channelsToAcquire);
+
+            //Read in total 10000000 times
+            for (int j = 0; j < 100; j++) {
+
+                //Each time read a block of 10 samples
+                int block_size = 10;
+                frame = bitalino.read(block_size);
+
+                System.out.println("size block: " + frame.length);
+
+                //Print the samples
+                for (int i = 0; i < frame.length; i++) {
+                    System.out.println((j * block_size + i) + " seq: " + frame[i].seq + " "
+                            + frame[i].analog[0] + " "
+                    );
+
+                }
+                seconds = (block_size * j) / SamplingRate + 1;
+                System.out.println("Seconds: " + seconds);
+
+            }
+            System.out.println("se fini");
+
+            //stop acquisition
+            bitalino.stop();
+            Date date = new Date();
+            phydata = new Phydata(frame, date);
+
+        } catch (BITalinoException ex) {
+            Logger.getLogger(BitalinoDemo.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable ex) {
+            Logger.getLogger(BitalinoDemo.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                //close bluetooth connection
+                if (bitalino != null) {
+                    bitalino.close();
+                }
+            } catch (BITalinoException ex) {
+                Logger.getLogger(BitalinoDemo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
     }//GEN-LAST:event_AccButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

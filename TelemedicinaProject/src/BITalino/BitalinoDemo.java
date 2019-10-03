@@ -1,7 +1,5 @@
 package BITalino;
 
-import POJOs.Phydata;
-import java.util.Calendar;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -9,10 +7,7 @@ import javax.bluetooth.RemoteDevice;
 
 public class BitalinoDemo {
 
-    public static Phydata phydata;
-
     public static Frame[] frame;
-    public static Calendar cal;
 
     public static void main(String[] args) {
         int seconds = 0;
@@ -65,8 +60,6 @@ public class BitalinoDemo {
             }
             //stop acquisition
             bitalino.stop();
-            cal = Calendar.getInstance();
-            phydata = new Phydata(frame, cal);
 
         } catch (BITalinoException ex) {
             Logger.getLogger(BitalinoDemo.class.getName()).log(Level.SEVERE, null, ex);

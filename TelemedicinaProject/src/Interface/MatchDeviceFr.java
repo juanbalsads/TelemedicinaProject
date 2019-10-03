@@ -119,6 +119,7 @@ public class MatchDeviceFr extends javax.swing.JFrame {
     private void SearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchButtonActionPerformed
         BITalino bitalino = new BITalino();
         String macAddress = null;
+        int SamplingRate;
         try {
 
             // Code to find Devices
@@ -132,7 +133,7 @@ public class MatchDeviceFr extends javax.swing.JFrame {
             //macAddress = jTextField1.getText();
 
             //Sampling rate, should be 10, 100 or 1000
-            int SamplingRate = 100;
+            SamplingRate = 100;
             bitalino.open(macAddress, SamplingRate);
             System.out.println(macAddress);
             this.setVisible(false);

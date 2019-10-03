@@ -6,7 +6,7 @@
 package POJOs;
 
 import BITalino.*;
-import java.util.Calendar;
+import java.util.Date;
 
 /**
  *
@@ -15,10 +15,10 @@ import java.util.Calendar;
 public class Phydata {
 
     private static Frame[] frame;
-    private Calendar cal;
+    private Date date;
 
-    public Phydata(Frame[] frame, Calendar cal) {
-        this.cal = cal;
+    public Phydata(Frame[] frame, Date date) {
+        this.date = date;
         Phydata.frame = frame;
     }
 
@@ -29,12 +29,12 @@ public class Phydata {
     public static void setFrame(Frame aFrame) {
     }
 
-    public Calendar getCal() {
-        return cal;
+    public Date getDate() {
+        return date;
     }
 
-    public void setCal(Calendar cal) {
-        this.cal = cal;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
 }
