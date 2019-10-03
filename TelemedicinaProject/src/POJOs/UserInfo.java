@@ -5,13 +5,14 @@
  */
 package POJOs;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author juanb
  */
-public class userName {
+public class UserInfo implements Serializable {
 ////
 
     private String name;
@@ -20,7 +21,7 @@ public class userName {
     private int age;
     private ArrayList phydataArray;
 
-    public userName(String name, String password, String userName, int age, ArrayList phydataArray) {
+    public UserInfo(String name, String password, String userName, int age, ArrayList phydataArray) {
         this.name = name;
         this.password = password;
         this.userName = userName;

@@ -5,11 +5,33 @@
  */
 package ManagementOperations;
 
+import POJOs.UserInfo;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+
 /**
  *
  * @author juanb
  */
 public class ManagementOperations {
+
+    public void saveUserInfo(File file, UserInfo user) {
+        FileOutputStream fileOutputStream = null;
+        ObjectOutputStream objectOutputStream = null;
+        try {
+            fileOutputStream = new FileOutputStream(file);
+            objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(file);
+
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 
     /* public void savePopulation(File file, PopulationMouse populationMouse) throws IOException {
         FileOutputStream fileOutputStream = null;
