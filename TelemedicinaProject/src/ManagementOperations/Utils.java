@@ -5,14 +5,12 @@
  */
 package ManagementOperations;
 
-import PopulationAndMouse.PopulationMouse;
-
 /**
  *
  * @author juanb
  */
 public abstract class Utils {
-
+    /*
     public Utils() {
 
     }
@@ -114,6 +112,6 @@ public abstract class Utils {
             }
         }
         return state;
-    }
+    }*/
 
 }

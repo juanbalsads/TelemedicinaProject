@@ -5,16 +5,13 @@
  */
 package ManagementOperations;
 
-import PopulationAndMouse.PopulationMouse;
-import java.io.*;
-
 /**
  *
  * @author juanb
  */
 public class ManagementOperations {
 
-    public void savePopulation(File file, PopulationMouse populationMouse) throws IOException {
+    /* public void savePopulation(File file, PopulationMouse populationMouse) throws IOException {
         FileOutputStream fileOutputStream = null;
         ObjectOutputStream objectOutputStream = null;
         try {
@@ -49,6 +46,5 @@ public class ManagementOperations {
             System.out.println("Succesfully load.");
         }
         return populationMouse;
-    }
-
+    }*/
 }
