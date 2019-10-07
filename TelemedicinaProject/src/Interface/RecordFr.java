@@ -60,7 +60,7 @@ public class RecordFr extends javax.swing.JFrame {
         EMGButton.setBackground(new java.awt.Color(0, 153, 0));
         EMGButton.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         EMGButton.setForeground(new java.awt.Color(255, 255, 255));
-        EMGButton.setText("Rec 1");
+        EMGButton.setText("ECG");
         EMGButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EMGButtonActionPerformed(evt);
@@ -70,7 +70,7 @@ public class RecordFr extends javax.swing.JFrame {
         AccButton.setBackground(new java.awt.Color(0, 153, 0));
         AccButton.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         AccButton.setForeground(new java.awt.Color(255, 255, 255));
-        AccButton.setText("Rec 2");
+        AccButton.setText("Accelerometer");
         AccButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AccButtonActionPerformed(evt);
@@ -82,9 +82,9 @@ public class RecordFr extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(639, Short.MAX_VALUE)
+                .addContainerGap(556, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(AccButton, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
+                    .addComponent(AccButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(EMGButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(69, 69, 69))
         );
