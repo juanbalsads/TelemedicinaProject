@@ -5,6 +5,9 @@
  */
 package Interface;
 
+import java.awt.Color;
+import java.awt.Dimension;
+
 /**
  *
  * @author juanb
@@ -16,6 +19,10 @@ public class SignUpFr extends javax.swing.JFrame {
      */
     public SignUpFr() {
         initComponents();
+        this.setSize(new Dimension(800, 540));
+        this.setLocationRelativeTo(null);
+        jPanel1.setSize(this.getSize());
+        jPanel1.setBackground(new Color(153, 204, 0));
     }
 
     /**
@@ -57,6 +64,11 @@ public class SignUpFr extends javax.swing.JFrame {
         jTextField4.setText("jTextField1");
 
         jToggleButton1.setText("Sign Up");
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -119,6 +131,12 @@ public class SignUpFr extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        this.setVisible(false);
+        MatchDeviceFr matchDeviceFr = new MatchDeviceFr();
+        matchDeviceFr.setVisible(true);
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
