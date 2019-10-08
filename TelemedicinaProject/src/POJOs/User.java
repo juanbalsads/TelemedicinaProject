@@ -9,14 +9,14 @@ package POJOs;
  *
  * @author inesu
  */
-public class Patient {
+public class User {
 
     private String nombre;
     private int edad;
     private String usuario;
     private String contraseña;
     
-    public Patient (String _usuario,String _contraseña, String _nombre, int _edad){
+    public User (String _usuario,String _contraseña, String _nombre, int _edad){
     usuario = _usuario;
     contraseña = _contraseña;
     nombre = _nombre;
