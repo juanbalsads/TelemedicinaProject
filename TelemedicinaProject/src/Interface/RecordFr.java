@@ -60,7 +60,7 @@ public class RecordFr extends javax.swing.JFrame {
         EMGButton.setBackground(new java.awt.Color(0, 153, 0));
         EMGButton.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         EMGButton.setForeground(new java.awt.Color(255, 255, 255));
-        EMGButton.setText("ECG");
+        EMGButton.setText("EMG");
         EMGButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EMGButtonActionPerformed(evt);
