@@ -19,7 +19,7 @@ public class MainJuan {
     public static void main(String[] args) {
         PersistenceOp persistence = new PersistenceOp();
         String directory = "data";
-        String fileName = "UserInfo";
+        String fileName = "UserInfo.dat";
         Phydata phydata = null;
         ArrayList<Phydata> arrayList = null;
         ArrayList<UserInfo> userInfoList = null;
@@ -30,7 +30,6 @@ public class MainJuan {
 
         userInfoList = persistence.loadUserInfo(directory, fileName);
         persistence.saveUserInfo(directory, fileName, userInfo);
-        System.out.println("imprime");
 
     }
 

@@ -69,4 +69,8 @@ public class UserInfo implements Serializable {
         this.phydataArray = phydataArray;
     }
 
+    public String toString() {
+        return "name: " + this.name + ", UserName: " + this.userName + ", password: ";
+    }
+
 }
