@@ -5,7 +5,10 @@
  */
 package Interface;
 
-import POJOs.User;
+import POJOs.Phydata;
+import POJOs.UserInfo;
+import Persistence.*;
+import java.util.ArrayList;
 
 /**
  *
@@ -14,10 +17,20 @@ import POJOs.User;
 public class MainJuan {
 
     public static void main(String[] args) {
-        User user = new User("jbalsads", "0000", "Juan Balsa", 25);
-        User user2 = new User("cristianp", "1111", "Janto", 25);
-        User user3 = new User("messi", "2222", "lionel", 25);
-        User user4 = new User("ronaldo", "3333", "criss", 24);
+        PersistenceOp persistence = new PersistenceOp();
+        String directory = "data";
+        String fileName = "UserInfo";
+        Phydata phydata = null;
+        ArrayList<Phydata> arrayList = null;
+        ArrayList<UserInfo> userInfoList = null;
+        UserInfo userInfo = new UserInfo("jbalsads", "0000", "Juan Balsa", 25, arrayList);
+        UserInfo userInfo2 = new UserInfo("cristianp", "1111", "Janto", 25, arrayList);
+        UserInfo userInfo3 = new UserInfo("messi", "2222", "lionel", 25, arrayList);
+        UserInfo userInfo4 = new UserInfo("ronaldo", "3333", "criss", 24, arrayList);
+
+        userInfoList = persistence.loadUserInfo(directory, fileName);
+        persistence.saveUserInfo(directory, fileName, userInfo);
+        System.out.println("imprime");
 
     }
 

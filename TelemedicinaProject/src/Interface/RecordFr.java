@@ -12,7 +12,6 @@ import static BITalino.BitalinoDemo.frame;
 import POJOs.Phydata;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
@@ -160,10 +159,6 @@ public class RecordFr extends javax.swing.JFrame {
             SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
             String dateS = formatter.format(date);
             phydata = new Phydata(frame, date);
-            File file = new File("datos.dat");
-            fileOutputStream = new FileOutputStream(file);
-            objectOutputStream = new ObjectOutputStream(fileOutputStream);
-            objectOutputStream.writeObject(phydata);
             System.out.println("Everything correct");
 
         } catch (BITalinoException ex) {
