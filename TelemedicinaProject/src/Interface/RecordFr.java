@@ -13,12 +13,16 @@ import POJOs.Phydata;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import org.jfree.chart.*;
+import org.jfree.data.*;
+
 
 /**
  *
@@ -242,6 +246,20 @@ public class RecordFr extends javax.swing.JFrame {
 
     }//GEN-LAST:event_AccButtonActionPerformed
 
+    private void graphicator (){
+    
+    JFreeChart grafico = null;
+    
+    
+    
+    
+    }
+    
+    
+    
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AccButton;
     private javax.swing.JButton EMGButton;
