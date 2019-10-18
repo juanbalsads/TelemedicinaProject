@@ -25,6 +25,7 @@ import org.jfree.chart.plot.PlotOrientation;
 import static org.jfree.chart.ui.UIUtils.centerFrameOnScreen;
 import org.jfree.data.*;
 import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.xy.DefaultXYDataset;
 
 /**
  *
@@ -118,7 +119,7 @@ public class RecordFr extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void EMGButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EMGButtonActionPerformed
-
+        double [][] values = new double[2][100];
         try {
 //holalalasdsdj
             // Code to find Devices
@@ -131,7 +132,7 @@ public class RecordFr extends javax.swing.JFrame {
             //macAddress = jTextField1.getText();
             //Sampling rate, should be 10, 100 or 1000
             //int SamplingRate = 100;
-            
+            DefaultXYDataset dataset = new DefaultXYDataset();
             bitalino.open(macAddress, SamplingRate);
 
             // For example, If you want A1, A3 and A4 you should use {0,2,3}
@@ -150,13 +151,16 @@ public class RecordFr extends javax.swing.JFrame {
                 //Print the samples
                 for (int i = 0; i < frame.length; i++) {
                     System.out.println((j * block_size + i) + " seq: " + frame[i].seq + " "
-                            + frame[i].analog[0] + " "
-                    );
-
-                }
-                seconds = (block_size * j) / SamplingRate + 1;
-                System.out.println("Seconds: " + seconds);
-
+                            + frame[i].analog[0] + " ");                
+                    seconds = (block_size * j) / SamplingRate + 1;
+                    System.out.println("Seconds: " + seconds);
+                    //dataset.addValue(frame[i].analog[0], "EMG", "" + seconds);
+                    values [0][j] = j;
+                    values [1][j] = frame[i].analog[0];
+                            }
+                
+                dataset.addSeries("hola", values);
+                
             }
             System.out.println("se fini");
 
@@ -167,21 +171,23 @@ public class RecordFr extends javax.swing.JFrame {
             String dateS = formatter.format(date);
             phydata = new Phydata(frame, date);
             System.out.println("Everything correct");
-            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-                dataset.addValue(15, "Hospitales", "1970");
+           
+           
+                /*dataset.addValue(15, "Hospitales", "1970");
                 dataset.addValue(30, "Hospitales", "1980");
                 dataset.addValue(60, "Hospitales", "1990");
                 dataset.addValue(120, "Hospitales", "2000");
                 dataset.addValue(240, "Hospitales", "2010");
-                dataset.addValue(150, "Hospitales", "2014");
+                dataset.addValue(150, "Hospitales", "2014");*/
             //Establish the shape of the graphic 
-            JFreeChart lineChart = ChartFactory.createLineChart("EMG", "Seconds", "unidades", dataset, PlotOrientation.VERTICAL, true, true, false);
+            JFreeChart lineChart = ChartFactory.createXYLineChart("EMG", "Seconds", "Volts", dataset, PlotOrientation.VERTICAL, true, true, false);
 
             ChartFrame panel = new ChartFrame("", lineChart);
-
+            
             panel.pack();
             panel.setVisible(true);
             centerFrameOnScreen(panel);
+        
         } catch (BITalinoException ex) {
             Logger.getLogger(BitalinoDemo.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Throwable ex) {
