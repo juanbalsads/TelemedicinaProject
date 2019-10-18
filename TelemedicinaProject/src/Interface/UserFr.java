@@ -7,6 +7,13 @@ package Interface;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import static org.jfree.chart.ui.UIUtils.centerFrameOnScreen;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
@@ -18,6 +25,21 @@ public class UserFr extends javax.swing.JFrame {
      * Creates new form UserFr
      */
     public UserFr() {
+          DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+                dataset.addValue(15, "Hospitales", "1970");
+                dataset.addValue(30, "Hospitales", "1980");
+                dataset.addValue(60, "Hospitales", "1990");
+                dataset.addValue(120, "Hospitales", "2000");
+                dataset.addValue(240, "Hospitales", "2010");
+                dataset.addValue(150, "Hospitales", "2014");
+    //Establish the shape of the graphic 
+    JFreeChart lineChart = ChartFactory.createLineChart("EMG", "Seconds", "unidades", dataset, PlotOrientation.VERTICAL, true, true, false);
+    
+    ChartFrame panel = new ChartFrame("", lineChart);
+    
+    panel.pack();
+    panel.setVisible(true);
+    centerFrameOnScreen(panel);
         initComponents();
         this.setSize(new Dimension(800, 540));
         this.setLocationRelativeTo(null);
