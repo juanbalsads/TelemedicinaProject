@@ -24,26 +24,32 @@ import java.util.logging.Logger;
  */
 public class PersistenceOp {
 
-    public void saveUserInfo(String directory, String fileName, UserInfo user) {
+    public int saveUserInfo(String directory, String fileName, UserInfo user) {
+        //Save user. (If there is no even file, it creates)
+        //if the USERNAME already exists returns -1, if not returns 0;
+
+        Utils utils = new Utils();
         ArrayList<UserInfo> usersInfoList = null;
         File direct = new File(directory);
-        if (!direct.exists()) {
+        /*if (!direct.exists()) {
             direct.mkdir();
-        }
+        }*/
         File file = null;
         FileOutputStream fileOutputStream = null;
         ObjectOutputStream objectOutputStream = null;
         try {
             file = new File(directory, fileName);
-            if (!file.exists()) {
+            /*if (!file.exists()) {
                 file.createNewFile();
+            }*/
+            usersInfoList = loadUserInfo(directory, fileName);
+            if (!utils.checkUserInfo(user, usersInfoList)) {
+                return -1;
             }
 
-            usersInfoList = loadUserInfo(directory, fileName);
-
             fileOutputStream = new FileOutputStream(file);
-
             objectOutputStream = new ObjectOutputStream(fileOutputStream);
+
             usersInfoList.add(user);
 
             Iterator<UserInfo> it = usersInfoList.iterator();
@@ -58,36 +64,34 @@ public class PersistenceOp {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+        return 0;
     }
 
     public ArrayList<UserInfo> loadUserInfo(String directory, String fileName) {
-        File direct = new File(directory);
-        int last;
-        if (!direct.exists()) {
-            direct.mkdir();
-        }
         ArrayList<UserInfo> usersInfoList = new ArrayList();
         File file = null;
         FileInputStream fileInputStream = null;
         ObjectInputStream objectInputStream = null;
+        File direct = new File(directory);
+        int last = 0;
+        if (!direct.exists()) {
+            direct.mkdir();
+        }
         try {
             file = new File(directory, fileName);
             if (!file.exists()) {
                 file.createNewFile();
-                System.out.println("tutto benine");
                 return usersInfoList;
             } else {
+                if (file.exists()) {
+                }
                 fileInputStream = new FileInputStream(file);
                 objectInputStream = new ObjectInputStream(fileInputStream);
-                System.out.println("llega");
                 last = (int) objectInputStream.readObject();
-                System.out.println(last);
-
                 for (int i = 0; i < last; i++) {
                     usersInfoList.add((UserInfo) objectInputStream.readObject());
                 }
             }
-
         } catch (FileNotFoundException ex) {
             Logger.getLogger(PersistenceOp.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -95,7 +99,6 @@ public class PersistenceOp {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(PersistenceOp.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("tutto bene");
         return usersInfoList;
 
     }

@@ -9,6 +9,7 @@ import POJOs.Phydata;
 import POJOs.UserInfo;
 import Persistence.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  *
@@ -28,8 +29,15 @@ public class MainJuan {
         UserInfo userInfo3 = new UserInfo("messi", "2222", "lionel", 25, arrayList);
         UserInfo userInfo4 = new UserInfo("ronaldo", "3333", "criss", 24, arrayList);
 
+        //userInfoList = persistence.loadUserInfo(directory, fileName);
+        System.out.println(persistence.saveUserInfo(directory, fileName, userInfo));
+        System.out.println(persistence.saveUserInfo(directory, fileName, userInfo));
+        System.out.println(persistence.saveUserInfo(directory, fileName, userInfo2));
         userInfoList = persistence.loadUserInfo(directory, fileName);
-        persistence.saveUserInfo(directory, fileName, userInfo);
+        Iterator<UserInfo> it = userInfoList.iterator();
+        while (it.hasNext()) {
+            System.out.println(it.next().toString());
+        }
 
     }
 
