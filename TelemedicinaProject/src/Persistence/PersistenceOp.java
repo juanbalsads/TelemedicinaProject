@@ -42,6 +42,7 @@ public class PersistenceOp {
             /*if (!file.exists()) {
                 file.createNewFile();
             }*/
+            //Utils.checkUserInfo(user, usersInfoList);
             usersInfoList = loadUserInfo(directory, fileName);
             if (!utils.checkUserInfo(user, usersInfoList)) {
                 return -1;

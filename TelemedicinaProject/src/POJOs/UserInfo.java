@@ -27,6 +27,12 @@ public class UserInfo implements Serializable {
         this.userName = userName;
         this.age = age;
         this.phydataArray = phydataArray;
+
+    }
+
+    public void saveMeasure(Phydata phydata) {
+        this.phydataArray.add(phydata);
+
     }
 
     public String getName() {

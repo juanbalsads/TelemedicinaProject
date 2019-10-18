@@ -33,6 +33,8 @@ public class MainJuan {
         System.out.println(persistence.saveUserInfo(directory, fileName, userInfo));
         System.out.println(persistence.saveUserInfo(directory, fileName, userInfo));
         System.out.println(persistence.saveUserInfo(directory, fileName, userInfo2));
+        System.out.println(persistence.saveUserInfo(directory, fileName, userInfo3));
+        System.out.println(persistence.saveUserInfo(directory, fileName, userInfo4));
         userInfoList = persistence.loadUserInfo(directory, fileName);
         Iterator<UserInfo> it = userInfoList.iterator();
         while (it.hasNext()) {
