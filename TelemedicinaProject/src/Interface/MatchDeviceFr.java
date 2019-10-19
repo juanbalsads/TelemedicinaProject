@@ -8,6 +8,7 @@ package Interface;
 import BITalino.BITalino;
 import BITalino.BITalinoException;
 import BITalino.BitalinoDemo;
+import POJOs.UserInfo;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.Vector;
@@ -22,7 +23,10 @@ import javax.swing.JFrame;
  */
 public class MatchDeviceFr extends javax.swing.JFrame {
 
-    public MatchDeviceFr() {
+    private UserInfo userinfo = null;
+
+    public MatchDeviceFr(UserInfo userInfo) {
+        this.userinfo = userInfo;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         initComponents();
         this.setSize(new Dimension(800, 540));

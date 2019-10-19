@@ -5,7 +5,6 @@
  */
 package POJOs;
 
-import BITalino.*;
 import java.util.Date;
 
 /**
@@ -14,19 +13,21 @@ import java.util.Date;
  */
 public class Phydata {
 
-    private static Frame[] frame;
     private Date date;
+    private int[][] eMGRec;
+    private int[][] accRec;
 
-    public Phydata(Frame[] frame, Date date) {
+    public Phydata(Date date, int[][] eMGRec, int[][] accRec) {
         this.date = date;
-        Phydata.frame = frame;
+        this.eMGRec = eMGRec;
+        this.accRec = accRec;
     }
 
-    public static Frame[] getFrame() {
-        return frame;
-    }
+    public Phydata() {
+        this.date = null;
+        this.eMGRec = null;
+        this.accRec = null;
 
-    public static void setFrame(Frame aFrame) {
     }
 
     public Date getDate() {
@@ -39,5 +40,21 @@ public class Phydata {
     //Date date = new Date(); // this object contains the current date value
     //SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     //System.out.println(formatter.format(date));
+
+    public int[][] geteMGRec() {
+        return eMGRec;
+    }
+
+    public void seteMGRec(int[][] eMGRec) {
+        this.eMGRec = eMGRec;
+    }
+
+    public int[][] getAccRec() {
+        return accRec;
+    }
+
+    public void setAccRec(int[][] accRec) {
+        this.accRec = accRec;
+    }
 
 }

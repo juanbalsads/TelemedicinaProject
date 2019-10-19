@@ -21,12 +21,30 @@ public class UserInfo implements Serializable {
     private int age;
     private ArrayList phydataArray;
 
-    public UserInfo(String name, String password, String userName, int age, ArrayList phydataArray) {
+    public UserInfo(String name, String userName, String password, int age, ArrayList phydataArray) {
         this.name = name;
         this.password = password;
         this.userName = userName;
         this.age = age;
         this.phydataArray = phydataArray;
+
+    }
+
+    public UserInfo(String name, String userName, String password, int age) {
+        this.name = name;
+        this.password = password;
+        this.userName = userName;
+        this.age = age;
+        this.phydataArray = null;
+
+    }
+
+    public UserInfo() {
+        this.name = null;
+        this.password = null;
+        this.userName = null;
+        this.age = 0;
+        this.phydataArray = null;
 
     }
 

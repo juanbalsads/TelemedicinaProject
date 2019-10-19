@@ -22,13 +22,12 @@ import java.util.logging.Logger;
  *
  * @author juanb
  */
-public class PersistenceOp {
+public final class PersistenceOp {
 
-    public int saveUserInfo(String directory, String fileName, UserInfo user) {
+    public static int saveUserInfo(String directory, String fileName, UserInfo user) {
         //Save user. (If there is no even file, it creates)
         //if the USERNAME already exists returns -1, if not returns 0;
 
-        Utils utils = new Utils();
         ArrayList<UserInfo> usersInfoList = null;
         File direct = new File(directory);
         /*if (!direct.exists()) {
@@ -39,12 +38,8 @@ public class PersistenceOp {
         ObjectOutputStream objectOutputStream = null;
         try {
             file = new File(directory, fileName);
-            /*if (!file.exists()) {
-                file.createNewFile();
-            }*/
-            //Utils.checkUserInfo(user, usersInfoList);
             usersInfoList = loadUserInfo(directory, fileName);
-            if (!utils.checkUserInfo(user, usersInfoList)) {
+            if (!Utils.checkUserInfo(user, usersInfoList)) {
                 return -1;
             }
 
@@ -68,7 +63,7 @@ public class PersistenceOp {
         return 0;
     }
 
-    public ArrayList<UserInfo> loadUserInfo(String directory, String fileName) {
+    public static ArrayList<UserInfo> loadUserInfo(String directory, String fileName) {
         ArrayList<UserInfo> usersInfoList = new ArrayList();
         File file = null;
         FileInputStream fileInputStream = null;

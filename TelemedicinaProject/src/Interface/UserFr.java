@@ -5,15 +5,9 @@
  */
 package Interface;
 
+import POJOs.UserInfo;
 import java.awt.Color;
 import java.awt.Dimension;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartFrame;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
-import static org.jfree.chart.ui.UIUtils.centerFrameOnScreen;
-import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
@@ -21,11 +15,13 @@ import org.jfree.data.category.DefaultCategoryDataset;
  */
 public class UserFr extends javax.swing.JFrame {
 
+    private UserInfo userInfo = null;
+
     /**
      * Creates new form UserFr
      */
     public UserFr() {
-          
+
         initComponents();
         this.setSize(new Dimension(800, 540));
         this.setLocationRelativeTo(null);
@@ -130,7 +126,7 @@ public class UserFr extends javax.swing.JFrame {
 
     private void SignInButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignInButtActionPerformed
         this.setVisible(false);
-        MatchDeviceFr matchDeviceFr = new MatchDeviceFr();
+        MatchDeviceFr matchDeviceFr = new MatchDeviceFr(userInfo);
         matchDeviceFr.setVisible(true);
     }//GEN-LAST:event_SignInButtActionPerformed
 

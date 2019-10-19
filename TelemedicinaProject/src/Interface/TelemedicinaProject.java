@@ -8,6 +8,8 @@ package Interface;
 /**
  *
  * @author juanb
+ *
+ *
  */
 public class TelemedicinaProject {
 
@@ -17,6 +19,9 @@ public class TelemedicinaProject {
     public static void main(String[] args) {
         UserFr intro = new UserFr();
         intro.setVisible(true);
+        //ArrayList<Phydata> arrayList = null;
+        //UserInfo userInfo = new UserInfo("jbalsads", "Juan Balsa", "000", 25, arrayList);
+        //System.out.println(PersistenceOp.saveUserInfo(Utils.DIRECTORY, Utils.FILENAME, userInfo));
 
     }
 

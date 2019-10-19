@@ -22,10 +22,6 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
-import org.jfree.chart.*;
-import org.jfree.chart.plot.PlotOrientation;
-import static org.jfree.chart.ui.UIUtils.centerFrameOnScreen;
-import org.jfree.data.xy.DefaultXYDataset;
 
 /**
  *
@@ -33,10 +29,12 @@ import org.jfree.data.xy.DefaultXYDataset;
  */
 public class RecordFr extends javax.swing.JFrame {
 
-    private Utils utils = new Utils();
+    //private Utils utils = new Utils();
+    //
     ArrayList<Phydata> phydataList = new ArrayList();
-    UserInfo user = new UserInfo("Juan", "123", "jbalsads", 12, phydataList);
-    private Phydata phydata;
+    UserInfo user = new UserInfo("Juan", "jbalsads", "12345", 12, phydataList);
+    private Phydata phydata = new Phydata();
+    //
     private String macAddress;
     private int SamplingRate;
     private BITalino bitalino = null;
@@ -63,6 +61,8 @@ public class RecordFr extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         EMGButton = new javax.swing.JButton();
         AccButton = new javax.swing.JButton();
+        AccButton1 = new javax.swing.JButton();
+        AccButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -86,25 +86,55 @@ public class RecordFr extends javax.swing.JFrame {
             }
         });
 
+        AccButton1.setBackground(new java.awt.Color(0, 153, 0));
+        AccButton1.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        AccButton1.setForeground(new java.awt.Color(255, 255, 255));
+        AccButton1.setText("Save Measures");
+        AccButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AccButton1ActionPerformed(evt);
+            }
+        });
+
+        AccButton2.setBackground(new java.awt.Color(0, 153, 0));
+        AccButton2.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        AccButton2.setForeground(new java.awt.Color(255, 255, 255));
+        AccButton2.setText("Repeat Measures");
+        AccButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AccButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(574, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(EMGButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(AccButton, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(EMGButton, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(101, 101, 101)
+                        .addComponent(AccButton1)
+                        .addGap(48, 48, 48)
+                        .addComponent(AccButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                        .addComponent(AccButton)))
                 .addGap(66, 66, 66))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(429, Short.MAX_VALUE)
+                .addContainerGap(419, Short.MAX_VALUE)
                 .addComponent(EMGButton)
                 .addGap(18, 18, 18)
-                .addComponent(AccButton)
-                .addGap(25, 25, 25))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(AccButton)
+                    .addComponent(AccButton1)
+                    .addComponent(AccButton2))
+                .addGap(35, 35, 35))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -122,9 +152,9 @@ public class RecordFr extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void EMGButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EMGButtonActionPerformed
-        double[][] values = new double[2][100];
+        int cont = 0;
+        int[][] values = new int[2][1000];
         try {
-            DefaultXYDataset dataset = new DefaultXYDataset();
             bitalino.open(macAddress, SamplingRate);
             int[] channelsToAcquire = {0};
             bitalino.start(channelsToAcquire);
@@ -133,24 +163,17 @@ public class RecordFr extends javax.swing.JFrame {
                 int block_size = 10;
                 frame = bitalino.read(block_size);
                 for (int i = 0; i < frame.length; i++) {
-                    values[0][j] = j;
-                    values[1][j] = frame[i].analog[0];
+                    values[0][cont] = cont;
+                    values[1][cont] = frame[i].analog[0];
                 }
             }
-            dataset.addSeries("hola", values);
+            phydata.seteMGRec(values);
             bitalino.stop();
             Date date = new Date();
             SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
             String dateS = formatter.format(date);
-            phydata = new Phydata(frame, date);
-            user.saveMeasure(phydata);
-
-            JFreeChart lineChart = ChartFactory.createXYLineChart("EMG", "Seconds", "Volts", dataset, PlotOrientation.VERTICAL, true, true, false);
-            ChartFrame panel = new ChartFrame("", lineChart);
-            panel.pack();
-            panel.setVisible(true);
-            centerFrameOnScreen(panel);
-
+            phydata.setDate(date);
+            Utils.GraphPhydata(phydata.geteMGRec());
         } catch (BITalinoException ex) {
             Logger.getLogger(BitalinoDemo.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Throwable ex) {
@@ -169,40 +192,28 @@ public class RecordFr extends javax.swing.JFrame {
     }//GEN-LAST:event_EMGButtonActionPerformed
 
     private void AccButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccButtonActionPerformed
-
+        int cont = 0;
+        int[][] values = new int[2][1000];
         try {
-
             bitalino.open(macAddress, SamplingRate);
-            int[] channelsToAcquire = {4};//CHANGE this
+            int[] channelsToAcquire = {4};
             bitalino.start(channelsToAcquire);
-
-            //Read in total 10000000 times
             for (int j = 0; j < 100; j++) {
-
                 //Each time read a block of 10 samples
                 int block_size = 10;
                 frame = bitalino.read(block_size);
-
-                System.out.println("size block: " + frame.length);
-
-                //Print the samples
                 for (int i = 0; i < frame.length; i++) {
-                    System.out.println((j * block_size + i) + " seq: " + frame[i].seq + " "
-                            + frame[i].analog[0] + " "
-                    );
-
+                    values[0][cont] = cont;
+                    values[1][cont] = frame[i].analog[4];
                 }
-                seconds = (block_size * j) / SamplingRate + 1;
-                System.out.println("Seconds: " + seconds);
-
             }
-            System.out.println("se fini");
-
-            //stop acquisition
+            phydata.setAccRec(values);
             bitalino.stop();
             Date date = new Date();
-            phydata = new Phydata(frame, date);
-
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            String dateS = formatter.format(date);
+            phydata.setDate(date);
+            Utils.GraphPhydata(phydata.getAccRec());
         } catch (BITalinoException ex) {
             Logger.getLogger(BitalinoDemo.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Throwable ex) {
@@ -220,14 +231,23 @@ public class RecordFr extends javax.swing.JFrame {
 
     }//GEN-LAST:event_AccButtonActionPerformed
 
-    private void graphicator() {
+    private void AccButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AccButton1ActionPerformed
+
+    private void AccButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AccButton2ActionPerformed
+
+    /*private void graphicator() {
 
         JFreeChart grafico = null;
 
-    }
-
+    }*/
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AccButton;
+    private javax.swing.JButton AccButton1;
+    private javax.swing.JButton AccButton2;
     private javax.swing.JButton EMGButton;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
