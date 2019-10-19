@@ -27,27 +27,22 @@ public final class PersistenceOp {
     public static int saveUserInfo(String directory, String fileName, UserInfo user) {
         //Save user. (If there is no even file, it creates)
         //if the USERNAME already exists returns -1, if not returns 0;
-
         ArrayList<UserInfo> usersInfoList = null;
         File direct = new File(directory);
-        /*if (!direct.exists()) {
-            direct.mkdir();
-        }*/
         File file = null;
         FileOutputStream fileOutputStream = null;
         ObjectOutputStream objectOutputStream = null;
         try {
             file = new File(directory, fileName);
             usersInfoList = loadUserInfo(directory, fileName);
-            if (!Utils.checkUserInfo(user, usersInfoList)) {
-                return -1;
+            if (!Utils.checkUserName(user.getUserName(), usersInfoList)) {
+                //usersInfoList.remove(Utils.getArrayIndexUserName(user.getUserName()));
+                //usersInfoList.add(user);
+                return 1;
             }
-
             fileOutputStream = new FileOutputStream(file);
             objectOutputStream = new ObjectOutputStream(fileOutputStream);
-
             usersInfoList.add(user);
-
             Iterator<UserInfo> it = usersInfoList.iterator();
             objectOutputStream.writeObject(usersInfoList.size());
             while (it.hasNext()) {
@@ -60,7 +55,7 @@ public final class PersistenceOp {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        return 0;
+        return 1;
     }
 
     public static ArrayList<UserInfo> loadUserInfo(String directory, String fileName) {
@@ -79,11 +74,10 @@ public final class PersistenceOp {
                 file.createNewFile();
                 return usersInfoList;
             } else {
-                if (file.exists()) {
-                }
                 fileInputStream = new FileInputStream(file);
                 objectInputStream = new ObjectInputStream(fileInputStream);
                 last = (int) objectInputStream.readObject();
+                System.out.println(last);
                 for (int i = 0; i < last; i++) {
                     usersInfoList.add((UserInfo) objectInputStream.readObject());
                 }

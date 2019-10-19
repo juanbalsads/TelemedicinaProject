@@ -22,6 +22,7 @@ import javax.swing.border.LineBorder;
  */
 public class SignUpFr extends javax.swing.JFrame {
 
+    ArrayList<UserInfo> usersInfoList;
     UserInfo newuser = new UserInfo();
     String name = null;
     int age = 0;
@@ -39,6 +40,7 @@ public class SignUpFr extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         jPanel1.setSize(this.getSize());
         jPanel1.setBackground(new Color(153, 204, 0));
+        usersInfoList = PersistenceOp.loadUserInfo(Utils.DIRECTORY, Utils.FILENAME);
 
     }
 
@@ -158,7 +160,7 @@ public class SignUpFr extends javax.swing.JFrame {
         name = jTextField1.getText();
         ageSt = jTextField2.getText();
         userName = jTextField3.getText();
-        if (!Utils.checkString(name) || !Utils.checkNum(ageSt) || !Utils.checkUserName(userName)
+        if (!Utils.checkString(name) || !Utils.checkNum(ageSt) || !Utils.checkUserName(userName, usersInfoList)
                 || jTextField1.getText().isEmpty() || jTextField2.getText().isEmpty() || jTextField3.getText().isEmpty()) {
             if (!Utils.checkString(name) || jTextField1.getText().isEmpty()) {
                 jTextField1.setBorder(new LineBorder(Color.red, 2));
@@ -166,7 +168,7 @@ public class SignUpFr extends javax.swing.JFrame {
             if (!Utils.checkNum(ageSt) || jTextField2.getText().isEmpty()) {
                 jTextField2.setBorder(new LineBorder(Color.red, 2));
             }
-            if (!Utils.checkUserName(userName) || jTextField3.getText().isEmpty()) {
+            if (!Utils.checkUserName(userName, usersInfoList) || jTextField3.getText().isEmpty()) {
                 jTextField3.setBorder(new LineBorder(Color.red, 2));
             }
             JOptionPane.showMessageDialog(new JFrame(), "User already exists or Incorrect values\nPlease change red Fields "
