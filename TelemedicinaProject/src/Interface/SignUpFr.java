@@ -5,7 +5,6 @@
  */
 package Interface;
 
-import POJOs.Phydata;
 import POJOs.UserInfo;
 import Persistence.PersistenceOp;
 import Persistence.Utils;
@@ -155,7 +154,9 @@ public class SignUpFr extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-
+        jTextField1.setBorder(new LineBorder(Color.white, 2));
+        jTextField2.setBorder(new LineBorder(Color.white, 2));
+        jTextField3.setBorder(new LineBorder(Color.white, 2));
         password = Utils.charToString(jPasswordField1.getPassword());
         name = jTextField1.getText();
         ageSt = jTextField2.getText();
@@ -174,20 +175,23 @@ public class SignUpFr extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(new JFrame(), "User already exists or Incorrect values\nPlease change red Fields "
                     + "", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            ArrayList<Phydata> arrayList = null;
-            UserInfo userInfo = new UserInfo("Juan Balsa", "jbalsads", "1234", 25, arrayList);
-            System.out.println(PersistenceOp.saveUserInfo(Utils.DIRECTORY, Utils.FILENAME, userInfo));
+            //ArrayList<Phydata> arrayList = null;
+            //UserInfo userInfo = new UserInfo("Juan Balsa", "jbalsads", "1234", 25, arrayList);
+            //System.out.println(PersistenceOp.saveUserInfo(Utils.DIRECTORY, Utils.FILENAME, userInfo));
             UserInfo newUserInfo = new UserInfo(name, userName, password, Integer.parseInt(ageSt));
-            System.out.println("Se cargo");
+            //System.out.println("Se cargo");
             /*if (!(PersistenceOp.saveUserInfo(Utils.DIRECTORY, Utils.FILENAME, newUserInfo) == 0)) {
                 JOptionPane.showMessageDialog(new JFrame(), "Error Saving New User"
                         + "", "Error", JOptionPane.ERROR_MESSAGE);
             }*/// else {
-            JOptionPane.showMessageDialog(new JFrame(), "New User Succesfully created"
-                    + "", "Information", JOptionPane.INFORMATION_MESSAGE);
-            this.setVisible(false);
-            MatchDeviceFr matchDeviceFr = new MatchDeviceFr(newUserInfo);
-            matchDeviceFr.setVisible(true);
+            if (PersistenceOp.saveUserInfo(Utils.DIRECTORY, Utils.FILENAME, newUserInfo) == 1) {
+                JOptionPane.showMessageDialog(new JFrame(), "New User Succesfully created"
+                        + "", "Information", JOptionPane.INFORMATION_MESSAGE);
+                this.setVisible(false);
+                MatchDeviceFr matchDeviceFr = new MatchDeviceFr(newUserInfo);
+                matchDeviceFr.setVisible(true);
+            }
+
             //}
         }
     }//GEN-LAST:event_jToggleButton1ActionPerformed

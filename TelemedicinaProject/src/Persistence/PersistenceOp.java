@@ -36,9 +36,10 @@ public final class PersistenceOp {
             file = new File(directory, fileName);
             usersInfoList = loadUserInfo(directory, fileName);
             if (!Utils.checkUserName(user.getUserName(), usersInfoList)) {
-                //usersInfoList.remove(Utils.getArrayIndexUserName(user.getUserName()));
-                //usersInfoList.add(user);
-                return 5;
+                System.out.println("index: " + Utils.getArrayIndexUserName(user.getUserName(), usersInfoList));
+                usersInfoList.remove(Utils.getArrayIndexUserName(user.getUserName(), usersInfoList));
+                usersInfoList.add(user);
+                return 1;
             }
             fileOutputStream = new FileOutputStream(file);
             objectOutputStream = new ObjectOutputStream(fileOutputStream);
@@ -49,6 +50,8 @@ public final class PersistenceOp {
                 UserInfo us = (UserInfo) it.next();
                 objectOutputStream.writeObject(us);
             }
+            objectOutputStream.close();
+            fileOutputStream.close();
 
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
@@ -81,6 +84,8 @@ public final class PersistenceOp {
                     usersInfoList.add((UserInfo) objectInputStream.readObject());
                 }
             }
+            objectInputStream.close();
+            fileInputStream.close();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(PersistenceOp.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -88,6 +93,7 @@ public final class PersistenceOp {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(PersistenceOp.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         return usersInfoList;
 
     }

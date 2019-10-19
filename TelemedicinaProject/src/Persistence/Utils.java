@@ -44,7 +44,7 @@ public final class Utils extends Object {
 
     }
 
-    public static boolean checkUserInfo(UserInfo userToCheck, ArrayList<UserInfo> userInfoList) {
+    /*public static boolean checkUserInfo(UserInfo userToCheck, ArrayList<UserInfo> userInfoList) {
         //TRUE if it doesn`t exist;
         String userNameStr = userToCheck.getUserName();
         String loaduserName = null;
@@ -58,8 +58,7 @@ public final class Utils extends Object {
             }
         }
         return check;
-    }
-
+    }*/
     //TRUE if it doesn´t exist
     public static boolean checkUserName(String userName, ArrayList<UserInfo> userInfoList) {
         //TRUE if it doesn`t exist;
@@ -75,18 +74,44 @@ public final class Utils extends Object {
         return check;
     }
 
+    /*public static boolean checkUserName(String userName) {
+        //TRUE if it doesn`t exist;
+        ArrayList<UserInfo> userInfoList = PersistenceOp.loadUserInfo(DIRECTORY, FILENAME);
+        String loaduserName = null;
+        boolean check = true;
+        Iterator<UserInfo> it = userInfoList.iterator();
+        while (it.hasNext()) {
+            loaduserName = it.next().getUserName();
+            if (loaduserName.compareTo(userName) == 0) {
+                check = false;
+            }
+        }
+        return check;
+    }*/
     //return index where a PArticular USerNAme is Saved
     public static int getArrayIndexUserName(String userName, ArrayList<UserInfo> userInfoList) {
         UserInfo useInfo = null;
         Iterator<UserInfo> it = userInfoList.iterator();
         while (it.hasNext()) {
-            if (it.next().getUserName().compareTo(userName) == 0) {
-                useInfo = it.next();
-                System.out.println(userInfoList.indexOf(useInfo));
+            useInfo = it.next();
+            if (useInfo.getUserName().compareTo(userName) == 0) {
                 return userInfoList.indexOf(useInfo);
             }
         }
         return -1;
+    }
+
+    public static boolean checkCorrectPassword(String userNametocheck, String passwordtocheck, ArrayList<UserInfo> userInfoList) {
+        int index = Utils.getArrayIndexUserName(userNametocheck, userInfoList);
+        UserInfo userInfo = userInfoList.get(index);
+        System.out.println("traza1");
+        if ((userInfo.getUserName().compareTo(userNametocheck) == 0)
+                && (userInfo.getPassword().compareTo(passwordtocheck)) == 0) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     public static String charToString(char[] chain) {

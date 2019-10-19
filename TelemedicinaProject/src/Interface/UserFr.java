@@ -6,8 +6,14 @@
 package Interface;
 
 import POJOs.UserInfo;
+import Persistence.PersistenceOp;
+import Persistence.Utils;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.util.ArrayList;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.border.LineBorder;
 
 /**
  *
@@ -37,19 +43,15 @@ public class UserFr extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
         SignInButt = new javax.swing.JToggleButton();
         signUpButt = new javax.swing.JToggleButton();
+        jPasswordField1 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Username");
 
         jLabel2.setText("Password");
-
-        jTextField1.setText("jTextField1");
-
-        jTextField2.setText("jTextField2");
 
         SignInButt.setText("Sign In");
         SignInButt.addActionListener(new java.awt.event.ActionListener() {
@@ -70,21 +72,23 @@ public class UserFr extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(244, 244, 244)
+                .addGap(240, 240, 240)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(signUpButt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(SignInButt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(90, 90, 90)
+                        .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(324, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(198, 198, 198)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(77, 77, 77)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField1)
-                    .addComponent(jTextField2))
-                .addContainerGap(416, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(signUpButt, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(SignInButt, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -95,11 +99,11 @@ public class UserFr extends javax.swing.JFrame {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(62, 62, 62)
+                    .addComponent(jLabel2)
+                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(60, 60, 60)
                 .addComponent(SignInButt)
-                .addGap(30, 30, 30)
+                .addGap(32, 32, 32)
                 .addComponent(signUpButt)
                 .addContainerGap(150, Short.MAX_VALUE))
         );
@@ -119,15 +123,40 @@ public class UserFr extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void signUpButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpButtActionPerformed
+
         this.setVisible(false);
         SignUpFr signUpFr = new SignUpFr();
         signUpFr.setVisible(true);
     }//GEN-LAST:event_signUpButtActionPerformed
 
     private void SignInButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignInButtActionPerformed
-        this.setVisible(false);
-        MatchDeviceFr matchDeviceFr = new MatchDeviceFr(userInfo);
-        matchDeviceFr.setVisible(true);
+        int index;
+        UserInfo userInfo = null;
+        jTextField1.setBorder(new LineBorder(Color.white, 2));
+        jPasswordField1.setBorder(new LineBorder(Color.white, 2));
+        String userNameSI = jTextField1.getText();
+        char[] passwordChSI = jPasswordField1.getPassword();
+        String passwordSI = Utils.charToString(passwordChSI);
+        ArrayList<UserInfo> userInfoList = PersistenceOp.loadUserInfo(Utils.DIRECTORY, Utils.FILENAME);
+        if (Utils.checkUserName(userNameSI, userInfoList)) {
+            jTextField1.setBorder(new LineBorder(Color.red, 2));
+            JOptionPane.showMessageDialog(new JFrame(), "User not exists"
+                    + "", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            if (!Utils.checkCorrectPassword(userNameSI, passwordSI, userInfoList)) {
+                System.out.println("hasta ");
+                jPasswordField1.setBorder(new LineBorder(Color.red, 2));
+                JOptionPane.showMessageDialog(new JFrame(), "Password Incorrect"
+                        + "", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                index = Utils.getArrayIndexUserName(userNameSI, userInfoList);
+                userInfo = userInfoList.get(index);
+                this.setVisible(false);
+                MatchDeviceFr matchDeviceFr = new MatchDeviceFr(userInfo);
+                matchDeviceFr.setVisible(true);
+            }
+        }
+
     }//GEN-LAST:event_SignInButtActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -135,8 +164,8 @@ public class UserFr extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JToggleButton signUpButt;
     // End of variables declaration//GEN-END:variables
 }
