@@ -38,7 +38,7 @@ public final class PersistenceOp {
             if (!Utils.checkUserName(user.getUserName(), usersInfoList)) {
                 //usersInfoList.remove(Utils.getArrayIndexUserName(user.getUserName()));
                 //usersInfoList.add(user);
-                return 1;
+                return 5;
             }
             fileOutputStream = new FileOutputStream(file);
             objectOutputStream = new ObjectOutputStream(fileOutputStream);
@@ -77,7 +77,6 @@ public final class PersistenceOp {
                 fileInputStream = new FileInputStream(file);
                 objectInputStream = new ObjectInputStream(fileInputStream);
                 last = (int) objectInputStream.readObject();
-                System.out.println(last);
                 for (int i = 0; i < last; i++) {
                     usersInfoList.add((UserInfo) objectInputStream.readObject());
                 }
