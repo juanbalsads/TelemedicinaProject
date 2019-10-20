@@ -7,7 +7,10 @@ package Persistence;
 
 import POJOs.UserInfo;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Iterator;
+import javax.swing.AbstractButton;
+import javax.swing.ButtonGroup;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
@@ -101,10 +104,20 @@ public final class Utils extends Object {
         return -1;
     }
 
+    public static String getRadioButton(ButtonGroup buttonGroup) {
+        for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
+            AbstractButton button = buttons.nextElement();
+            if (button.isSelected()) {
+                return button.getText();
+            }
+        }
+
+        return null;
+    }
+
     public static boolean checkCorrectPassword(String userNametocheck, String passwordtocheck, ArrayList<UserInfo> userInfoList) {
         int index = Utils.getArrayIndexUserName(userNametocheck, userInfoList);
         UserInfo userInfo = userInfoList.get(index);
-        System.out.println("traza1");
         if ((userInfo.getUserName().compareTo(userNametocheck) == 0)
                 && (userInfo.getPassword().compareTo(passwordtocheck)) == 0) {
             return true;
