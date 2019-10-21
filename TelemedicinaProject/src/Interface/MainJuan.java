@@ -7,8 +7,9 @@ package Interface;
 
 import POJOs.Phydata;
 import POJOs.UserInfo;
-import Persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 public class MainJuan {
 
     public static void main(String[] args) {
-        ArrayList<Phydata> arrayList = null;
+        ArrayList<Phydata> arrayList = new ArrayList();
         //ArrayList<UserInfo> userInfoList = null;
         UserInfo userInfo = new UserInfo("jbalsads", "Juan Balsa", "000", 25, arrayList);
         UserInfo userInfo2 = new UserInfo("cristianp", "Janto", "1111", 25, arrayList);
@@ -34,9 +35,29 @@ public class MainJuan {
         while (it.hasNext()) {
             System.out.println(it.next().toString());
         }*/
-        System.out.println(PersistenceOp.saveUserInfo(Utils.DIRECTORY, Utils.FILENAME, userInfo));
+        //System.out.println(PersistenceOp.saveUserInfo(Utils.DIRECTORY, Utils.FILENAME, userInfo));
         //System.out.println(PersistenceOp.saveUserInfo("data", "UserInfo.dat", userInfo));
+        int[][] valueseMG = new int[2][100];
+        int[][] valuesacc = new int[2][100];
+        for (int i = 0; i < 100; i++) {
+            valueseMG[0][i] = 12;
+            valueseMG[1][i] = 12;
+            valuesacc[0][i] = 112;
+            valuesacc[1][i] = 112;
+        }
+        Date date = new Date(); // this object contains the current date value
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        System.out.println(formatter.format(date));
+        Phydata phydata = new Phydata(date, valueseMG, valuesacc);
+        System.out.println("dale papi");
+        if (userInfo.getPhydataArray() == null) {
+            System.out.println("si es null");
+        }
+        arrayList = userInfo.getPhydataArray();
 
+        System.out.println("dale papi2");
+        arrayList.add(phydata);
+        System.out.println("ahora si");
     }
 
 }

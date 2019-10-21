@@ -285,8 +285,10 @@ public class RecordFr extends javax.swing.JFrame {
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         System.out.println(formatter.format(date));
         Phydata phydata = new Phydata(date, valueseMG, valuesacc);
-        System.out.println("dale papi");
-        userInfo.saveMeasure(phydata);
+        phydataList = userInfo.getPhydataArray();
+        phydataList.add(phydata);
+        System.out.println("tamaño array: " + phydataList.size());
+        userInfo.setPhydataArray(phydataList);
 
     }//GEN-LAST:event_saveMeasuresButActionPerformed
 

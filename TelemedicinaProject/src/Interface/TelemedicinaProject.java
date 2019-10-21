@@ -30,9 +30,11 @@ public class TelemedicinaProject {
         System.out.println("save outcome" + PersistenceOp.saveUserInfo(Utils.DIRECTORY, Utils.FILENAME, userInfo2));*/
         ArrayList<Phydata> arrayList = null;
         UserInfo userInfo = new UserInfo("Juan Balsa", "jbalsads", "000", 25, arrayList);
-        MatchDeviceFr mathc = new MatchDeviceFr(userInfo);
-        mathc.setVisible(true);
+        UserFr intro = new UserFr();
+        intro.setVisible(true);
 
+        //MatchDeviceFr mathc = new MatchDeviceFr(userInfo);
+        //mathc.setVisible(true);
     }
 
 }

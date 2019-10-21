@@ -94,7 +94,7 @@ public class UserInfo implements Serializable {
     }
 
     public String toString() {
-        return "name: " + this.name + ", UserName: " + this.userName + ", password: ";
+        return "name: " + this.name + ", UserName: " + this.userName + ", measures: " + phydataArray.size();
     }
 
 }
