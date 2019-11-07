@@ -5,21 +5,39 @@
  */
 package Interface;
 
-import POJOs.Phydata;
-import POJOs.UserInfo;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
+//import POJOs.Phydata;
+//import POJOs.UserInfo;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.Socket;
+//import java.text.SimpleDateFormat;
+//import java.util.ArrayList;
+//import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author juanb
  */
+
 public class MainJuan {
 
-    public static void main(String[] args) {
-        ArrayList<Phydata> arrayList = new ArrayList();
-        //ArrayList<UserInfo> userInfoList = null;
+    public static void main(String[] args) throws IOException {
+        
+        System.out.println("Starting Client...");
+        Socket socket = new Socket("localhost", 9009);
+        PrintWriter printWriter = new PrintWriter(socket.getOutputStream(), true);
+        System.out.println("Connection established... sending text");
+        printWriter.println("Name");
+        printWriter.println("password");
+        System.out.println("Sending stop command");
+        printWriter.println("Stop");
+        releaseResources(printWriter, socket);
+        System.exit(0);
+        
+        //ArrayList<Phydata> arrayList = new ArrayList();
+        /*//ArrayList<UserInfo> userInfoList = null;
         UserInfo userInfo = new UserInfo("jbalsads", "Juan Balsa", "000", 25, arrayList);
         UserInfo userInfo2 = new UserInfo("cristianp", "Janto", "1111", 25, arrayList);
         UserInfo userInfo3 = new UserInfo("messi", "lionel", "3333", 25, arrayList);
@@ -34,7 +52,7 @@ public class MainJuan {
         Iterator<UserInfo> it = userInfoList.iterator();
         while (it.hasNext()) {
             System.out.println(it.next().toString());
-        }*/
+        }
         //System.out.println(PersistenceOp.saveUserInfo(Utils.DIRECTORY, Utils.FILENAME, userInfo));
         //System.out.println(PersistenceOp.saveUserInfo("data", "UserInfo.dat", userInfo));
         int[][] valueseMG = new int[2][100];
@@ -57,7 +75,19 @@ public class MainJuan {
 
         System.out.println("dale papi2");
         arrayList.add(phydata);
-        System.out.println("ahora si");
+        System.out.println("ahora si");*/
+    }
+    
+    
+    private static void releaseResources(PrintWriter printWriter, Socket socket) {
+
+        printWriter.close();
+ 
+        try {
+            socket.close();
+        } catch (IOException ex) {
+            Logger.getLogger(MainJuan.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }
