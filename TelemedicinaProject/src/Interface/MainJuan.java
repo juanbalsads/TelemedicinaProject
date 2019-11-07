@@ -10,9 +10,6 @@ package Interface;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
-//import java.text.SimpleDateFormat;
-//import java.util.ArrayList;
-//import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,13 +17,12 @@ import java.util.logging.Logger;
  *
  * @author juanb
  */
-
 public class MainJuan {
 
     public static void main(String[] args) throws IOException {
-        
+
         System.out.println("Starting Client...");
-        Socket socket = new Socket("localhost", 9009);
+        Socket socket = new Socket("localhost", 9000);
         PrintWriter printWriter = new PrintWriter(socket.getOutputStream(), true);
         System.out.println("Connection established... sending text");
         printWriter.println("Name");
@@ -35,7 +31,7 @@ public class MainJuan {
         printWriter.println("Stop");
         releaseResources(printWriter, socket);
         System.exit(0);
-        
+
         //ArrayList<Phydata> arrayList = new ArrayList();
         /*//ArrayList<UserInfo> userInfoList = null;
         UserInfo userInfo = new UserInfo("jbalsads", "Juan Balsa", "000", 25, arrayList);
@@ -77,12 +73,11 @@ public class MainJuan {
         arrayList.add(phydata);
         System.out.println("ahora si");*/
     }
-    
-    
+
     private static void releaseResources(PrintWriter printWriter, Socket socket) {
 
         printWriter.close();
- 
+
         try {
             socket.close();
         } catch (IOException ex) {
