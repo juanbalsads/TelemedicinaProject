@@ -39,6 +39,15 @@ public class UserInfo implements Serializable {
 
     }
 
+    public UserInfo(String userName, String password) {
+        this.name = null;
+        this.password = password;
+        this.userName = userName;
+        this.age = 0;
+        this.phydataArray = null;
+
+    }
+
     public UserInfo() {
         this.name = null;
         this.password = null;

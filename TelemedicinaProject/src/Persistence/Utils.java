@@ -73,17 +73,20 @@ public final class Utils extends Object {
         return check;
     }*/
     //CONNECTION with SERVER//TRUE if it doesn`t exist;
-    public static boolean checkUNameConection(String userName, Socket socket) {
-        PrintWriter printWriter = null;
+    public static boolean checkUNameConection(UserInfo userInfo, Socket socket) {
         BufferedReader bufferedReader = null;
+        PrintWriter printWriter = null;
+        ObjectOutputStream objectOutputStream = null;
+        OutputStream outputStream = null;
         try {
-            System.out.println("Client Conection");
             bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            System.out.println("Client Conection");
+            outputStream = socket.getOutputStream();
+            objectOutputStream = new ObjectOutputStream(outputStream);
             printWriter = new PrintWriter(socket.getOutputStream(), true);
-            System.out.println("Connection established... sending text");
-            printWriter.println(Utils.NEWUN);
-            printWriter.println(userName);
-            printWriter.println(Utils.STOP);
+            System.out.println("Connection established...");
+            userInfo = Utils.putCode(userInfo);
+            objectOutputStream.writeObject(userInfo);
             if (!bufferedReader.readLine().equalsIgnoreCase(Utils.VALID_USERNAME)) {
                 return false;
             }
@@ -95,17 +98,25 @@ public final class Utils extends Object {
         return true;
     }
 
-    public static boolean checkUInfoConection(String userName, String password, Socket socket) {
-        PrintWriter printWriter = null;
+    public static UserInfo putCode(UserInfo userInfo) {
+        String userName = userInfo.getName() + Utils.NEWUN;
+        userInfo.setName(userName);
+        return userInfo;
+    }
+
+    public static boolean checkUInfoConection(UserInfo userInfo, Socket socket) {
         BufferedReader bufferedReader = null;
+        PrintWriter printWriter = null;
+        ObjectOutputStream objectOutputStream = null;
+        OutputStream outputStream = null;
         try {
-            System.out.println("Client Conection");
             bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            System.out.println("Client Conection");
+            outputStream = socket.getOutputStream();
+            objectOutputStream = new ObjectOutputStream(outputStream);
             printWriter = new PrintWriter(socket.getOutputStream(), true);
-            System.out.println("Connection established... sending text");
-            printWriter.println(userName);
-            printWriter.println(password);
-            printWriter.println(Utils.STOP);
+            System.out.println("Connection established...");
+            objectOutputStream.writeObject(userInfo);
             if (!bufferedReader.readLine().equalsIgnoreCase(Utils.VALID)) {
                 return false;
             }

@@ -161,7 +161,8 @@ public class SignUpFr extends javax.swing.JFrame {
         name = jTextField1.getText();
         ageSt = jTextField2.getText();
         userName = jTextField3.getText();
-        boolean UNchecked = Utils.checkUNameConection(userName, socket);
+        UserInfo userInfo = new UserInfo(name, userName, password, age);
+        boolean UNchecked = Utils.checkUNameConection(userInfo, socket);
         if (!Utils.checkString(name) || !Utils.checkNum(ageSt) || !UNchecked
                 || jTextField1.getText().isEmpty() || jTextField2.getText().isEmpty()
                 || jTextField3.getText().isEmpty()) {
@@ -178,12 +179,11 @@ public class SignUpFr extends javax.swing.JFrame {
                     + "", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
 
-            UserInfo newUserInfo = new UserInfo(name, userName, password, Integer.parseInt(ageSt));
-            Utils.sendUserInfo(newUserInfo, socket);
+            Utils.sendUserInfo(userInfo, socket);
             JOptionPane.showMessageDialog(new JFrame(), "New User Succesfully created"
                     + "", "Information", JOptionPane.INFORMATION_MESSAGE);
             this.setVisible(false);
-            MatchDeviceFr matchDeviceFr = new MatchDeviceFr(newUserInfo, socket);
+            MatchDeviceFr matchDeviceFr = new MatchDeviceFr(userInfo, socket);
             matchDeviceFr.setVisible(true);
 
             //}
