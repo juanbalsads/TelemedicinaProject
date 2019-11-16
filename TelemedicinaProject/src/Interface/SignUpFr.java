@@ -6,11 +6,10 @@
 package Interface;
 
 import POJOs.UserInfo;
-import Persistence.PersistenceOp;
 import Persistence.Utils;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.util.ArrayList;
+import java.net.Socket;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.border.LineBorder;
@@ -21,7 +20,7 @@ import javax.swing.border.LineBorder;
  */
 public class SignUpFr extends javax.swing.JFrame {
 
-    ArrayList<UserInfo> usersInfoList;
+    //ArrayList<UserInfo> usersInfoList;
     UserInfo newuser = new UserInfo();
     String name = null;
     int age = 0;
@@ -29,18 +28,19 @@ public class SignUpFr extends javax.swing.JFrame {
     char[] passwordChar = null;
     String password = null;
     String userName = null;
+    private Socket socket = null;
 
     /**
      * Creates new form SignUpFr
      */
-    public SignUpFr() {
+    public SignUpFr(Socket socket) {
+        this.socket = socket;
         initComponents();
         this.setSize(new Dimension(800, 540));
         this.setLocationRelativeTo(null);
         jPanel1.setSize(this.getSize());
         jPanel1.setBackground(new Color(153, 204, 0));
-        usersInfoList = PersistenceOp.loadUserInfo(Utils.DIRECTORY, Utils.FILENAME);
-
+        //usersInfoList = PersistenceOp.loadUserInfo(Utils.DIRECTORY, Utils.FILENAME);
     }
 
     /**
@@ -161,36 +161,30 @@ public class SignUpFr extends javax.swing.JFrame {
         name = jTextField1.getText();
         ageSt = jTextField2.getText();
         userName = jTextField3.getText();
-        if (!Utils.checkString(name) || !Utils.checkNum(ageSt) || !Utils.checkUserName(userName, usersInfoList)
-                || jTextField1.getText().isEmpty() || jTextField2.getText().isEmpty() || jTextField3.getText().isEmpty()) {
+        boolean UNchecked = Utils.checkUNameConection(userName, socket);
+        if (!Utils.checkString(name) || !Utils.checkNum(ageSt) || !UNchecked
+                || jTextField1.getText().isEmpty() || jTextField2.getText().isEmpty()
+                || jTextField3.getText().isEmpty()) {
             if (!Utils.checkString(name) || jTextField1.getText().isEmpty()) {
                 jTextField1.setBorder(new LineBorder(Color.red, 2));
             }
             if (!Utils.checkNum(ageSt) || jTextField2.getText().isEmpty()) {
                 jTextField2.setBorder(new LineBorder(Color.red, 2));
             }
-            if (!Utils.checkUserName(userName, usersInfoList) || jTextField3.getText().isEmpty()) {
+            if (!UNchecked || jTextField3.getText().isEmpty()) {
                 jTextField3.setBorder(new LineBorder(Color.red, 2));
             }
             JOptionPane.showMessageDialog(new JFrame(), "User already exists or Incorrect values\nPlease change red Fields "
                     + "", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            //ArrayList<Phydata> arrayList = null;
-            //UserInfo userInfo = new UserInfo("Juan Balsa", "jbalsads", "1234", 25, arrayList);
-            //System.out.println(PersistenceOp.saveUserInfo(Utils.DIRECTORY, Utils.FILENAME, userInfo));
+
             UserInfo newUserInfo = new UserInfo(name, userName, password, Integer.parseInt(ageSt));
-            //System.out.println("Se cargo");
-            /*if (!(PersistenceOp.saveUserInfo(Utils.DIRECTORY, Utils.FILENAME, newUserInfo) == 0)) {
-                JOptionPane.showMessageDialog(new JFrame(), "Error Saving New User"
-                        + "", "Error", JOptionPane.ERROR_MESSAGE);
-            }*/// else {
-            if (PersistenceOp.saveUserInfo(Utils.DIRECTORY, Utils.FILENAME, newUserInfo) == 1) {
-                JOptionPane.showMessageDialog(new JFrame(), "New User Succesfully created"
-                        + "", "Information", JOptionPane.INFORMATION_MESSAGE);
-                this.setVisible(false);
-                MatchDeviceFr matchDeviceFr = new MatchDeviceFr(newUserInfo);
-                matchDeviceFr.setVisible(true);
-            }
+            Utils.sendUserInfo(newUserInfo, socket);
+            JOptionPane.showMessageDialog(new JFrame(), "New User Succesfully created"
+                    + "", "Information", JOptionPane.INFORMATION_MESSAGE);
+            this.setVisible(false);
+            MatchDeviceFr matchDeviceFr = new MatchDeviceFr(newUserInfo, socket);
+            matchDeviceFr.setVisible(true);
 
             //}
         }

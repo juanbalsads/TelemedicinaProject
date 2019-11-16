@@ -5,26 +5,13 @@
  */
 package Persistence;
 
-import POJOs.UserInfo;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
  *
  * @author juanb
  */
 public final class PersistenceOp {
 
-    public static int saveUserInfo(String directory, String fileName, UserInfo user) {
+    /*public static int saveUserInfo(String directory, String fileName, UserInfo user) {
         //Save user. (If there is no even file, it creates)
         //if the USERNAME already exists returns -1, if not returns 0;
         ArrayList<UserInfo> usersInfoList = null;
@@ -96,6 +83,5 @@ public final class PersistenceOp {
 
         return usersInfoList;
 
-    }
-
+    }*/
 }

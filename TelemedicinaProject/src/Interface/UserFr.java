@@ -6,11 +6,13 @@
 package Interface;
 
 import POJOs.UserInfo;
-import Persistence.PersistenceOp;
 import Persistence.Utils;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.util.ArrayList;
+import java.io.IOException;
+import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.border.LineBorder;
@@ -22,17 +24,23 @@ import javax.swing.border.LineBorder;
 public class UserFr extends javax.swing.JFrame {
 
     private UserInfo userInfo = null;
+    private Socket socket = null;
 
     /**
      * Creates new form UserFr
      */
     public UserFr() {
 
-        initComponents();
-        this.setSize(new Dimension(800, 540));
-        this.setLocationRelativeTo(null);
-        jPanel1.setSize(this.getSize());
-        jPanel1.setBackground(new Color(153, 204, 0));
+        try {
+            initComponents();
+            this.setSize(new Dimension(800, 540));
+            this.setLocationRelativeTo(null);
+            jPanel1.setSize(this.getSize());
+            jPanel1.setBackground(new Color(153, 204, 0));
+            socket = new Socket("localhost", 9000);
+        } catch (IOException ex) {
+            Logger.getLogger(UserFr.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -125,36 +133,26 @@ public class UserFr extends javax.swing.JFrame {
     private void signUpButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpButtActionPerformed
 
         this.setVisible(false);
-        SignUpFr signUpFr = new SignUpFr();
+        SignUpFr signUpFr = new SignUpFr(socket);
         signUpFr.setVisible(true);
     }//GEN-LAST:event_signUpButtActionPerformed
 
     private void SignInButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignInButtActionPerformed
-        int index;
-        UserInfo userInfo = null;
+
         jTextField1.setBorder(new LineBorder(Color.white, 2));
         jPasswordField1.setBorder(new LineBorder(Color.white, 2));
         String userNameSI = jTextField1.getText();
         char[] passwordChSI = jPasswordField1.getPassword();
         String passwordSI = Utils.charToString(passwordChSI);
-        ArrayList<UserInfo> userInfoList = PersistenceOp.loadUserInfo(Utils.DIRECTORY, Utils.FILENAME);
-        if (Utils.checkUserName(userNameSI, userInfoList)) {
+        boolean checked = Utils.checkUInfoConection(userNameSI, passwordSI, socket);
+        if (!checked) {
             jTextField1.setBorder(new LineBorder(Color.red, 2));
-            JOptionPane.showMessageDialog(new JFrame(), "User not exists"
-                    + "", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(new JFrame(), "Incorrect User or password",
+                    "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            if (!Utils.checkCorrectPassword(userNameSI, passwordSI, userInfoList)) {
-                System.out.println("hasta ");
-                jPasswordField1.setBorder(new LineBorder(Color.red, 2));
-                JOptionPane.showMessageDialog(new JFrame(), "Password Incorrect"
-                        + "", "Error", JOptionPane.ERROR_MESSAGE);
-            } else {
-                index = Utils.getArrayIndexUserName(userNameSI, userInfoList);
-                userInfo = userInfoList.get(index);
-                this.setVisible(false);
-                MatchDeviceFr matchDeviceFr = new MatchDeviceFr(userInfo);
-                matchDeviceFr.setVisible(true);
-            }
+            MatchDeviceFr matchDeviceFr = new MatchDeviceFr(userInfo, socket);
+            matchDeviceFr.setVisible(true);
+
         }
 
     }//GEN-LAST:event_SignInButtActionPerformed

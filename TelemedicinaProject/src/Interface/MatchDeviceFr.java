@@ -12,6 +12,7 @@ import POJOs.UserInfo;
 import Persistence.Utils;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.net.Socket;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,14 +27,16 @@ import javax.swing.border.LineBorder;
  */
 public class MatchDeviceFr extends javax.swing.JFrame {
 
+    private Socket socket;
     private UserInfo userInfo = null;
     private String macAddress = null;
     private int samplingRate;
     private BITalino bitalino = null;
     private int time;
 
-    public MatchDeviceFr(UserInfo userInfo) {
+    public MatchDeviceFr(UserInfo userInfo, Socket socket) {
         initComponents();
+        this.socket = socket;
         this.userInfo = userInfo;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(new Dimension(800, 540));

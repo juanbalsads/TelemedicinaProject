@@ -6,9 +6,18 @@
 package Persistence;
 
 import POJOs.UserInfo;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import org.jfree.chart.ChartFactory;
@@ -24,9 +33,10 @@ import org.jfree.data.xy.DefaultXYDataset;
  */
 public final class Utils extends Object {
 
-    //DIRECTORY AND FILENAME WHERE TO SAVE ALL THE DATA
-    public static final String DIRECTORY = "data";
-    public static final String FILENAME = "UserInfo.dat";
+    public static final String STOP = "stop";
+    public static final String VALID = "valid";
+    public static final String VALID_USERNAME = "validusername";
+    public static final String NEWUN = "qwerty";
 
     public static void GraphPhydata(int[][] dataRec) {
         int row = dataRec.length;
@@ -62,19 +72,74 @@ public final class Utils extends Object {
         }
         return check;
     }*/
-    //TRUE if it doesn´t exist
-    public static boolean checkUserName(String userName, ArrayList<UserInfo> userInfoList) {
-        //TRUE if it doesn`t exist;
-        String loaduserName = null;
-        boolean check = true;
-        Iterator<UserInfo> it = userInfoList.iterator();
-        while (it.hasNext()) {
-            loaduserName = it.next().getUserName();
-            if (loaduserName.compareTo(userName) == 0) {
-                check = false;
+    //CONNECTION with SERVER//TRUE if it doesn`t exist;
+    public static boolean checkUNameConection(String userName, Socket socket) {
+        PrintWriter printWriter = null;
+        BufferedReader bufferedReader = null;
+        try {
+            System.out.println("Client Conection");
+            bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            printWriter = new PrintWriter(socket.getOutputStream(), true);
+            System.out.println("Connection established... sending text");
+            printWriter.println(Utils.NEWUN);
+            printWriter.println(userName);
+            printWriter.println(Utils.STOP);
+            if (!bufferedReader.readLine().equalsIgnoreCase(Utils.VALID_USERNAME)) {
+                return false;
             }
+            //Utils.releaseResources(printWriter, socket);
+            //System.exit(0);
+        } catch (IOException ex) {
+            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return check;
+        return true;
+    }
+
+    public static boolean checkUInfoConection(String userName, String password, Socket socket) {
+        PrintWriter printWriter = null;
+        BufferedReader bufferedReader = null;
+        try {
+            System.out.println("Client Conection");
+            bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            printWriter = new PrintWriter(socket.getOutputStream(), true);
+            System.out.println("Connection established... sending text");
+            printWriter.println(userName);
+            printWriter.println(password);
+            printWriter.println(Utils.STOP);
+            if (!bufferedReader.readLine().equalsIgnoreCase(Utils.VALID)) {
+                return false;
+            }
+            //Utils.releaseResources(printWriter, socket);
+            //System.exit(0);
+        } catch (IOException ex) {
+            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
+    }
+
+    public static void sendUserInfo(UserInfo userinfo, Socket socket) {
+        ObjectOutputStream objectOutputStream = null;
+        OutputStream outputStream = null;
+        try {
+            System.out.println("Client Conection");
+            outputStream = socket.getOutputStream();
+            objectOutputStream.writeObject(userinfo);
+
+        } catch (IOException ex) {
+            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    private static void releaseResources(PrintWriter printWriter, Socket socket) {
+
+        printWriter.close();
+
+        try {
+            socket.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /*public static boolean checkUserName(String userName) {
