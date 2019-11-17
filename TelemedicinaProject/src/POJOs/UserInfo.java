@@ -15,43 +15,30 @@ import java.util.ArrayList;
 public class UserInfo implements Serializable {
 ////
 
+    private UserPassword userPassword;
     private String name;
-    private String password;
-    private String userName;
     private int age;
     private ArrayList phydataArray;
 
-    public UserInfo(String name, String userName, String password, int age, ArrayList phydataArray) {
+    public UserInfo(String name, UserPassword userPassword, int age, ArrayList phydataArray) {
         this.name = name;
-        this.password = password;
-        this.userName = userName;
+        this.userPassword = userPassword;
         this.age = age;
         this.phydataArray = phydataArray;
 
     }
 
-    public UserInfo(String name, String userName, String password, int age) {
+    public UserInfo(String name, UserPassword userPassword, int age) {
+        this.userPassword = userPassword;
         this.name = name;
-        this.password = password;
-        this.userName = userName;
         this.age = age;
         this.phydataArray = null;
 
     }
 
-    public UserInfo(String userName, String password) {
-        this.name = null;
-        this.password = password;
-        this.userName = userName;
-        this.age = 0;
-        this.phydataArray = null;
-
-    }
-
     public UserInfo() {
+        this.userPassword = null;
         this.name = null;
-        this.password = null;
-        this.userName = null;
         this.age = 0;
         this.phydataArray = null;
 
@@ -62,28 +49,20 @@ public class UserInfo implements Serializable {
 
     }
 
+    public UserPassword getUserPassword() {
+        return userPassword;
+    }
+
+    public void setUserPassword(UserPassword userPassword) {
+        this.userPassword = userPassword;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public int getAge() {
@@ -103,7 +82,7 @@ public class UserInfo implements Serializable {
     }
 
     public String toString() {
-        return "name: " + this.name + ", UserName: " + this.userName + ", measures: " + phydataArray.size();
+        return "name: " + this.name + ", measures: " + phydataArray.size();
     }
 
 }

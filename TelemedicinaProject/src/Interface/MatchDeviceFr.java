@@ -8,7 +8,7 @@ package Interface;
 import BITalino.BITalino;
 import BITalino.BITalinoException;
 import BITalino.BitalinoDemo;
-import POJOs.UserInfo;
+import POJOs.UserPassword;
 import Persistence.Utils;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -28,16 +28,16 @@ import javax.swing.border.LineBorder;
 public class MatchDeviceFr extends javax.swing.JFrame {
 
     private Socket socket;
-    private UserInfo userInfo = null;
+    private UserPassword userPassword = null;
     private String macAddress = null;
     private int samplingRate;
     private BITalino bitalino = null;
     private int time;
 
-    public MatchDeviceFr(UserInfo userInfo, Socket socket) {
+    public MatchDeviceFr(UserPassword userPassword, Socket socket) {
         initComponents();
         this.socket = socket;
-        this.userInfo = userInfo;
+        this.userPassword = userPassword;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(new Dimension(800, 540));
         this.setLocationRelativeTo(null);
@@ -222,7 +222,7 @@ public class MatchDeviceFr extends javax.swing.JFrame {
                 System.out.println(devices);
                 bitalino.open(macAddress, samplingRate);
                 this.setVisible(false);
-                RecordFr recordFr = new RecordFr(userInfo, bitalino, macAddress, samplingRate, time);
+                RecordFr recordFr = new RecordFr(userPassword, bitalino, macAddress, samplingRate, time);
                 recordFr.setVisible(true);
             }
         } catch (Throwable ex) {

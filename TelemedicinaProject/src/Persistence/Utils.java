@@ -5,7 +5,7 @@
  */
 package Persistence;
 
-import POJOs.UserInfo;
+import POJOs.UserPassword;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -13,9 +13,7 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractButton;
@@ -73,38 +71,44 @@ public final class Utils extends Object {
         return check;
     }*/
     //CONNECTION with SERVER//TRUE if it doesn`t exist;
-    public static boolean checkUNameConection(UserInfo userInfo, Socket socket) {
+    public static boolean checkUNameConection(UserPassword userPassword, Socket socket) {
         BufferedReader bufferedReader = null;
-        PrintWriter printWriter = null;
         ObjectOutputStream objectOutputStream = null;
         OutputStream outputStream = null;
+        String line = null;
         try {
             bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            System.out.println("Client Conection");
+            System.out.println("Client Conection..checkUNameConection");
             outputStream = socket.getOutputStream();
             objectOutputStream = new ObjectOutputStream(outputStream);
-            printWriter = new PrintWriter(socket.getOutputStream(), true);
-            System.out.println("Connection established...");
-            userInfo = Utils.putCode(userInfo);
-            objectOutputStream.writeObject(userInfo);
-            if (!bufferedReader.readLine().equalsIgnoreCase(Utils.VALID_USERNAME)) {
-                return false;
+            System.out.println("Connection established...checkUNameConection");
+            userPassword = Utils.putCode(userPassword);
+            objectOutputStream.writeObject(userPassword);
+            System.out.println("Send USerPassword...checkUNameConection");
+            while ((line = bufferedReader.readLine()) != null) {
+                if (!line.equalsIgnoreCase(Utils.VALID_USERNAME)) {
+                    return false;
+                } else {
+                    return true;
+                }
             }
+
             //Utils.releaseResources(printWriter, socket);
             //System.exit(0);
         } catch (IOException ex) {
             Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return true;
+
+        return false;
     }
 
-    public static UserInfo putCode(UserInfo userInfo) {
-        String userName = userInfo.getName() + Utils.NEWUN;
-        userInfo.setName(userName);
-        return userInfo;
+    public static UserPassword putCode(UserPassword userPassword) {
+        String userName = userPassword.getUserName() + Utils.NEWUN;
+        userPassword.setUserName(userName);
+        return userPassword;
     }
 
-    public static boolean checkUInfoConection(UserInfo userInfo, Socket socket) {
+    public static boolean checkUserPasswordConection(UserPassword userPassword, Socket socket) {
         BufferedReader bufferedReader = null;
         PrintWriter printWriter = null;
         ObjectOutputStream objectOutputStream = null;
@@ -116,7 +120,7 @@ public final class Utils extends Object {
             objectOutputStream = new ObjectOutputStream(outputStream);
             printWriter = new PrintWriter(socket.getOutputStream(), true);
             System.out.println("Connection established...");
-            objectOutputStream.writeObject(userInfo);
+            objectOutputStream.writeObject(userPassword);
             if (!bufferedReader.readLine().equalsIgnoreCase(Utils.VALID)) {
                 return false;
             }
@@ -128,14 +132,13 @@ public final class Utils extends Object {
         return true;
     }
 
-    public static void sendUserInfo(UserInfo userinfo, Socket socket) {
-        ObjectOutputStream objectOutputStream = null;
-        OutputStream outputStream = null;
+    public static void sendUserNameAge(String name, String ageSt, Socket socket) {
+        PrintWriter printWriter = null;
         try {
+            printWriter = new PrintWriter(socket.getOutputStream(), true);
             System.out.println("Client Conection");
-            outputStream = socket.getOutputStream();
-            objectOutputStream.writeObject(userinfo);
-
+            printWriter.println("NAME" + name);
+            printWriter.println("AGE" + ageSt);
         } catch (IOException ex) {
             Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -168,7 +171,7 @@ public final class Utils extends Object {
         return check;
     }*/
     //return index where a PArticular USerNAme is Saved
-    public static int getArrayIndexUserName(String userName, ArrayList<UserInfo> userInfoList) {
+    /*public static int getArrayIndexUserName(String userName, ArrayList<UserInfo> userInfoList) {
         UserInfo useInfo = null;
         Iterator<UserInfo> it = userInfoList.iterator();
         while (it.hasNext()) {
@@ -178,8 +181,7 @@ public final class Utils extends Object {
             }
         }
         return -1;
-    }
-
+    }*/
     public static String getRadioButton(ButtonGroup buttonGroup) {
         for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
             AbstractButton button = buttons.nextElement();
@@ -191,7 +193,7 @@ public final class Utils extends Object {
         return null;
     }
 
-    public static boolean checkCorrectPassword(String userNametocheck, String passwordtocheck, ArrayList<UserInfo> userInfoList) {
+    /*public static boolean checkCorrectPassword(String userNametocheck, String passwordtocheck, ArrayList<UserInfo> userInfoList) {
         int index = Utils.getArrayIndexUserName(userNametocheck, userInfoList);
         UserInfo userInfo = userInfoList.get(index);
         if ((userInfo.getUserName().compareTo(userNametocheck) == 0)
@@ -201,8 +203,7 @@ public final class Utils extends Object {
             return false;
         }
 
-    }
-
+    }*/
     public static String charToString(char[] chain) {
         String password = "";
         for (int i = 0; i < chain.length; i++) {

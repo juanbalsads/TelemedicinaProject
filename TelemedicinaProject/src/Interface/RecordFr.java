@@ -11,6 +11,7 @@ import BITalino.BitalinoDemo;
 import static BITalino.BitalinoDemo.frame;
 import POJOs.Phydata;
 import POJOs.UserInfo;
+import POJOs.UserPassword;
 import Persistence.Utils;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -37,7 +38,7 @@ public class RecordFr extends javax.swing.JFrame {
     private BITalino bitalino = null;
     int time = 0;
 
-    public RecordFr(UserInfo userInfo, BITalino bitalino, String macAddress, int samplingRate, int time) {
+    public RecordFr(UserPassword userPassword, BITalino bitalino, String macAddress, int samplingRate, int time) {
         initComponents();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Poner siempre
         this.userInfo = userInfo;
@@ -49,7 +50,7 @@ public class RecordFr extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         jPanel1.setSize(this.getSize());
         jPanel1.setBackground(new Color(153, 204, 0));
-        jLabel2.setText(userInfo.getUserName());
+        jLabel2.setText(userPassword.getUserName());
         saveMeasuresBut.setEnabled(false);
 
     }

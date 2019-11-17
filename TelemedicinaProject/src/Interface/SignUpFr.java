@@ -5,13 +5,11 @@
  */
 package Interface;
 
-import POJOs.Phydata;
-import POJOs.UserInfo;
+import POJOs.UserPassword;
 import Persistence.Utils;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.net.Socket;
-import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.border.LineBorder;
@@ -23,14 +21,14 @@ import javax.swing.border.LineBorder;
 public class SignUpFr extends javax.swing.JFrame {
 
     //ArrayList<UserInfo> usersInfoList;
-    UserInfo newuser = new UserInfo();
+    UserPassword userPassword = null;
+
     String name = null;
     int age = 0;
     String ageSt = null;
     char[] passwordChar = null;
     String password = null;
     String userName = null;
-    private ArrayList<Phydata> arraylistphydata = null;
     private Socket socket = null;
 
     /**
@@ -164,12 +162,10 @@ public class SignUpFr extends javax.swing.JFrame {
         name = jTextField1.getText();
         ageSt = jTextField2.getText();
         userName = jTextField3.getText();
-        newuser = new UserInfo(name, userName, password, age, arraylistphydata);
+        userPassword = new UserPassword(userName, password);
+        System.out.println(userPassword.toString());
 
-        System.out.println(name + ", " + userName + ", " + password + " " + age);
-        System.out.println(newuser.toString());
-
-        boolean UNchecked = Utils.checkUNameConection(newuser, socket);
+        boolean UNchecked = Utils.checkUNameConection(userPassword, socket);
         if (!Utils.checkString(name) || !Utils.checkNum(ageSt) || !UNchecked
                 || jTextField1.getText().isEmpty() || jTextField2.getText().isEmpty()
                 || jTextField3.getText().isEmpty()) {
@@ -185,12 +181,12 @@ public class SignUpFr extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(new JFrame(), "User already exists or Incorrect values\nPlease change red Fields "
                     + "", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-
-            Utils.sendUserInfo(newuser, socket);
+            System.out.println("aalready send..SignUpFR");
+            Utils.sendUserNameAge(name, ageSt, socket);
             JOptionPane.showMessageDialog(new JFrame(), "New User Succesfully created"
                     + "", "Information", JOptionPane.INFORMATION_MESSAGE);
             this.setVisible(false);
-            MatchDeviceFr matchDeviceFr = new MatchDeviceFr(newuser, socket);
+            MatchDeviceFr matchDeviceFr = new MatchDeviceFr(userPassword, socket);
             matchDeviceFr.setVisible(true);
 
             //}

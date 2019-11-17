@@ -5,7 +5,7 @@
  */
 package Interface;
 
-import POJOs.UserInfo;
+import POJOs.UserPassword;
 import Persistence.Utils;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -23,7 +23,7 @@ import javax.swing.border.LineBorder;
  */
 public class UserFr extends javax.swing.JFrame {
 
-    private UserInfo userInfo = null;
+    private UserPassword userPassword = null;
     private Socket socket = null;
 
     /**
@@ -138,20 +138,20 @@ public class UserFr extends javax.swing.JFrame {
     }//GEN-LAST:event_signUpButtActionPerformed
 
     private void SignInButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignInButtActionPerformed
-
         jTextField1.setBorder(new LineBorder(Color.white, 2));
         jPasswordField1.setBorder(new LineBorder(Color.white, 2));
         String userNameSI = jTextField1.getText();
         char[] passwordChSI = jPasswordField1.getPassword();
         String passwordSI = Utils.charToString(passwordChSI);
-        UserInfo userInfo = new UserInfo(userNameSI, passwordSI);
-        boolean checked = Utils.checkUInfoConection(userInfo, socket);
+        UserPassword userPassword = new UserPassword(userNameSI, passwordSI);
+        boolean checked = Utils.checkUserPasswordConection(userPassword, socket);
         if (!checked) {
             jTextField1.setBorder(new LineBorder(Color.red, 2));
             JOptionPane.showMessageDialog(new JFrame(), "Incorrect User or password",
                     "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            MatchDeviceFr matchDeviceFr = new MatchDeviceFr(userInfo, socket);
+            this.setVisible(false);
+            MatchDeviceFr matchDeviceFr = new MatchDeviceFr(userPassword, socket);
             matchDeviceFr.setVisible(true);
 
         }

@@ -5,10 +5,6 @@
  */
 package Interface;
 
-import POJOs.Phydata;
-import POJOs.UserInfo;
-import java.util.ArrayList;
-
 /**
  *
  * @author juanb
@@ -28,8 +24,8 @@ public class TelemedicinaProject {
         UserInfo userInfo2 = new UserInfo("Ines", "sensi", "000", 25, arrayList);
         System.out.println("save outcome: " + PersistenceOp.saveUserInfo(Utils.DIRECTORY, Utils.FILENAME, userInfo));
         System.out.println("save outcome" + PersistenceOp.saveUserInfo(Utils.DIRECTORY, Utils.FILENAME, userInfo2));*/
-        ArrayList<Phydata> arrayList = null;
-        UserInfo userInfo = new UserInfo("Juan Balsa", "jbalsads", "000", 25, arrayList);
+        //ArrayList<Phydata> arrayList = null;
+        //UserInfo userInfo = new UserInfo("Juan Balsa", "jbalsads", "000", 25, arrayList);
         UserFr intro = new UserFr();
         intro.setVisible(true);
 
