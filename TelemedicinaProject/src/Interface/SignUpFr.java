@@ -5,11 +5,13 @@
  */
 package Interface;
 
+import POJOs.Phydata;
 import POJOs.UserInfo;
 import Persistence.Utils;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.net.Socket;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.border.LineBorder;
@@ -28,6 +30,7 @@ public class SignUpFr extends javax.swing.JFrame {
     char[] passwordChar = null;
     String password = null;
     String userName = null;
+    private ArrayList<Phydata> arraylistphydata = null;
     private Socket socket = null;
 
     /**
@@ -161,8 +164,12 @@ public class SignUpFr extends javax.swing.JFrame {
         name = jTextField1.getText();
         ageSt = jTextField2.getText();
         userName = jTextField3.getText();
-        UserInfo userInfo = new UserInfo(name, userName, password, age);
-        boolean UNchecked = Utils.checkUNameConection(userInfo, socket);
+        newuser = new UserInfo(name, userName, password, age, arraylistphydata);
+
+        System.out.println(name + ", " + userName + ", " + password + " " + age);
+        System.out.println(newuser.toString());
+
+        boolean UNchecked = Utils.checkUNameConection(newuser, socket);
         if (!Utils.checkString(name) || !Utils.checkNum(ageSt) || !UNchecked
                 || jTextField1.getText().isEmpty() || jTextField2.getText().isEmpty()
                 || jTextField3.getText().isEmpty()) {
@@ -179,11 +186,11 @@ public class SignUpFr extends javax.swing.JFrame {
                     + "", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
 
-            Utils.sendUserInfo(userInfo, socket);
+            Utils.sendUserInfo(newuser, socket);
             JOptionPane.showMessageDialog(new JFrame(), "New User Succesfully created"
                     + "", "Information", JOptionPane.INFORMATION_MESSAGE);
             this.setVisible(false);
-            MatchDeviceFr matchDeviceFr = new MatchDeviceFr(userInfo, socket);
+            MatchDeviceFr matchDeviceFr = new MatchDeviceFr(newuser, socket);
             matchDeviceFr.setVisible(true);
 
             //}
