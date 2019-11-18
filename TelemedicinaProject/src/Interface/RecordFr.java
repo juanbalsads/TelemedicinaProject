@@ -10,7 +10,6 @@ import BITalino.BITalinoException;
 import BITalino.BitalinoDemo;
 import static BITalino.BitalinoDemo.frame;
 import POJOs.Phydata;
-import POJOs.UserInfo;
 import POJOs.UserPassword;
 import Persistence.Utils;
 import java.awt.Color;
@@ -29,10 +28,9 @@ import javax.swing.JFrame;
 public class RecordFr extends javax.swing.JFrame {
 
     private ArrayList<Phydata> phydataList = new ArrayList();
-    private UserInfo userInfo;
     private int[][] valuesacc;
     private int[][] valueseMG;
-
+    private UserPassword userPassword;
     private String macAddress;
     private int samplingRate;
     private BITalino bitalino = null;
@@ -41,7 +39,7 @@ public class RecordFr extends javax.swing.JFrame {
     public RecordFr(UserPassword userPassword, BITalino bitalino, String macAddress, int samplingRate, int time) {
         initComponents();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Poner siempre
-        this.userInfo = userInfo;
+        this.userPassword= userPassword;
         this.bitalino = bitalino;
         this.macAddress = macAddress;
         this.samplingRate = samplingRate;
@@ -51,7 +49,7 @@ public class RecordFr extends javax.swing.JFrame {
         jPanel1.setSize(this.getSize());
         jPanel1.setBackground(new Color(153, 204, 0));
         jLabel2.setText(userPassword.getUserName());
-        saveMeasuresBut.setEnabled(false);
+        sendMeasuresBut.setEnabled(false);
 
     }
 
@@ -61,7 +59,7 @@ public class RecordFr extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         eMGButton = new javax.swing.JButton();
         accButton = new javax.swing.JButton();
-        saveMeasuresBut = new javax.swing.JButton();
+        sendMeasuresBut = new javax.swing.JButton();
         repeatMeasuresBut = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -90,13 +88,13 @@ public class RecordFr extends javax.swing.JFrame {
             }
         });
 
-        saveMeasuresBut.setBackground(new java.awt.Color(0, 153, 0));
-        saveMeasuresBut.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        saveMeasuresBut.setForeground(new java.awt.Color(255, 255, 255));
-        saveMeasuresBut.setText("Save Measures");
-        saveMeasuresBut.addActionListener(new java.awt.event.ActionListener() {
+        sendMeasuresBut.setBackground(new java.awt.Color(0, 153, 0));
+        sendMeasuresBut.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        sendMeasuresBut.setForeground(new java.awt.Color(255, 255, 255));
+        sendMeasuresBut.setText("Send Measures");
+        sendMeasuresBut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveMeasuresButActionPerformed(evt);
+                sendMeasuresButActionPerformed(evt);
             }
         });
 
@@ -136,14 +134,14 @@ public class RecordFr extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(101, 101, 101)
-                        .addComponent(saveMeasuresBut)
+                        .addComponent(sendMeasuresBut)
                         .addGap(114, 114, 114)
                         .addComponent(repeatMeasuresBut))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(83, 83, 83)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(78, 186, Short.MAX_VALUE))
+                .addGap(78, 184, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(eMGButton, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -178,7 +176,7 @@ public class RecordFr extends javax.swing.JFrame {
                 .addComponent(accButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(saveMeasuresBut)
+                    .addComponent(sendMeasuresBut)
                     .addComponent(repeatMeasuresBut))
                 .addGap(35, 35, 35))
         );
@@ -222,7 +220,7 @@ public class RecordFr extends javax.swing.JFrame {
             }
             bitalino.stop();
             eMGButton.setEnabled(false);
-            saveMeasuresBut.setEnabled(true);
+            sendMeasuresBut.setEnabled(true);
             Utils.GraphPhydata(valueseMG);
         } catch (BITalinoException ex) {
             Logger.getLogger(BitalinoDemo.class.getName()).log(Level.SEVERE, null, ex);
@@ -262,7 +260,7 @@ public class RecordFr extends javax.swing.JFrame {
             }
             bitalino.stop();
             accButton.setEnabled(false);
-            saveMeasuresBut.setEnabled(true);
+            sendMeasuresBut.setEnabled(true);
             Utils.GraphPhydata(valuesacc);
         } catch (BITalinoException ex) {
             Logger.getLogger(BitalinoDemo.class.getName()).log(Level.SEVERE, null, ex);
@@ -281,20 +279,20 @@ public class RecordFr extends javax.swing.JFrame {
 
     }//GEN-LAST:event_accButtonActionPerformed
 
-    private void saveMeasuresButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMeasuresButActionPerformed
-        Date date = new Date(); // this object contains the current date value
+    private void sendMeasuresButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendMeasuresButActionPerformed
+      /*  Date date = new Date(); // this object contains the current date value
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         System.out.println(formatter.format(date));
         Phydata phydata = new Phydata(date, valueseMG, valuesacc);
         phydataList = userInfo.getPhydataArray();
         phydataList.add(phydata);
         System.out.println("tamaño array: " + phydataList.size());
-        userInfo.setPhydataArray(phydataList);
+        userInfo.setPhydataArray(phydataList);*/
 
-    }//GEN-LAST:event_saveMeasuresButActionPerformed
+    }//GEN-LAST:event_sendMeasuresButActionPerformed
 
     private void repeatMeasuresButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repeatMeasuresButActionPerformed
-        saveMeasuresBut.setEnabled(false);
+        sendMeasuresBut.setEnabled(false);
         repeatMeasuresBut.setEnabled(true);
         accButton.setEnabled(true);
         eMGButton.setEnabled(true);
@@ -309,7 +307,7 @@ public class RecordFr extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton repeatMeasuresBut;
-    private javax.swing.JButton saveMeasuresBut;
     private javax.swing.JLabel secsLab;
+    private javax.swing.JButton sendMeasuresBut;
     // End of variables declaration//GEN-END:variables
 }

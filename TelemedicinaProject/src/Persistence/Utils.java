@@ -5,6 +5,7 @@
  */
 package Persistence;
 
+import POJOs.AgeName;
 import POJOs.UserPassword;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -130,15 +131,14 @@ public final class Utils extends Object {
         return true;
     }
 
-    public static void sendUserNameAge(String name, String ageSt, Socket socket) {
-        PrintWriter printWriter = null;
+    public static void sendUserNameAge(AgeName ageName, Socket socket) {
+        ObjectOutputStream objectOutputStream = null;
+        OutputStream outputStream =null;
         try {
-            printWriter = new PrintWriter(socket.getOutputStream(), true);
+            outputStream = socket.getOutputStream();
             System.out.println("Client Conection");
-            Object tmp;
-
-            printWriter.println("NAME" + name);
-            printWriter.println("AGE" + ageSt);
+            objectOutputStream = new ObjectOutputStream(outputStream);
+            objectOutputStream.writeObject(ageName);
         } catch (IOException ex) {
             Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -190,7 +190,7 @@ public class SignUpFr extends javax.swing.JFrame {
         } else {
 
             System.out.println("aalready send..SignUpFR");
-            //Utils.sendUserNameAge(name, ageSt, socket);
+            Utils.sendUserNameAge(name, ageSt, socket);
             JOptionPane.showMessageDialog(new JFrame(), "New User Succesfully created"
                     + "", "Information", JOptionPane.INFORMATION_MESSAGE);
             this.setVisible(false);
