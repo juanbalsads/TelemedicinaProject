@@ -143,7 +143,7 @@ public class UserFr extends javax.swing.JFrame {
         String userNameSI = jTextField1.getText();
         char[] passwordChSI = jPasswordField1.getPassword();
         String passwordSI = Utils.charToString(passwordChSI);
-        UserPassword userPassword = new UserPassword(userNameSI, passwordSI);
+        userPassword = new UserPassword(userNameSI, passwordSI);
         boolean checked = Utils.checkUserPasswordConection(userPassword, socket);
         if (!checked) {
             jTextField1.setBorder(new LineBorder(Color.red, 2));
