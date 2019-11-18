@@ -110,7 +110,6 @@ public final class Utils extends Object {
 
     public static boolean checkUserPasswordConection(UserPassword userPassword, Socket socket) {
         BufferedReader bufferedReader = null;
-        PrintWriter printWriter = null;
         ObjectOutputStream objectOutputStream = null;
         OutputStream outputStream = null;
         try {
@@ -118,7 +117,6 @@ public final class Utils extends Object {
             System.out.println("Client Conection");
             outputStream = socket.getOutputStream();
             objectOutputStream = new ObjectOutputStream(outputStream);
-            printWriter = new PrintWriter(socket.getOutputStream(), true);
             System.out.println("Connection established...");
             objectOutputStream.writeObject(userPassword);
             if (!bufferedReader.readLine().equalsIgnoreCase(Utils.VALID)) {
@@ -137,6 +135,8 @@ public final class Utils extends Object {
         try {
             printWriter = new PrintWriter(socket.getOutputStream(), true);
             System.out.println("Client Conection");
+            Object tmp;
+
             printWriter.println("NAME" + name);
             printWriter.println("AGE" + ageSt);
         } catch (IOException ex) {

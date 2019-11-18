@@ -35,8 +35,8 @@ public class SignUpFr extends javax.swing.JFrame {
      * Creates new form SignUpFr
      */
     public SignUpFr(Socket socket) {
-        this.socket = socket;
         initComponents();
+        this.socket = socket;
         this.setSize(new Dimension(800, 540));
         this.setLocationRelativeTo(null);
         jPanel1.setSize(this.getSize());
@@ -60,9 +60,9 @@ public class SignUpFr extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
-        jToggleButton1 = new javax.swing.JToggleButton();
         jPasswordField1 = new javax.swing.JPasswordField();
         jTextField2 = new javax.swing.JTextField();
+        SignUpBut = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,10 +80,13 @@ public class SignUpFr extends javax.swing.JFrame {
             }
         });
 
-        jToggleButton1.setText("Sign Up");
-        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+        SignUpBut.setBackground(new java.awt.Color(0, 153, 0));
+        SignUpBut.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        SignUpBut.setForeground(new java.awt.Color(255, 255, 255));
+        SignUpBut.setText("Sign Up");
+        SignUpBut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
+                SignUpButActionPerformed(evt);
             }
         });
 
@@ -91,29 +94,28 @@ public class SignUpFr extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(175, 175, 175)
+                .addComponent(SignUpBut, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(305, 305, 305))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(164, 164, 164)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(284, 284, 284)
-                        .addComponent(jToggleButton1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(164, 164, 164)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(139, 139, 139))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(158, 158, 158)))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField3)
-                            .addComponent(jPasswordField1))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(139, 139, 139))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(158, 158, 158)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
+                    .addComponent(jTextField2)
+                    .addComponent(jTextField3)
+                    .addComponent(jPasswordField1))
                 .addGap(274, 274, 274))
         );
         jPanel1Layout.setVerticalGroup(
@@ -135,9 +137,9 @@ public class SignUpFr extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(56, 56, 56)
-                .addComponent(jToggleButton1)
-                .addContainerGap(153, Short.MAX_VALUE))
+                .addGap(122, 122, 122)
+                .addComponent(SignUpBut, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(68, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -154,7 +156,68 @@ public class SignUpFr extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void SignUpButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignUpButActionPerformed
+
+        jTextField1.setBorder(new LineBorder(Color.white, 2));
+        jTextField2.setBorder(new LineBorder(Color.white, 2));
+        jTextField3.setBorder(new LineBorder(Color.white, 2));
+        password = Utils.charToString(jPasswordField1.getPassword());
+        name = jTextField1.getText();
+        ageSt = jTextField2.getText();
+        userName = jTextField3.getText();
+        userPassword = new UserPassword(userName, password);
+        System.out.println(userPassword.toString());
+
+        boolean UNchecked = Utils.checkUNameConection(userPassword, socket);
+        if (!Utils.checkString(name) || !Utils.checkNum(ageSt) || !UNchecked
+                || jTextField1.getText().isEmpty() || jTextField2.getText().isEmpty()
+                || jTextField3.getText().isEmpty()) {
+            if (!Utils.checkString(name) || jTextField1.getText().isEmpty()) {
+                jTextField1.setBorder(new LineBorder(Color.red, 2));
+            }
+            if (!Utils.checkNum(ageSt) || jTextField2.getText().isEmpty()) {
+                jTextField2.setBorder(new LineBorder(Color.red, 2));
+            }
+            if (!UNchecked || jTextField3.getText().isEmpty()) {
+                jTextField3.setBorder(new LineBorder(Color.red, 2));
+            }
+            JOptionPane.showMessageDialog(new JFrame(), "User already exists or Incorrect values\nPlease change red Fields "
+                    + "", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+
+            System.out.println("aalready send..SignUpFR");
+            //Utils.sendUserNameAge(name, ageSt, socket);
+            JOptionPane.showMessageDialog(new JFrame(), "New User Succesfully created"
+                    + "", "Information", JOptionPane.INFORMATION_MESSAGE);
+            this.setVisible(false);
+            MatchDeviceFr matchDeviceFr = new MatchDeviceFr(userPassword, socket);
+            matchDeviceFr.setVisible(true);
+
+            //}
+        }
+
+    }//GEN-LAST:event_SignUpButActionPerformed
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton SignUpBut;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    // End of variables declaration//GEN-END:variables
+}
+
+/*
+
         jTextField1.setBorder(new LineBorder(Color.white, 2));
         jTextField2.setBorder(new LineBorder(Color.white, 2));
         jTextField3.setBorder(new LineBorder(Color.white, 2));
@@ -191,22 +254,4 @@ public class SignUpFr extends javax.swing.JFrame {
 
             //}
         }
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
-
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JToggleButton jToggleButton1;
-    // End of variables declaration//GEN-END:variables
-}
+ */
