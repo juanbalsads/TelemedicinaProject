@@ -8,7 +8,6 @@ package Interface;
 //import POJOs.Phydata;
 //import POJOs.UserInfo;
 import POJOs.Phydata;
-import POJOs.UserInfo;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -24,7 +23,7 @@ import java.util.logging.Logger;
  * @author juanb
  */
 public class MainEnrique {
-
+/*
     public static void main(String[] args) throws IOException {
 
         System.out.println("Starting Client...");
@@ -80,5 +79,5 @@ public class MainEnrique {
             Logger.getLogger(MainJuan.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+*/
 }

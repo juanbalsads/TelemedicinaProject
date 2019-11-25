@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package Interface;
-
+import POJOs.AgeName;
 import POJOs.UserPassword;
 import Persistence.Utils;
 import java.awt.Color;
@@ -22,7 +22,8 @@ public class SignUpFr extends javax.swing.JFrame {
 
     //ArrayList<UserInfo> usersInfoList;
     UserPassword userPassword = null;
-
+    AgeName userAgeName = null;
+    
     String name = null;
     int age = 0;
     String ageSt = null;
@@ -170,6 +171,7 @@ public class SignUpFr extends javax.swing.JFrame {
         ageSt = jTextField2.getText();
         userName = jTextField3.getText();
         userPassword = new UserPassword(userName, password);
+        userAgeName=new AgeName(age,name);
         System.out.println(userPassword.toString());
 
         boolean UNchecked = Utils.checkUNameConection(userPassword, socket);
@@ -190,7 +192,7 @@ public class SignUpFr extends javax.swing.JFrame {
         } else {
 
             System.out.println("aalready send..SignUpFR");
-            Utils.sendUserNameAge(name, ageSt, socket);
+            Utils.sendUserNameAge(userAgeName, socket);
             JOptionPane.showMessageDialog(new JFrame(), "New User Succesfully created"
                     + "", "Information", JOptionPane.INFORMATION_MESSAGE);
             this.setVisible(false);
