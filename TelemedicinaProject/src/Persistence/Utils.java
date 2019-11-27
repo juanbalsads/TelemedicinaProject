@@ -9,10 +9,8 @@ import POJOs.AgeName;
 import POJOs.Answer;
 import POJOs.SocketUtils;
 import POJOs.UserPassword;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
@@ -55,43 +53,43 @@ public final class Utils extends Object {
 
     }
 
-   
     //CONNECTION with SERVER//TRUE if it doesn`t exist;
     public static boolean checkUNameConection(UserPassword userPassword, SocketUtils socketUtils) {
         System.out.println("ENTRA");
-        ObjectOutputStream objectOutputStream = null;
+        /*ObjectOutputStream objectOutputStream = null;
         OutputStream outputStream = null;
         InputStream inputStream = null;
-        ObjectInputStream objectInputStream = null;
+        ObjectInputStream objectInputStream = null;*/
         Object tmp;
         Answer answerClient;
-        
-        try {
-       
-            inputStream = socketUtils.getInputStream();
+
+        // try {
+
+        /*inputStream = socketUtils.getInputStream();
             outputStream = socketUtils.getOutputStream();
             objectOutputStream = socketUtils.getObjectOutputStream();
-            objectInputStream = socketUtils.getObjectInputStream();
- 
-            userPassword = Utils.putCode(userPassword);
-            objectOutputStream.writeObject(userPassword);
-            
-            tmp = objectInputStream.readObject();
-            
-            answerClient = (Answer) tmp;
-            System.out.println("ha recibbido el mensaje:"+answerClient.getAnswer());
-                if (!answerClient.getAnswer().equalsIgnoreCase(Answer.VALID_USERNAME)) {
-                    return false;
-                } else {
-                    return true;
-                }
-        } catch (IOException ex) {
+            objectInputStream = socketUtils.getObjectInputStream();*/
+        userPassword = Utils.putCode(userPassword);
+        //objectOutputStream.writeObject(userPassword);
+        socketUtils.writeObject(userPassword);
+        //tmp = objectInputStream.readObject();
+        tmp = socketUtils.readObject();
+        answerClient = (Answer) tmp;
+        System.out.println("ha recibbido el mensaje:" + answerClient.getAnswer());
+        System.out.println("falsetrue:" + !answerClient.getAnswer().equalsIgnoreCase(Answer.VALID_USERNAME));
+
+        if (!answerClient.getAnswer().equalsIgnoreCase(Answer.VALID_USERNAME)) {
+            return false;
+        } else {
+            return true;
+        }
+        /*} catch (IOException ex) {
             Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return false;
+        return false;*/
     }
 
     public static UserPassword putCode(UserPassword userPassword) {
@@ -122,7 +120,7 @@ public final class Utils extends Object {
             if (!answerClient.getAnswer().equalsIgnoreCase(Answer.VALID)) {
                 return false;
             }
-            
+
         } catch (IOException ex) {
             Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -135,10 +133,10 @@ public final class Utils extends Object {
         ObjectOutputStream objectOutputStream = null;
         OutputStream outputStream = null;
         try {
-            
+
             outputStream = socketUtils.getOutputStream();
             objectOutputStream = socketUtils.getObjectOutputStream();
-      
+
             System.out.println("Client Conection");
             objectOutputStream.writeObject(ageName);
         } catch (IOException ex) {
@@ -158,7 +156,6 @@ public final class Utils extends Object {
         }
     }
 
-    
     public static String getRadioButton(ButtonGroup buttonGroup) {
         for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
             AbstractButton button = buttons.nextElement();

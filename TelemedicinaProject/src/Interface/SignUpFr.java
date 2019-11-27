@@ -4,13 +4,13 @@
  * and open the template in the editor.
  */
 package Interface;
+
 import POJOs.AgeName;
 import POJOs.SocketUtils;
 import POJOs.UserPassword;
 import Persistence.Utils;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.net.Socket;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.border.LineBorder;
@@ -23,14 +23,13 @@ public class SignUpFr extends javax.swing.JFrame {
 
     UserPassword userPassword = null;
     AgeName userAgeName = null;
-    private SocketUtils socketUtils= null;
+    private SocketUtils socketUtils = null;
     String name = null;
     int age = 0;
     String ageSt = null;
     char[] passwordChar = null;
     String password = null;
     String userName = null;
-
 
     /**
      * Creates new form SignUpFr
@@ -42,7 +41,7 @@ public class SignUpFr extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         jPanel1.setSize(this.getSize());
         jPanel1.setBackground(new Color(153, 204, 0));
-        
+
     }
 
     /**
@@ -162,6 +161,7 @@ public class SignUpFr extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField3ActionPerformed
 
     private void SignUpButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignUpButActionPerformed
+
         System.out.println("HHOLALALSDLKLFÑDGJÑD");
         jTextField1.setBorder(new LineBorder(Color.white, 2));
         jTextField2.setBorder(new LineBorder(Color.white, 2));
@@ -172,11 +172,11 @@ public class SignUpFr extends javax.swing.JFrame {
         age = Integer.parseInt(ageSt);
         userName = jTextField3.getText();
         userPassword = new UserPassword(userName, password);
-        userAgeName=new AgeName(age,name);
+        userAgeName = new AgeName(age, name);
         System.out.println(userPassword.toString());
 
-        boolean UNchecked = Utils.checkUNameConection(userPassword, socketUtils); 
-        System.out.println("en el sighn up:"+UNchecked);
+        boolean UNchecked = Utils.checkUNameConection(userPassword, socketUtils);
+        System.out.println("en el sighn up:" + UNchecked);
         if (!Utils.checkString(name) || !Utils.checkNum(ageSt) || !UNchecked
                 || jTextField1.getText().isEmpty() || jTextField2.getText().isEmpty()
                 || jTextField3.getText().isEmpty()) {
