@@ -6,10 +6,13 @@
 package Persistence;
 
 import POJOs.AgeName;
+import POJOs.AnswerClient;
 import POJOs.UserPassword;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -31,11 +34,6 @@ import org.jfree.data.xy.DefaultXYDataset;
  * @author juanb
  */
 public final class Utils extends Object {
-
-    public static final String STOP = "stop";
-    public static final String VALID = "valid";
-    public static final String VALID_USERNAME = "validusername";
-    public static final String NEWUN = "qwerty";
 
     public static void GraphPhydata(int[][] dataRec) {
         int row = dataRec.length;
@@ -110,22 +108,32 @@ public final class Utils extends Object {
     }
 
     public static boolean checkUserPasswordConection(UserPassword userPassword, Socket socket) {
-        BufferedReader bufferedReader = null;
+        //BufferedReader bufferedReader = null;
         ObjectOutputStream objectOutputStream = null;
         OutputStream outputStream = null;
+        InputStream inputStream = null;
+        ObjectInputStream objectInputStream = null;
+        Object tmp;
+        AnswerClient answerClient;
         try {
-            bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            //bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             System.out.println("Client Conection");
+            inputStream = socket.getInputStream();
             outputStream = socket.getOutputStream();
             objectOutputStream = new ObjectOutputStream(outputStream);
+            objectInputStream = new ObjectInputStream(inputStream);
             System.out.println("Connection established...");
             objectOutputStream.writeObject(userPassword);
-            if (!bufferedReader.readLine().equalsIgnoreCase(Utils.VALID)) {
+            tmp = objectInputStream.readObject();
+            answerClient = (AnswerClient) tmp;
+            if (!answerClient.getAnswer().equalsIgnoreCase(AnswerClient.VALID)) {
                 return false;
             }
             //Utils.releaseResources(printWriter, socket);
             //System.exit(0);
         } catch (IOException ex) {
+            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
         }
         return true;
@@ -133,7 +141,7 @@ public final class Utils extends Object {
 
     public static void sendUserNameAge(AgeName ageName, Socket socket) {
         ObjectOutputStream objectOutputStream = null;
-        OutputStream outputStream =null;
+        OutputStream outputStream = null;
         try {
             outputStream = socket.getOutputStream();
             System.out.println("Client Conection");
