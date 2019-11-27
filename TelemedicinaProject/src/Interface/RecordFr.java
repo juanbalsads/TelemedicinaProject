@@ -10,6 +10,7 @@ import BITalino.BITalinoException;
 import BITalino.BitalinoDemo;
 import static BITalino.BitalinoDemo.frame;
 import POJOs.Phydata;
+import POJOs.SocketUtils;
 import POJOs.UserPassword;
 import Persistence.Utils;
 import java.awt.Color;
@@ -26,7 +27,7 @@ import javax.swing.JFrame;
  * @author juanb
  */
 public class RecordFr extends javax.swing.JFrame {
-
+    private SocketUtils socketUtils;
     private ArrayList<Phydata> phydataList = new ArrayList();
     private int[][] valuesacc;
     private int[][] valueseMG;
@@ -36,11 +37,12 @@ public class RecordFr extends javax.swing.JFrame {
     private BITalino bitalino = null;
     int time = 0;
 
-    public RecordFr(UserPassword userPassword, BITalino bitalino, String macAddress, int samplingRate, int time) {
+    public RecordFr(UserPassword userPassword, BITalino bitalino, String macAddress, int samplingRate, int time, SocketUtils socketUtils) {
         initComponents();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Poner siempre
         this.userPassword= userPassword;
         this.bitalino = bitalino;
+        this.socketUtils = socketUtils;
         this.macAddress = macAddress;
         this.samplingRate = samplingRate;
         this.time = time;
