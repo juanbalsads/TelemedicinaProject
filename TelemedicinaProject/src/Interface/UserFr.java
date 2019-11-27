@@ -144,7 +144,7 @@ public class UserFr extends javax.swing.JFrame {
         char[] passwordChSI = jPasswordField1.getPassword();
         String passwordSI = Utils.charToString(passwordChSI);
         userPassword = new UserPassword(userNameSI, passwordSI);
-        boolean checked = Utils.checkUserPasswordConection(userPassword, socket);
+        boolean checked = Utils.checkUserPasswordConection(userPassword, socket); 
         if (!checked) {
             jTextField1.setBorder(new LineBorder(Color.red, 2));
             JOptionPane.showMessageDialog(new JFrame(), "Incorrect User or password",

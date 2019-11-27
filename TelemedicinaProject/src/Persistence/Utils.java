@@ -6,7 +6,7 @@
 package Persistence;
 
 import POJOs.AgeName;
-import POJOs.AnswerClient;
+import POJOs.Answer;
 import POJOs.UserPassword;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -71,30 +71,39 @@ public final class Utils extends Object {
     }*/
     //CONNECTION with SERVER//TRUE if it doesn`t exist;
     public static boolean checkUNameConection(UserPassword userPassword, Socket socket) {
-        BufferedReader bufferedReader = null;
+        
         ObjectOutputStream objectOutputStream = null;
         OutputStream outputStream = null;
-        String line = null;
+        InputStream inputStream = null;
+        ObjectInputStream objectInputStream = null;
+        Object tmp;
+        Answer answerClient;
+        
         try {
-            bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             System.out.println("Client Conection..checkUNameConection");
             outputStream = socket.getOutputStream();
+            inputStream = socket.getInputStream();
             objectOutputStream = new ObjectOutputStream(outputStream);
+            objectInputStream = new ObjectInputStream(inputStream);
             System.out.println("Connection established...checkUNameConection");
             userPassword = Utils.putCode(userPassword);
             objectOutputStream.writeObject(userPassword);
+            tmp = objectInputStream.readObject();
+            answerClient = (Answer) tmp;
             System.out.println("Send USerPassword...checkUNameConection");
-            while ((line = bufferedReader.readLine()) != null) {
-                if (!line.equalsIgnoreCase(Utils.VALID_USERNAME)) {
+            System.out.println("ha recibbido:"+answerClient.getAnswer());
+                if (!answerClient.getAnswer().equalsIgnoreCase(Answer.VALID_USERNAME)) {
                     return false;
                 } else {
                     return true;
                 }
-            }
+            
 
             //Utils.releaseResources(printWriter, socket);
             //System.exit(0);
         } catch (IOException ex) {
+            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -102,7 +111,7 @@ public final class Utils extends Object {
     }
 
     public static UserPassword putCode(UserPassword userPassword) {
-        String userName = userPassword.getUserName() + Utils.NEWUN;
+        String userName = userPassword.getUserName() + Answer.NEWUN;
         userPassword.setUserName(userName);
         return userPassword;
     }
@@ -114,7 +123,7 @@ public final class Utils extends Object {
         InputStream inputStream = null;
         ObjectInputStream objectInputStream = null;
         Object tmp;
-        AnswerClient answerClient;
+        Answer answerClient;
         try {
             //bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             System.out.println("Client Conection");
@@ -125,8 +134,8 @@ public final class Utils extends Object {
             System.out.println("Connection established...");
             objectOutputStream.writeObject(userPassword);
             tmp = objectInputStream.readObject();
-            answerClient = (AnswerClient) tmp;
-            if (!answerClient.getAnswer().equalsIgnoreCase(AnswerClient.VALID)) {
+            answerClient = (Answer) tmp;
+            if (!answerClient.getAnswer().equalsIgnoreCase(Answer.VALID)) {
                 return false;
             }
             //Utils.releaseResources(printWriter, socket);

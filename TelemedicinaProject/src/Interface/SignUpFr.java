@@ -20,7 +20,6 @@ import javax.swing.border.LineBorder;
  */
 public class SignUpFr extends javax.swing.JFrame {
 
-    //ArrayList<UserInfo> usersInfoList;
     UserPassword userPassword = null;
     AgeName userAgeName = null;
     
@@ -42,7 +41,7 @@ public class SignUpFr extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         jPanel1.setSize(this.getSize());
         jPanel1.setBackground(new Color(153, 204, 0));
-        //usersInfoList = PersistenceOp.loadUserInfo(Utils.DIRECTORY, Utils.FILENAME);
+        
     }
 
     /**
@@ -169,12 +168,13 @@ public class SignUpFr extends javax.swing.JFrame {
         password = Utils.charToString(jPasswordField1.getPassword());
         name = jTextField1.getText();
         ageSt = jTextField2.getText();
+        age = Integer.parseInt(ageSt);
         userName = jTextField3.getText();
         userPassword = new UserPassword(userName, password);
         userAgeName=new AgeName(age,name);
         System.out.println(userPassword.toString());
 
-        boolean UNchecked = Utils.checkUNameConection(userPassword, socket);
+        boolean UNchecked = Utils.checkUNameConection(userPassword, socket); 
         if (!Utils.checkString(name) || !Utils.checkNum(ageSt) || !UNchecked
                 || jTextField1.getText().isEmpty() || jTextField2.getText().isEmpty()
                 || jTextField3.getText().isEmpty()) {
@@ -192,7 +192,7 @@ public class SignUpFr extends javax.swing.JFrame {
         } else {
 
             System.out.println("aalready send..SignUpFR");
-            Utils.sendUserNameAge(userAgeName, socket);
+            //Utils.sendUserNameAge(userAgeName, socket);
             JOptionPane.showMessageDialog(new JFrame(), "New User Succesfully created"
                     + "", "Information", JOptionPane.INFORMATION_MESSAGE);
             this.setVisible(false);
