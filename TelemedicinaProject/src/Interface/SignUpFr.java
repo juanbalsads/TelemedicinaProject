@@ -5,6 +5,7 @@
  */
 package Interface;
 import POJOs.AgeName;
+import POJOs.SocketUtils;
 import POJOs.UserPassword;
 import Persistence.Utils;
 import java.awt.Color;
@@ -22,21 +23,21 @@ public class SignUpFr extends javax.swing.JFrame {
 
     UserPassword userPassword = null;
     AgeName userAgeName = null;
-    
+    private SocketUtils socketUtils= null;
     String name = null;
     int age = 0;
     String ageSt = null;
     char[] passwordChar = null;
     String password = null;
     String userName = null;
-    private Socket socket = null;
+
 
     /**
      * Creates new form SignUpFr
      */
-    public SignUpFr(Socket socket) {
+    public SignUpFr(SocketUtils socketUtils) {
         initComponents();
-        this.socket = socket;
+        this.socketUtils = socketUtils;
         this.setSize(new Dimension(800, 540));
         this.setLocationRelativeTo(null);
         jPanel1.setSize(this.getSize());
@@ -161,7 +162,7 @@ public class SignUpFr extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField3ActionPerformed
 
     private void SignUpButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignUpButActionPerformed
-
+        System.out.println("HHOLALALSDLKLFÑDGJÑD");
         jTextField1.setBorder(new LineBorder(Color.white, 2));
         jTextField2.setBorder(new LineBorder(Color.white, 2));
         jTextField3.setBorder(new LineBorder(Color.white, 2));
@@ -174,7 +175,8 @@ public class SignUpFr extends javax.swing.JFrame {
         userAgeName=new AgeName(age,name);
         System.out.println(userPassword.toString());
 
-        boolean UNchecked = Utils.checkUNameConection(userPassword, socket); 
+        boolean UNchecked = Utils.checkUNameConection(userPassword, socketUtils); 
+        System.out.println("en el sighn up:"+UNchecked);
         if (!Utils.checkString(name) || !Utils.checkNum(ageSt) || !UNchecked
                 || jTextField1.getText().isEmpty() || jTextField2.getText().isEmpty()
                 || jTextField3.getText().isEmpty()) {
@@ -196,7 +198,7 @@ public class SignUpFr extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(new JFrame(), "New User Succesfully created"
                     + "", "Information", JOptionPane.INFORMATION_MESSAGE);
             this.setVisible(false);
-            MatchDeviceFr matchDeviceFr = new MatchDeviceFr(userPassword, socket);
+            MatchDeviceFr matchDeviceFr = new MatchDeviceFr(userPassword, socketUtils);
             matchDeviceFr.setVisible(true);
 
             //}

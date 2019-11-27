@@ -7,6 +7,7 @@ package Persistence;
 
 import POJOs.AgeName;
 import POJOs.Answer;
+import POJOs.SocketUtils;
 import POJOs.UserPassword;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -54,24 +55,10 @@ public final class Utils extends Object {
 
     }
 
-    /*public static boolean checkUserInfo(UserInfo userToCheck, ArrayList<UserInfo> userInfoList) {
-        //TRUE if it doesn`t exist;
-        String userNameStr = userToCheck.getUserName();
-        String loaduserName = null;
-        boolean check = true;
-        Iterator<UserInfo> it = userInfoList.iterator();
-        while (it.hasNext()) {
-            loaduserName = it.next().getUserName();
-            if (loaduserName.compareTo(userNameStr) == 0) {
-                check = false;
-
-            }
-        }
-        return check;
-    }*/
+   
     //CONNECTION with SERVER//TRUE if it doesn`t exist;
-    public static boolean checkUNameConection(UserPassword userPassword, Socket socket) {
-        
+    public static boolean checkUNameConection(UserPassword userPassword, SocketUtils socketUtils) {
+        System.out.println("ENTRA");
         ObjectOutputStream objectOutputStream = null;
         OutputStream outputStream = null;
         InputStream inputStream = null;
@@ -80,27 +67,24 @@ public final class Utils extends Object {
         Answer answerClient;
         
         try {
-            System.out.println("Client Conection..checkUNameConection");
-            outputStream = socket.getOutputStream();
-            inputStream = socket.getInputStream();
-            objectOutputStream = new ObjectOutputStream(outputStream);
-            objectInputStream = new ObjectInputStream(inputStream);
-            System.out.println("Connection established...checkUNameConection");
+       
+            inputStream = socketUtils.getInputStream();
+            outputStream = socketUtils.getOutputStream();
+            objectOutputStream = socketUtils.getObjectOutputStream();
+            objectInputStream = socketUtils.getObjectInputStream();
+ 
             userPassword = Utils.putCode(userPassword);
             objectOutputStream.writeObject(userPassword);
+            
             tmp = objectInputStream.readObject();
+            
             answerClient = (Answer) tmp;
-            System.out.println("Send USerPassword...checkUNameConection");
-            System.out.println("ha recibbido:"+answerClient.getAnswer());
+            System.out.println("ha recibbido el mensaje:"+answerClient.getAnswer());
                 if (!answerClient.getAnswer().equalsIgnoreCase(Answer.VALID_USERNAME)) {
                     return false;
                 } else {
                     return true;
                 }
-            
-
-            //Utils.releaseResources(printWriter, socket);
-            //System.exit(0);
         } catch (IOException ex) {
             Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -116,7 +100,7 @@ public final class Utils extends Object {
         return userPassword;
     }
 
-    public static boolean checkUserPasswordConection(UserPassword userPassword, Socket socket) {
+    public static boolean checkUserPasswordConection(UserPassword userPassword, SocketUtils socketUtils) {
         //BufferedReader bufferedReader = null;
         ObjectOutputStream objectOutputStream = null;
         OutputStream outputStream = null;
@@ -127,10 +111,10 @@ public final class Utils extends Object {
         try {
             //bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             System.out.println("Client Conection");
-            inputStream = socket.getInputStream();
-            outputStream = socket.getOutputStream();
-            objectOutputStream = new ObjectOutputStream(outputStream);
-            objectInputStream = new ObjectInputStream(inputStream);
+            inputStream = socketUtils.getInputStream();
+            outputStream = socketUtils.getOutputStream();
+            objectOutputStream = socketUtils.getObjectOutputStream();
+            objectInputStream = socketUtils.getObjectInputStream();
             System.out.println("Connection established...");
             objectOutputStream.writeObject(userPassword);
             tmp = objectInputStream.readObject();
@@ -138,8 +122,7 @@ public final class Utils extends Object {
             if (!answerClient.getAnswer().equalsIgnoreCase(Answer.VALID)) {
                 return false;
             }
-            //Utils.releaseResources(printWriter, socket);
-            //System.exit(0);
+            
         } catch (IOException ex) {
             Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -148,13 +131,15 @@ public final class Utils extends Object {
         return true;
     }
 
-    public static void sendUserNameAge(AgeName ageName, Socket socket) {
+    public static void sendUserNameAge(AgeName ageName, SocketUtils socketUtils) {
         ObjectOutputStream objectOutputStream = null;
         OutputStream outputStream = null;
         try {
-            outputStream = socket.getOutputStream();
+            
+            outputStream = socketUtils.getOutputStream();
+            objectOutputStream = socketUtils.getObjectOutputStream();
+      
             System.out.println("Client Conection");
-            objectOutputStream = new ObjectOutputStream(outputStream);
             objectOutputStream.writeObject(ageName);
         } catch (IOException ex) {
             Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
@@ -173,32 +158,7 @@ public final class Utils extends Object {
         }
     }
 
-    /*public static boolean checkUserName(String userName) {
-        //TRUE if it doesn`t exist;
-        ArrayList<UserInfo> userInfoList = PersistenceOp.loadUserInfo(DIRECTORY, FILENAME);
-        String loaduserName = null;
-        boolean check = true;
-        Iterator<UserInfo> it = userInfoList.iterator();
-        while (it.hasNext()) {
-            loaduserName = it.next().getUserName();
-            if (loaduserName.compareTo(userName) == 0) {
-                check = false;
-            }
-        }
-        return check;
-    }*/
-    //return index where a PArticular USerNAme is Saved
-    /*public static int getArrayIndexUserName(String userName, ArrayList<UserInfo> userInfoList) {
-        UserInfo useInfo = null;
-        Iterator<UserInfo> it = userInfoList.iterator();
-        while (it.hasNext()) {
-            useInfo = it.next();
-            if (useInfo.getUserName().compareTo(userName) == 0) {
-                return userInfoList.indexOf(useInfo);
-            }
-        }
-        return -1;
-    }*/
+    
     public static String getRadioButton(ButtonGroup buttonGroup) {
         for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
             AbstractButton button = buttons.nextElement();
@@ -210,17 +170,6 @@ public final class Utils extends Object {
         return null;
     }
 
-    /*public static boolean checkCorrectPassword(String userNametocheck, String passwordtocheck, ArrayList<UserInfo> userInfoList) {
-        int index = Utils.getArrayIndexUserName(userNametocheck, userInfoList);
-        UserInfo userInfo = userInfoList.get(index);
-        if ((userInfo.getUserName().compareTo(userNametocheck) == 0)
-                && (userInfo.getPassword().compareTo(passwordtocheck)) == 0) {
-            return true;
-        } else {
-            return false;
-        }
-
-    }*/
     public static String charToString(char[] chain) {
         String password = "";
         for (int i = 0; i < chain.length; i++) {

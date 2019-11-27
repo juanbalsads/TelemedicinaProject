@@ -5,11 +5,16 @@
  */
 package Interface;
 
+import POJOs.SocketUtils;
 import POJOs.UserPassword;
 import Persistence.Utils;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,7 +29,12 @@ import javax.swing.border.LineBorder;
 public class UserFr extends javax.swing.JFrame {
 
     private UserPassword userPassword = null;
-    private Socket socket = null;
+    private SocketUtils socketUtils = null;
+    private Socket socket;
+    private ObjectOutputStream objectOutputStream;
+    private OutputStream outputStream;
+    private InputStream inputStream;
+    private ObjectInputStream objectInputStream;
 
     /**
      * Creates new form UserFr
@@ -38,6 +48,11 @@ public class UserFr extends javax.swing.JFrame {
             jPanel1.setSize(this.getSize());
             jPanel1.setBackground(new Color(153, 204, 0));
             socket = new Socket("localhost", 9000);
+            outputStream = socket.getOutputStream();
+            objectOutputStream = new ObjectOutputStream(outputStream);
+            inputStream = socket.getInputStream();
+            objectInputStream = new ObjectInputStream(inputStream);
+            socketUtils = new SocketUtils(socket,objectOutputStream,outputStream,inputStream,objectInputStream);
         } catch (IOException ex) {
             Logger.getLogger(UserFr.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -133,7 +148,7 @@ public class UserFr extends javax.swing.JFrame {
     private void signUpButtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpButtActionPerformed
 
         this.setVisible(false);
-        SignUpFr signUpFr = new SignUpFr(socket);
+        SignUpFr signUpFr = new SignUpFr(socketUtils);
         signUpFr.setVisible(true);
     }//GEN-LAST:event_signUpButtActionPerformed
 
@@ -144,14 +159,14 @@ public class UserFr extends javax.swing.JFrame {
         char[] passwordChSI = jPasswordField1.getPassword();
         String passwordSI = Utils.charToString(passwordChSI);
         userPassword = new UserPassword(userNameSI, passwordSI);
-        boolean checked = Utils.checkUserPasswordConection(userPassword, socket); 
+        boolean checked = Utils.checkUserPasswordConection(userPassword, socketUtils); 
         if (!checked) {
             jTextField1.setBorder(new LineBorder(Color.red, 2));
             JOptionPane.showMessageDialog(new JFrame(), "Incorrect User or password",
                     "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             this.setVisible(false);
-            MatchDeviceFr matchDeviceFr = new MatchDeviceFr(userPassword, socket);
+            MatchDeviceFr matchDeviceFr = new MatchDeviceFr(userPassword, socketUtils);
             matchDeviceFr.setVisible(true);
 
         }
