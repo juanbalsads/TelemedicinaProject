@@ -48,11 +48,12 @@ public class UserFr extends javax.swing.JFrame {
             jPanel1.setSize(this.getSize());
             jPanel1.setBackground(new Color(153, 204, 0));
             socket = new Socket("localhost", 9000);
-            outputStream = socket.getOutputStream();
+            socketUtils = new SocketUtils(socket);
+            /* outputStream = socket.getOutputStream();
             objectOutputStream = new ObjectOutputStream(outputStream);
             inputStream = socket.getInputStream();
             objectInputStream = new ObjectInputStream(inputStream);
-            socketUtils = new SocketUtils(socket,objectOutputStream,outputStream,inputStream,objectInputStream);
+            socketUtils = new SocketUtils(socket,objectOutputStream,outputStream,inputStream,objectInputStream);*/
         } catch (IOException ex) {
             Logger.getLogger(UserFr.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -159,7 +160,7 @@ public class UserFr extends javax.swing.JFrame {
         char[] passwordChSI = jPasswordField1.getPassword();
         String passwordSI = Utils.charToString(passwordChSI);
         userPassword = new UserPassword(userNameSI, passwordSI);
-        boolean checked = Utils.checkUserPasswordConection(userPassword, socketUtils); 
+        boolean checked = Utils.checkUserPasswordConection(userPassword, socketUtils);
         if (!checked) {
             jTextField1.setBorder(new LineBorder(Color.red, 2));
             JOptionPane.showMessageDialog(new JFrame(), "Incorrect User or password",

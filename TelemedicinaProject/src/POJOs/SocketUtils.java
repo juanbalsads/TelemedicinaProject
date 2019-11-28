@@ -5,18 +5,21 @@
  */
 package POJOs;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author inesu
  */
 public class SocketUtils {
+
     private Socket socket;
     private ObjectOutputStream objectOutputStream;
     private OutputStream outputStream;
@@ -31,7 +34,18 @@ public class SocketUtils {
         this.objectInputStream = objectInputStream;
     }
 
+    public SocketUtils(Socket socket) {
 
+        try {
+            this.outputStream = socket.getOutputStream();
+            this.objectOutputStream = new ObjectOutputStream(outputStream);
+            this.inputStream = socket.getInputStream();
+            this.objectInputStream = new ObjectInputStream(inputStream);
+        } catch (IOException ex) {
+            Logger.getLogger(SocketUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
 
     public Socket getSocket() {
         return socket;
@@ -57,8 +71,6 @@ public class SocketUtils {
         this.outputStream = outputStream;
     }
 
-   
-
     public InputStream getInputStream() {
         return inputStream;
     }
@@ -74,7 +86,29 @@ public class SocketUtils {
     public void setObjectInputStream(ObjectInputStream objectInputStream) {
         this.objectInputStream = objectInputStream;
     }
-    
-    
-    
+
+    public Object readObject() {
+        System.out.println("LEYENDO OBJETO");
+
+        Object tmp = null;
+        try {
+            tmp = this.objectInputStream.readObject();
+        } catch (IOException ex) {
+            Logger.getLogger(SocketUtils.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(SocketUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return tmp;
+    }
+
+    public void writeObject(Object tmp) {
+        System.out.println("ESCRIBIENDO OBJETO");
+        try {
+            this.objectOutputStream.writeObject(tmp);
+        } catch (IOException ex) {
+            Logger.getLogger(SocketUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    //TODO RELEASESOURCES
 }
