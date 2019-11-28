@@ -7,6 +7,7 @@ package Persistence;
 
 import POJOs.AgeName;
 import POJOs.Answer;
+import POJOs.Phydata;
 import POJOs.SocketUtils;
 import POJOs.UserPassword;
 import java.io.IOException;
@@ -138,6 +139,12 @@ public final class Utils extends Object {
             Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
         }*/
 
+    }
+
+    public static void SendPhydata(Phydata phydata, SocketUtils socketUtils) {
+        System.out.println("SENDING PHYDATA");
+
+        socketUtils.writeObject(phydata);
     }
 
     private static void releaseResources(PrintWriter printWriter, Socket socket) {

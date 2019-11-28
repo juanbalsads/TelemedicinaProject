@@ -27,6 +27,7 @@ import javax.swing.JFrame;
  * @author juanb
  */
 public class RecordFr extends javax.swing.JFrame {
+
     private SocketUtils socketUtils;
     private ArrayList<Phydata> phydataList = new ArrayList();
     private int[][] valuesacc;
@@ -40,7 +41,7 @@ public class RecordFr extends javax.swing.JFrame {
     public RecordFr(UserPassword userPassword, BITalino bitalino, String macAddress, int samplingRate, int time, SocketUtils socketUtils) {
         initComponents();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Poner siempre
-        this.userPassword= userPassword;
+        this.userPassword = userPassword;
         this.bitalino = bitalino;
         this.socketUtils = socketUtils;
         this.macAddress = macAddress;
@@ -282,14 +283,15 @@ public class RecordFr extends javax.swing.JFrame {
     }//GEN-LAST:event_accButtonActionPerformed
 
     private void sendMeasuresButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendMeasuresButActionPerformed
-      /*  Date date = new Date(); // this object contains the current date value
+        Date date = new Date(); // this object contains the current date value
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         System.out.println(formatter.format(date));
         Phydata phydata = new Phydata(date, valueseMG, valuesacc);
-        phydataList = userInfo.getPhydataArray();
-        phydataList.add(phydata);
-        System.out.println("tamaño array: " + phydataList.size());
-        userInfo.setPhydataArray(phydataList);*/
+        //phydataList = userInfo.getPhydataArray();
+        //phydataList.add(phydata);
+        //System.out.println("tamaño array: " + phydataList.size());
+        Utils.SendPhydata(phydata, socketUtils);
+        //socketUtils.writeObject(phydata);
 
     }//GEN-LAST:event_sendMeasuresButActionPerformed
 
