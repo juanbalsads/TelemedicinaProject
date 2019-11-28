@@ -110,5 +110,36 @@ public class SocketUtils {
         }
     }
 
-    //TODO RELEASESOURCES
+    public void releaseResources() {
+        System.out.println("RELEASING RESOURCES");
+        try {
+            this.socket.close();
+        } catch (IOException ex) {
+            Logger.getLogger(SocketUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            this.inputStream.close();
+
+        } catch (IOException ex) {
+            Logger.getLogger(SocketUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            this.objectInputStream.close();
+        } catch (IOException ex) {
+            Logger.getLogger(SocketUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            this.outputStream.close();
+        } catch (IOException ex) {
+            Logger.getLogger(SocketUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            this.objectOutputStream.close();
+        } catch (IOException ex) {
+            Logger.getLogger(SocketUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
+
+
+    //TODO RELEASESOURCES
