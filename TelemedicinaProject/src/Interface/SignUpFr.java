@@ -162,7 +162,6 @@ public class SignUpFr extends javax.swing.JFrame {
 
     private void SignUpButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignUpButActionPerformed
 
-        System.out.println("HHOLALALSDLKLFÑDGJÑD");
         jTextField1.setBorder(new LineBorder(Color.white, 2));
         jTextField2.setBorder(new LineBorder(Color.white, 2));
         jTextField3.setBorder(new LineBorder(Color.white, 2));
@@ -194,7 +193,7 @@ public class SignUpFr extends javax.swing.JFrame {
         } else {
 
             System.out.println("aalready send..SignUpFR");
-            //Utils.sendUserNameAge(userAgeName, socket);
+            Utils.sendUserNameAge(userAgeName, socketUtils);
             JOptionPane.showMessageDialog(new JFrame(), "New User Succesfully created"
                     + "", "Information", JOptionPane.INFORMATION_MESSAGE);
             this.setVisible(false);

@@ -35,7 +35,16 @@ public class SocketUtils {
     }
 
     public SocketUtils(Socket socket) {
-        //   this.inputStream = socket.getInputStream();
+
+        try {
+            this.outputStream = socket.getOutputStream();
+            this.objectOutputStream = new ObjectOutputStream(outputStream);
+            this.inputStream = socket.getInputStream();
+            this.objectInputStream = new ObjectInputStream(inputStream);
+        } catch (IOException ex) {
+            Logger.getLogger(SocketUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     public Socket getSocket() {
@@ -101,4 +110,5 @@ public class SocketUtils {
         }
     }
 
+    //TODO RELEASESOURCES
 }
