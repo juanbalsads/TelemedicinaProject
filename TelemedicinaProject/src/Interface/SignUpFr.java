@@ -218,42 +218,4 @@ public class SignUpFr extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 }
 
-/*
 
-        jTextField1.setBorder(new LineBorder(Color.white, 2));
-        jTextField2.setBorder(new LineBorder(Color.white, 2));
-        jTextField3.setBorder(new LineBorder(Color.white, 2));
-        password = Utils.charToString(jPasswordField1.getPassword());
-        name = jTextField1.getText();
-        ageSt = jTextField2.getText();
-        userName = jTextField3.getText();
-        userPassword = new UserPassword(userName, password);
-        System.out.println(userPassword.toString());
-
-        boolean UNchecked = Utils.checkUNameConection(userPassword, socket);
-        if (!Utils.checkString(name) || !Utils.checkNum(ageSt) || !UNchecked
-                || jTextField1.getText().isEmpty() || jTextField2.getText().isEmpty()
-                || jTextField3.getText().isEmpty()) {
-            if (!Utils.checkString(name) || jTextField1.getText().isEmpty()) {
-                jTextField1.setBorder(new LineBorder(Color.red, 2));
-            }
-            if (!Utils.checkNum(ageSt) || jTextField2.getText().isEmpty()) {
-                jTextField2.setBorder(new LineBorder(Color.red, 2));
-            }
-            if (!UNchecked || jTextField3.getText().isEmpty()) {
-                jTextField3.setBorder(new LineBorder(Color.red, 2));
-            }
-            JOptionPane.showMessageDialog(new JFrame(), "User already exists or Incorrect values\nPlease change red Fields "
-                    + "", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            System.out.println("aalready send..SignUpFR");
-            Utils.sendUserNameAge(name, ageSt, socket);
-            JOptionPane.showMessageDialog(new JFrame(), "New User Succesfully created"
-                    + "", "Information", JOptionPane.INFORMATION_MESSAGE);
-            this.setVisible(false);
-            MatchDeviceFr matchDeviceFr = new MatchDeviceFr(userPassword, socket);
-            matchDeviceFr.setVisible(true);
-
-            //}
-        }
- */
