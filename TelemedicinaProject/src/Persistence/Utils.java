@@ -31,7 +31,8 @@ import org.jfree.data.xy.DefaultXYDataset;
  */
 public final class Utils extends Object {
 
-    public static void GraphPhydata(int[][] dataRec) {
+    public static void GraphPhydata(int[][] dataRec, boolean type) {
+         
         int row = dataRec.length;
         int col = dataRec[0].length;
         double[][] values = new double[row][col];
@@ -41,38 +42,34 @@ public final class Utils extends Object {
             }
         }
         DefaultXYDataset dataset = new DefaultXYDataset();
-        dataset.addSeries("hola", values);
+        if(type){
+        dataset.addSeries("EMG values", values);
         JFreeChart lineChart = ChartFactory.createXYLineChart("EMG", "Seconds", "Volts", dataset, PlotOrientation.VERTICAL, true, true, false);
+         ChartFrame panel = new ChartFrame("", lineChart);
+         panel.pack();
+        panel.setVisible(true);
+        centerFrameOnScreen(panel);
+        }else {
+        dataset.addSeries("ACC values", values);
+        JFreeChart lineChart = ChartFactory.createXYLineChart("ACCELEROMETER", "Seconds", "Volts", dataset, PlotOrientation.VERTICAL, true, true, false);
         ChartFrame panel = new ChartFrame("", lineChart);
         panel.pack();
         panel.setVisible(true);
         centerFrameOnScreen(panel);
+        }
 
     }
 
     //CONNECTION with SERVER//TRUE if it doesn`t exist;
     public static boolean checkUNameConection(UserPassword userPassword, SocketUtils socketUtils) {
         System.out.println("ENTRA");
-        /*ObjectOutputStream objectOutputStream = null;
-        OutputStream outputStream = null;
-        InputStream inputStream = null;
-        ObjectInputStream objectInputStream = null;*/
         Object tmp;
         Answer answerClient;
-
-        // try {
-
-        /*inputStream = socketUtils.getInputStream();
-            outputStream = socketUtils.getOutputStream();
-            objectOutputStream = socketUtils.getObjectOutputStream();
-            objectInputStream = socketUtils.getObjectInputStream();*/
         userPassword = Utils.putCode(userPassword);
-        //objectOutputStream.writeObject(userPassword);
         socketUtils.writeObject(userPassword);
-        //tmp = objectInputStream.readObject();
         tmp = socketUtils.readObject();
         answerClient = (Answer) tmp;
-        System.out.println("ha recibbido el mensaje:" + answerClient.getAnswer());
+        System.out.println("ha recibido el mensaje:" + answerClient.getAnswer());
         System.out.println("falsetrue:" + !answerClient.getAnswer().equalsIgnoreCase(Answer.VALID_USERNAME));
 
         if (!answerClient.getAnswer().equalsIgnoreCase(Answer.VALID_USERNAME)) {
@@ -80,13 +77,6 @@ public final class Utils extends Object {
         } else {
             return true;
         }
-        /*} catch (IOException ex) {
-            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return false;*/
     }
 
     public static UserPassword putCode(UserPassword userPassword) {
@@ -95,12 +85,13 @@ public final class Utils extends Object {
         return userPassword;
     }
 
+        public static UserPassword takeOutCode(UserPassword userPassword) {
+        String[] userName = userPassword.getUserName().split(Answer.NEWUN);
+        userPassword.setUserName(userName[0]);
+        return userPassword;
+    }
     public static boolean checkUserPasswordConection(UserPassword userPassword, SocketUtils socketUtils) {
-        //BufferedReader bufferedReader = null;
-        /*ObjectOutputStream objectOutputStream = null;
-        OutputStream outputStream = null;
-        InputStream inputStream = null;
-        ObjectInputStream objectInputStream = null;*/
+       
         Object tmp;
         Answer answerClient;
         // try {
