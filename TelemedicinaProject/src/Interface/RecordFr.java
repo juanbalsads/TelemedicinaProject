@@ -258,12 +258,8 @@ public class RecordFr extends javax.swing.JFrame {
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         System.out.println(formatter.format(date));
         Phydata phydata = new Phydata(date, valueseMG, valuesacc);
-        //phydataList = userInfo.getPhydataArray();
-        //phydataList.add(phydata);
-        //System.out.println("tamaño array: " + phydataList.size());
         Utils.SendPhydata(phydata, socketUtils);
-        //socketUtils.writeObject(phydata);
-
+        
     }//GEN-LAST:event_sendMeasuresButActionPerformed
 
     private void repeatMeasuresButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repeatMeasuresButActionPerformed

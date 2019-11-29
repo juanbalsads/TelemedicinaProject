@@ -44,14 +44,14 @@ public final class Utils extends Object {
         DefaultXYDataset dataset = new DefaultXYDataset();
         if(type){
         dataset.addSeries("EMG values", values);
-        JFreeChart lineChart = ChartFactory.createXYLineChart("EMG", "Seconds", "Volts", dataset, PlotOrientation.VERTICAL, true, true, false);
+        JFreeChart lineChart = ChartFactory.createXYLineChart("EMG", "Samples", "Volts", dataset, PlotOrientation.VERTICAL, true, true, false);
          ChartFrame panel = new ChartFrame("", lineChart);
          panel.pack();
         panel.setVisible(true);
         centerFrameOnScreen(panel);
         }else {
         dataset.addSeries("ACC values", values);
-        JFreeChart lineChart = ChartFactory.createXYLineChart("ACCELEROMETER", "Seconds", "Volts", dataset, PlotOrientation.VERTICAL, true, true, false);
+        JFreeChart lineChart = ChartFactory.createXYLineChart("ACCELEROMETER", "Samples", "Volts", dataset, PlotOrientation.VERTICAL, true, true, false);
         ChartFrame panel = new ChartFrame("", lineChart);
         panel.pack();
         panel.setVisible(true);
