@@ -197,10 +197,13 @@ public class SignUpFr extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(new JFrame(), "New User Succesfully created"
                     + "", "Information", JOptionPane.INFORMATION_MESSAGE);
             this.setVisible(false);
+            UserPassword userPasswordtake = Utils.takeOutCode(userPassword);
+            System.out.println("sin code: "+userPasswordtake);
+                    
             MatchDeviceFr matchDeviceFr = new MatchDeviceFr(userPassword, socketUtils);
             matchDeviceFr.setVisible(true);
 
-            //}
+            
         }
 
     }//GEN-LAST:event_SignUpButActionPerformed
