@@ -278,7 +278,7 @@ public class RecordFr extends javax.swing.JFrame {
             System.exit(0);
 
         } else {
-            System.out.println("REpeating measure...");
+            System.out.println("Repeating measure...");
             Answer repeat = new Answer(Answer.REPEAT);
             socketUtils.writeObject(repeat);
             sendMeasuresBut.setEnabled(false);
