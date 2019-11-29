@@ -111,20 +111,9 @@ public class SocketUtils {
     }
 
     public void releaseResources() {
-        System.out.println("RELEASING RESOURCES");
+        System.out.println("Releasing Resources...");
         try {
-            this.socket.close();
-        } catch (IOException ex) {
-            Logger.getLogger(SocketUtils.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            this.inputStream.close();
-
-        } catch (IOException ex) {
-            Logger.getLogger(SocketUtils.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            this.objectInputStream.close();
+            this.objectOutputStream.close();
         } catch (IOException ex) {
             Logger.getLogger(SocketUtils.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -134,10 +123,23 @@ public class SocketUtils {
             Logger.getLogger(SocketUtils.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            this.objectOutputStream.close();
+            this.objectInputStream.close();
         } catch (IOException ex) {
             Logger.getLogger(SocketUtils.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        try {
+            this.inputStream.close();
+
+        } catch (IOException ex) {
+            Logger.getLogger(SocketUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            this.socket.close();
+        } catch (IOException ex) {
+            Logger.getLogger(SocketUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 }
 

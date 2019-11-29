@@ -32,7 +32,7 @@ import org.jfree.data.xy.DefaultXYDataset;
 public final class Utils extends Object {
 
     public static void GraphPhydata(int[][] dataRec, boolean type) {
-         
+
         int row = dataRec.length;
         int col = dataRec[0].length;
         double[][] values = new double[row][col];
@@ -42,36 +42,32 @@ public final class Utils extends Object {
             }
         }
         DefaultXYDataset dataset = new DefaultXYDataset();
-        if(type){
-        dataset.addSeries("EMG values", values);
-        JFreeChart lineChart = ChartFactory.createXYLineChart("EMG", "Seconds", "Volts", dataset, PlotOrientation.VERTICAL, true, true, false);
-         ChartFrame panel = new ChartFrame("", lineChart);
-         panel.pack();
-        panel.setVisible(true);
-        centerFrameOnScreen(panel);
-        }else {
-        dataset.addSeries("ACC values", values);
-        JFreeChart lineChart = ChartFactory.createXYLineChart("ACCELEROMETER", "Seconds", "Volts", dataset, PlotOrientation.VERTICAL, true, true, false);
-        ChartFrame panel = new ChartFrame("", lineChart);
-        panel.pack();
-        panel.setVisible(true);
-        centerFrameOnScreen(panel);
+        if (type) {
+            dataset.addSeries("EMG values", values);
+            JFreeChart lineChart = ChartFactory.createXYLineChart("EMG", "Seconds", "Volts", dataset, PlotOrientation.VERTICAL, true, true, false);
+            ChartFrame panel = new ChartFrame("", lineChart);
+            panel.pack();
+            panel.setVisible(true);
+            centerFrameOnScreen(panel);
+        } else {
+            dataset.addSeries("ACC values", values);
+            JFreeChart lineChart = ChartFactory.createXYLineChart("ACCELEROMETER", "Seconds", "Volts", dataset, PlotOrientation.VERTICAL, true, true, false);
+            ChartFrame panel = new ChartFrame("", lineChart);
+            panel.pack();
+            panel.setVisible(true);
+            centerFrameOnScreen(panel);
         }
 
     }
 
     //CONNECTION with SERVER//TRUE if it doesn`t exist;
     public static boolean checkUNameConection(UserPassword userPassword, SocketUtils socketUtils) {
-        System.out.println("ENTRA");
         Object tmp;
         Answer answerClient;
         userPassword = Utils.putCode(userPassword);
         socketUtils.writeObject(userPassword);
         tmp = socketUtils.readObject();
         answerClient = (Answer) tmp;
-        System.out.println("ha recibido el mensaje:" + answerClient.getAnswer());
-        System.out.println("falsetrue:" + !answerClient.getAnswer().equalsIgnoreCase(Answer.VALID_USERNAME));
-
         if (!answerClient.getAnswer().equalsIgnoreCase(Answer.VALID_USERNAME)) {
             return false;
         } else {
@@ -85,18 +81,17 @@ public final class Utils extends Object {
         return userPassword;
     }
 
-        public static UserPassword takeOutCode(UserPassword userPassword) {
+    /*   public static UserPassword takeOutCode(UserPassword userPassword) {
         String[] userName = userPassword.getUserName().split(Answer.NEWUN);
         userPassword.setUserName(userName[0]);
         return userPassword;
-    }
+    }*/
     public static boolean checkUserPasswordConection(UserPassword userPassword, SocketUtils socketUtils) {
-       
+
         Object tmp;
         Answer answerClient;
         // try {
         //bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        System.out.println("Client Conection");
         /*inputStream = socketUtils.getInputStream();
             outputStream = socketUtils.getOutputStream();
             objectOutputStream = socketUtils.getObjectOutputStream();

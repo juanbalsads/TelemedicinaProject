@@ -9,6 +9,7 @@ import BITalino.BITalino;
 import BITalino.BITalinoException;
 import BITalino.BitalinoDemo;
 import static BITalino.BitalinoDemo.frame;
+import POJOs.Answer;
 import POJOs.Phydata;
 import POJOs.SocketUtils;
 import POJOs.UserPassword;
@@ -21,6 +22,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -193,8 +195,8 @@ public class RecordFr extends javax.swing.JFrame {
             bitalino.stop();
             eMGButton.setEnabled(false);
             sendMeasuresBut.setEnabled(true);
-            boolean type=true;
-            Utils.GraphPhydata(valueseMG,type);
+            boolean type = true;
+            Utils.GraphPhydata(valueseMG, type);
         } catch (BITalinoException ex) {
             Logger.getLogger(BitalinoDemo.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Throwable ex) {
@@ -235,7 +237,7 @@ public class RecordFr extends javax.swing.JFrame {
             accButton.setEnabled(false);
             sendMeasuresBut.setEnabled(true);
             boolean type = false;
-            Utils.GraphPhydata(valuesacc,type);
+            Utils.GraphPhydata(valuesacc, type);
         } catch (BITalinoException ex) {
             Logger.getLogger(BitalinoDemo.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Throwable ex) {
@@ -254,15 +256,37 @@ public class RecordFr extends javax.swing.JFrame {
     }//GEN-LAST:event_accButtonActionPerformed
 
     private void sendMeasuresButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendMeasuresButActionPerformed
+        int input = 0;
         Date date = new Date(); // this object contains the current date value
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         System.out.println(formatter.format(date));
         Phydata phydata = new Phydata(date, valueseMG, valuesacc);
-        //phydataList = userInfo.getPhydataArray();
-        //phydataList.add(phydata);
-        //System.out.println("tamaño array: " + phydataList.size());
         Utils.SendPhydata(phydata, socketUtils);
-        //socketUtils.writeObject(phydata);
+
+        String[] options = new String[2];
+        options[0] = new String("Yes");
+        options[1] = new String("No");
+        input = JOptionPane.showOptionDialog(null, "Measures send\\nDo you wat to EXIT?",
+                "Confirm Exit", 0, JOptionPane.INFORMATION_MESSAGE, null, options, null);
+        System.out.println("inout:" + input);
+        if (input == 0) {
+            System.out.println("Exit...");
+            this.setVisible(false);
+            Answer answerclose = new Answer(Answer.CLOSE);
+            socketUtils.writeObject(answerclose);
+            //socketUtils.releaseResources();
+            System.exit(0);
+
+        } else {
+            System.out.println("REpeating measure...");
+            Answer repeat = new Answer(Answer.REPEAT);
+            socketUtils.writeObject(repeat);
+            sendMeasuresBut.setEnabled(false);
+            repeatMeasuresBut.setEnabled(true);
+            accButton.setEnabled(true);
+            eMGButton.setEnabled(true);
+
+        }
 
     }//GEN-LAST:event_sendMeasuresButActionPerformed
 
