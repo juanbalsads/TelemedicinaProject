@@ -13,6 +13,8 @@ import POJOs.UserPassword;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -132,6 +134,25 @@ public final class Utils extends Object {
 
         socketUtils.writeObject(phydata);
     }
+    
+    public static String getMD5(String password){
+       
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest(password.getBytes());
+
+            StringBuffer sb = new StringBuffer();
+            
+            for(int i=0;i<messageDigest.length;i++){
+                sb.append(Integer.toHexString(0xff & messageDigest[i]));
+            }
+            return sb.toString();
+            
+        } catch (NoSuchAlgorithmException ex) {
+            throw new RuntimeException(ex);
+    }
+  
+   }
 
     private static void releaseResources(PrintWriter printWriter, Socket socket) {
 
