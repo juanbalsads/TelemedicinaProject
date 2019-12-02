@@ -13,11 +13,8 @@ import POJOs.UserPassword;
 import Persistence.Utils;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.net.Socket;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.bluetooth.RemoteDevice;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.border.LineBorder;
@@ -219,12 +216,12 @@ public class MatchDeviceFr extends javax.swing.JFrame {
             } else {
                 time = Integer.parseInt(timeStr);
                 bitalino = new BITalino();
-                Vector<RemoteDevice> devices = bitalino.findDevices();
-                System.out.println(devices);
+                //Vector<RemoteDevice> devices = bitalino.findDevices();
+                //System.out.println(devices);
                 bitalino.open(macAddress, samplingRate);
                 this.setVisible(false);
-                RecordFr recordFr = new RecordFr(userPassword, bitalino, macAddress, samplingRate, time, socketUtils);
-                recordFr.setVisible(true);
+                CollectSymptons collectSymptons = new CollectSymptons(userPassword, bitalino, macAddress, samplingRate, time, socketUtils);
+                collectSymptons.setVisible(true);
             }
         } catch (Throwable ex) {
             Logger.getLogger(BitalinoDemo.class.getName()).log(Level.SEVERE, null, ex);
