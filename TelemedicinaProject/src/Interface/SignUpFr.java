@@ -9,6 +9,7 @@ import POJOs.AgeName;
 import POJOs.SocketUtils;
 import POJOs.UserPassword;
 import Persistence.Utils;
+import static Persistence.Utils.getMD5;
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JFrame;
@@ -170,7 +171,8 @@ public class SignUpFr extends javax.swing.JFrame {
         ageSt = jTextField2.getText();
         age = Integer.parseInt(ageSt);
         userName = jTextField3.getText();
-        userPassword = new UserPassword(userName, password);
+        String hashPass = getMD5(password); //Here we create the hash of the password.
+        userPassword = new UserPassword(userName, hashPass); //UserPassword object is created with the hash value, the password doesn't reach the server
         userAgeName = new AgeName(age, name);
         System.out.println(userPassword.toString());
 
