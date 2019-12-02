@@ -135,24 +135,7 @@ public final class Utils extends Object {
         socketUtils.writeObject(phydata);
     }
     
-    public static String getMD5(String password){
-       
-        try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] messageDigest = md.digest(password.getBytes());
-
-            StringBuffer sb = new StringBuffer();
-            
-            for(int i=0;i<messageDigest.length;i++){
-                sb.append(Integer.toHexString(0xff & messageDigest[i]));
-            }
-            return sb.toString();
-            
-        } catch (NoSuchAlgorithmException ex) {
-            throw new RuntimeException(ex);
-    }
-  
-   }
+    
 
     private static void releaseResources(PrintWriter printWriter, Socket socket) {
 
