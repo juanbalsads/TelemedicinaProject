@@ -83,11 +83,6 @@ public final class Utils extends Object {
         return userPassword;
     }
 
-    /*   public static UserPassword takeOutCode(UserPassword userPassword) {
-        String[] userName = userPassword.getUserName().split(Answer.NEWUN);
-        userPassword.setUserName(userName[0]);
-        return userPassword;
-    }*/
     public static boolean checkUserPasswordConection(UserPassword userPassword, SocketUtils socketUtils) {
 
         Object tmp;
