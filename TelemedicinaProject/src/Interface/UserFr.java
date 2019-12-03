@@ -47,9 +47,11 @@ public class UserFr extends javax.swing.JFrame {
             this.setLocationRelativeTo(null);
             jPanel1.setSize(this.getSize());
             jPanel1.setBackground(new Color(153, 204, 0));
-            socket = new Socket("localhost", 9000);
+            socket = new Socket("192.168.43.136", 9000);
+
+            //socket = new Socket("localhost", 9000);
             socketUtils = new SocketUtils(socket);
-          
+
         } catch (IOException ex) {
             Logger.getLogger(UserFr.class.getName()).log(Level.SEVERE, null, ex);
         }
