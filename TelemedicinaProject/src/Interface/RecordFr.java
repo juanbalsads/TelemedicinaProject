@@ -39,8 +39,9 @@ public class RecordFr extends javax.swing.JFrame {
     private int samplingRate;
     private BITalino bitalino = null;
     int time = 0;
+    private String symptons;
 
-    public RecordFr(UserPassword userPassword, BITalino bitalino, String macAddress, int samplingRate, int time, SocketUtils socketUtils) {
+    public RecordFr(UserPassword userPassword, BITalino bitalino, String macAddress, int samplingRate, int time, SocketUtils socketUtils,String symptons) {
         initComponents();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Poner siempre
         this.userPassword = userPassword;
@@ -51,6 +52,7 @@ public class RecordFr extends javax.swing.JFrame {
         this.time = time;
         this.setSize(new Dimension(800, 540));
         this.setLocationRelativeTo(null);
+        this.symptons = symptons;
         jPanel1.setSize(this.getSize());
         jPanel1.setBackground(new Color(153, 204, 0));
         sendMeasuresBut.setEnabled(false);
@@ -260,7 +262,7 @@ public class RecordFr extends javax.swing.JFrame {
         Date date = new Date(); // this object contains the current date value
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         System.out.println(formatter.format(date));
-        Phydata phydata = new Phydata(date, valueseMG, valuesacc);
+        Phydata phydata = new Phydata(date, valueseMG, valuesacc,symptons);
         Utils.SendPhydata(phydata, socketUtils);
 
         String[] options = new String[2];

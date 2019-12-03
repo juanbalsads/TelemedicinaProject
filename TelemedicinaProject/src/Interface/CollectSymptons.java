@@ -24,15 +24,19 @@ public class CollectSymptons extends javax.swing.JFrame {
     private int samplingRate;
     private BITalino bitalino = null;
     private int time;
-    private String Symptons;
+    private String symptons;
 
-    public CollectSymptons(UserPassword userPassword, Bitalino bitalino, String macAddress, int samplingRate, int time, Socket socketUtils) {
+    public CollectSymptons(UserPassword userPassword, BITalino bitalino, String macAddress, int samplingRate, int time, SocketUtils socketUtils) {
         initComponents();
         this.socketUtils = socketUtils;
         this.userPassword = userPassword;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(new Dimension(800, 540));
         this.setLocationRelativeTo(null);
+        this.bitalino = bitalino;
+        this.macAddress = macAddress;
+        this.samplingRate = samplingRate;
+        this.time = time;
         jPanel1.setSize(this.getSize());
     }
 
@@ -46,6 +50,8 @@ public class CollectSymptons extends javax.swing.JFrame {
         start = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,6 +80,10 @@ public class CollectSymptons extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Starting to record Measures?");
 
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -90,15 +100,20 @@ public class CollectSymptons extends javax.swing.JFrame {
                         .addGap(226, 226, 226)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(276, Short.MAX_VALUE))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(125, 125, 125)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(150, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(47, 47, 47)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 264, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -124,10 +139,13 @@ public class CollectSymptons extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void startActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startActionPerformed
-
+        symptons = jTextArea1.getText();
+        if(symptons == null){
+            symptons = "Nothing to decleare.";
+        }
         this.setVisible(false);
-        new RecordFrame();
-
+        RecordFr recordFrame = new RecordFr(userPassword, bitalino, macAddress, samplingRate, time, socketUtils, symptons);
+        recordFrame.setVisible(true);
     }//GEN-LAST:event_startActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -136,6 +154,8 @@ public class CollectSymptons extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JButton start;
     // End of variables declaration//GEN-END:variables
 }
