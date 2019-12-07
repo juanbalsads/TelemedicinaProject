@@ -85,12 +85,6 @@ public final class Utils extends Object {
 
         Object tmp;
         Answer answerClient;
-        // try {
-        //bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        /*inputStream = socketUtils.getInputStream();
-            outputStream = socketUtils.getOutputStream();
-            objectOutputStream = socketUtils.getObjectOutputStream();
-            objectInputStream = socketUtils.getObjectInputStream();*/
         System.out.println("Connection established...");
         socketUtils.writeObject(userPassword);
         tmp = socketUtils.readObject();
@@ -99,26 +93,12 @@ public final class Utils extends Object {
             return false;
         }
 
-        /*} catch (IOException ex) {
-            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
         return true;
     }
 
     public static void sendUserNameAge(AgeName ageName, SocketUtils socketUtils) {
-        /*ObjectOutputStream objectOutputStream = null;
-        OutputStream outputStream = null;*/
-        //try {
-
-        /*outputStream = socketUtils.getOutputStream();
-            objectOutputStream = socketUtils.getObjectOutputStream();*/
         System.out.println("Client Conection");
         socketUtils.writeObject(ageName);
-        /*} catch (IOException ex) {
-            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
 
     }
 
@@ -161,6 +141,9 @@ public final class Utils extends Object {
     //TRUE if it is only String
     public static boolean checkString(String chain) {
         boolean check = true;
+        if (chain == null) {
+            return false;
+        }
         char prof;
         chain = chain.replace(" ", "");
         for (int i = 0; i < chain.length(); i++) {
@@ -175,14 +158,16 @@ public final class Utils extends Object {
     //TRUE if it is only numbers
     public static boolean checkNum(String numStr) {
         int num;
-        try {
-            num = Integer.parseInt(numStr);
-            return true;
-
-        } catch (NumberFormatException ex) {
+        if (numStr == null) {
             return false;
         }
-
+        char prof;
+        for (int i = 0; i < numStr.length(); i++) {
+            prof = numStr.charAt(i);
+            if (Character.isAlphabetic(prof)) {
+                return false;
+            }
+        }
+        return true;
     }
-
 }

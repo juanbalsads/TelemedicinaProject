@@ -47,9 +47,7 @@ public class UserFr extends javax.swing.JFrame {
             this.setLocationRelativeTo(null);
             jPanel1.setSize(this.getSize());
             jPanel1.setBackground(new Color(153, 204, 0));
-            socket = new Socket("192.168.43.136", 9000);
-
-            //socket = new Socket("localhost", 9000);
+            socket = new Socket("localhost", 9000);
             socketUtils = new SocketUtils(socket);
 
         } catch (IOException ex) {
@@ -153,15 +151,16 @@ public class UserFr extends javax.swing.JFrame {
     }//GEN-LAST:event_signUpActionPerformed
 
     private void signInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signInActionPerformed
-          jTextField1.setBorder(new LineBorder(Color.white, 2));
+        jTextField1.setBorder(new LineBorder(Color.white, 2));
         jPasswordField1.setBorder(new LineBorder(Color.white, 2));
         String userNameSI = jTextField1.getText();
         char[] passwordChSI = jPasswordField1.getPassword();
         String passwordSI = Utils.charToString(passwordChSI);
         userPassword = new UserPassword(userNameSI, passwordSI);
         boolean checked = Utils.checkUserPasswordConection(userPassword, socketUtils);
-        if (!checked) {
+        if (!checked || jTextField1.getText().isEmpty()) {
             jTextField1.setBorder(new LineBorder(Color.red, 2));
+            jPasswordField1.setBorder(new LineBorder(Color.red, 2));
             JOptionPane.showMessageDialog(new JFrame(), "Incorrect User or password",
                     "Error", JOptionPane.ERROR_MESSAGE);
         } else {

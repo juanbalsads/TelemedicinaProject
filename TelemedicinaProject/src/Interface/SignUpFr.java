@@ -161,38 +161,40 @@ public class SignUpFr extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField3ActionPerformed
 
     private void SignUpButActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignUpButActionPerformed
-
+        jPasswordField1.setBorder(new LineBorder(Color.white, 2));
         jTextField1.setBorder(new LineBorder(Color.white, 2));
         jTextField2.setBorder(new LineBorder(Color.white, 2));
         jTextField3.setBorder(new LineBorder(Color.white, 2));
         password = Utils.charToString(jPasswordField1.getPassword());
         name = jTextField1.getText();
         ageSt = jTextField2.getText();
-        age = Integer.parseInt(ageSt);
         userName = jTextField3.getText();
+        boolean UNchecked = false;
         userPassword = new UserPassword(userName, password); //UserPassword object is created with the hash value, the password doesn't reach the server
-        userAgeName = new AgeName(age, name);
-        System.out.println(userPassword.toString());
-
-        boolean UNchecked = Utils.checkUNameConection(userPassword, socketUtils);
-        System.out.println("en el sighn up:" + UNchecked);
-        if (!Utils.checkString(name) || !Utils.checkNum(ageSt) || !UNchecked
-                || jTextField1.getText().isEmpty() || jTextField2.getText().isEmpty()
-                || jTextField3.getText().isEmpty()) {
+        if (!Utils.checkString(name) || jTextField1.getText().isEmpty() || !Utils.checkNum(ageSt)
+                || jTextField2.getText().isEmpty()
+                || jTextField3.getText().isEmpty() || jPasswordField1.getPassword() == null
+                || !(UNchecked = Utils.checkUNameConection(userPassword, socketUtils))) {
             if (!Utils.checkString(name) || jTextField1.getText().isEmpty()) {
                 jTextField1.setBorder(new LineBorder(Color.red, 2));
             }
             if (!Utils.checkNum(ageSt) || jTextField2.getText().isEmpty()) {
                 jTextField2.setBorder(new LineBorder(Color.red, 2));
             }
-            if (!UNchecked || jTextField3.getText().isEmpty()) {
+            if (jTextField3.getText().isEmpty() || !UNchecked) {
                 jTextField3.setBorder(new LineBorder(Color.red, 2));
+            }
+            if (jPasswordField1.getText().isEmpty()) {
+                jPasswordField1.setBorder(new LineBorder(Color.red, 2));
             }
             JOptionPane.showMessageDialog(new JFrame(), "User already exists or Incorrect values\nPlease change red Fields "
                     + "", "Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println("print: " + name + ", " + age + ", " + userName);
         } else {
+            System.out.println("print: " + name + ", " + age + ", " + userName);
+            age = Integer.parseInt(ageSt);
 
-            System.out.println("aalready send..SignUpFR");
+            userAgeName = new AgeName(age, name);
             Utils.sendUserNameAge(userAgeName, socketUtils);
             JOptionPane.showMessageDialog(new JFrame(), "New User Succesfully created"
                     + "", "Information", JOptionPane.INFORMATION_MESSAGE);
@@ -201,7 +203,6 @@ public class SignUpFr extends javax.swing.JFrame {
             matchDeviceFr.setVisible(true);
 
         }
-
     }//GEN-LAST:event_SignUpButActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
