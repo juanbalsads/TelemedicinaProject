@@ -8,7 +8,6 @@ package Interface;
 import BITalino.BITalino;
 import BITalino.BITalinoException;
 import BITalino.BitalinoDemo;
-import static BITalino.BitalinoDemo.frame;
 import POJOs.Answer;
 import POJOs.Phydata;
 import POJOs.SocketUtils;
@@ -41,7 +40,7 @@ public class RecordFr extends javax.swing.JFrame {
     int time = 0;
     private String symptons;
 
-    public RecordFr(UserPassword userPassword, BITalino bitalino, String macAddress, int samplingRate, int time, SocketUtils socketUtils,String symptons) {
+    public RecordFr(UserPassword userPassword, BITalino bitalino, String macAddress, int samplingRate, int time, SocketUtils socketUtils, String symptons) {
         initComponents();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Poner siempre
         this.userPassword = userPassword;
@@ -54,7 +53,7 @@ public class RecordFr extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.symptons = symptons;
         jPanel1.setSize(this.getSize());
-        jPanel1.setBackground(new Color(153, 204, 0));
+        jPanel1.setBackground(new Color(173, 216, 230));
         sendMeasuresBut.setEnabled(false);
 
     }
@@ -68,10 +67,11 @@ public class RecordFr extends javax.swing.JFrame {
         sendMeasuresBut = new javax.swing.JButton();
         repeatMeasuresBut = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        eMGButton.setBackground(new java.awt.Color(0, 153, 0));
+        eMGButton.setBackground(new java.awt.Color(70, 130, 180));
         eMGButton.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         eMGButton.setForeground(new java.awt.Color(255, 255, 255));
         eMGButton.setText("EMG");
@@ -81,7 +81,7 @@ public class RecordFr extends javax.swing.JFrame {
             }
         });
 
-        accButton.setBackground(new java.awt.Color(0, 153, 0));
+        accButton.setBackground(new java.awt.Color(70, 130, 180));
         accButton.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         accButton.setForeground(new java.awt.Color(255, 255, 255));
         accButton.setText("Accelerometer");
@@ -91,7 +91,7 @@ public class RecordFr extends javax.swing.JFrame {
             }
         });
 
-        sendMeasuresBut.setBackground(new java.awt.Color(0, 153, 0));
+        sendMeasuresBut.setBackground(new java.awt.Color(70, 130, 180));
         sendMeasuresBut.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         sendMeasuresBut.setForeground(new java.awt.Color(255, 255, 255));
         sendMeasuresBut.setText("Send Measures");
@@ -101,7 +101,7 @@ public class RecordFr extends javax.swing.JFrame {
             }
         });
 
-        repeatMeasuresBut.setBackground(new java.awt.Color(0, 153, 0));
+        repeatMeasuresBut.setBackground(new java.awt.Color(70, 130, 180));
         repeatMeasuresBut.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         repeatMeasuresBut.setForeground(new java.awt.Color(255, 255, 255));
         repeatMeasuresBut.setText("Repeat Measures");
@@ -111,10 +111,12 @@ public class RecordFr extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("WELCOME !");
+        jLabel1.setText("Starting To measure");
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/hospital (1).png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -123,38 +125,40 @@ public class RecordFr extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(298, 298, 298)
-                        .addComponent(accButton, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(286, 286, 286)
-                        .addComponent(eMGButton, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(157, 157, 157)
+                        .addGap(121, 121, 121)
                         .addComponent(sendMeasuresBut)
-                        .addGap(114, 114, 114)
+                        .addGap(133, 133, 133)
                         .addComponent(repeatMeasuresBut))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(280, 280, 280)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(184, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(49, 49, 49)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(138, 138, 138)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(accButton, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(eMGButton, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addGap(0, 201, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(89, 89, 89)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(86, 86, 86)
+                .addGap(13, 13, 13)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(66, 66, 66)
                 .addComponent(eMGButton, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addGap(32, 32, 32)
                 .addComponent(accButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(sendMeasuresBut)
                     .addComponent(repeatMeasuresBut))
-                .addGap(35, 35, 35))
+                .addGap(79, 79, 79))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -176,24 +180,9 @@ public class RecordFr extends javax.swing.JFrame {
         int cont = 0;
         valueseMG = new int[2][samplingRate * time];
         try {
-            System.out.println(samplingRate + " time:" + time + " ::" + samplingRate * time);
-
             bitalino.open(macAddress, samplingRate);
             int[] channelsToAcquire = {0};
             bitalino.start(channelsToAcquire);
-            for (int j = 0; j < samplingRate * time / 10; j++) {
-                //Each time read a block of 10 samples  == frame.length
-                int block_size = 10;
-                frame = bitalino.read(block_size);
-                for (int i = 0; i < frame.length; i++) {
-                    valueseMG[0][cont] = cont;
-                    valueseMG[1][cont] = frame[i].analog[0];
-                    System.out.println("values: " + cont + " , " + valueseMG[1][cont] + ", "
-                            + frame.length + ", " + i);
-                    cont++;
-                }
-
-            }
             bitalino.stop();
             eMGButton.setEnabled(false);
             sendMeasuresBut.setEnabled(true);
@@ -223,18 +212,6 @@ public class RecordFr extends javax.swing.JFrame {
             bitalino.open(macAddress, samplingRate);
             int[] channelsToAcquire = {4};
             bitalino.start(channelsToAcquire);
-            for (int j = 0; j < samplingRate * time / 10; j++) {
-                //Each time read a block of 10 samples
-                int block_size = 10;
-                frame = bitalino.read(block_size);
-                for (int i = 0; i < frame.length; i++) {
-                    valuesacc[0][cont] = cont;
-                    valuesacc[1][cont] = frame[i].analog[0];
-                    System.out.println("values: " + cont + " , " + valuesacc[1][cont]);
-                    cont++;
-
-                }
-            }
             bitalino.stop();
             accButton.setEnabled(false);
             sendMeasuresBut.setEnabled(true);
@@ -262,21 +239,19 @@ public class RecordFr extends javax.swing.JFrame {
         Date date = new Date(); // this object contains the current date value
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         System.out.println(formatter.format(date));
-        Phydata phydata = new Phydata(date, valueseMG, valuesacc,symptons);
-        Utils.SendPhydata(phydata, socketUtils);
-
+        Phydata phydata = new Phydata(date, valueseMG, valuesacc, symptons);
+        socketUtils.writeObject(phydata);
         String[] options = new String[2];
         options[0] = new String("Yes");
         options[1] = new String("No");
-        input = JOptionPane.showOptionDialog(null, "Measures send\\nDo you wat to EXIT?",
+        input = JOptionPane.showOptionDialog(null, "Measures send\\nDo you wat to exit?",
                 "Confirm Exit", 0, JOptionPane.INFORMATION_MESSAGE, null, options, null);
-        System.out.println("inout:" + input);
         if (input == 0) {
             System.out.println("Exit...");
             this.setVisible(false);
             Answer answerclose = new Answer(Answer.CLOSE);
             socketUtils.writeObject(answerclose);
-            //socketUtils.releaseResources();
+            socketUtils.releaseResources();
             System.exit(0);
 
         } else {
@@ -304,6 +279,7 @@ public class RecordFr extends javax.swing.JFrame {
     private javax.swing.JButton accButton;
     private javax.swing.JButton eMGButton;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton repeatMeasuresBut;
     private javax.swing.JButton sendMeasuresBut;

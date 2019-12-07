@@ -5,17 +5,10 @@
  */
 package Persistence;
 
-import POJOs.AgeName;
 import POJOs.Answer;
-import POJOs.Phydata;
 import POJOs.SocketUtils;
 import POJOs.UserPassword;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.Socket;
 import java.util.Enumeration;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import org.jfree.chart.ChartFactory;
@@ -82,10 +75,8 @@ public final class Utils extends Object {
     }
 
     public static boolean checkUserPasswordConection(UserPassword userPassword, SocketUtils socketUtils) {
-
         Object tmp;
         Answer answerClient;
-        System.out.println("Connection established...");
         socketUtils.writeObject(userPassword);
         tmp = socketUtils.readObject();
         answerClient = (Answer) tmp;
@@ -94,29 +85,6 @@ public final class Utils extends Object {
         }
 
         return true;
-    }
-
-    public static void sendUserNameAge(AgeName ageName, SocketUtils socketUtils) {
-        System.out.println("Client Conection");
-        socketUtils.writeObject(ageName);
-
-    }
-
-    public static void SendPhydata(Phydata phydata, SocketUtils socketUtils) {
-        System.out.println("SENDING PHYDATA");
-
-        socketUtils.writeObject(phydata);
-    }
-
-    private static void releaseResources(PrintWriter printWriter, Socket socket) {
-
-        printWriter.close();
-
-        try {
-            socket.close();
-        } catch (IOException ex) {
-            Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     public static String getRadioButton(ButtonGroup buttonGroup) {
