@@ -144,7 +144,6 @@ public class UserFr extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void signUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpActionPerformed
-        // TODO add your handling code here:
         this.setVisible(false);
         SignUpFr signUpFr = new SignUpFr(socketUtils);
         signUpFr.setVisible(true);
