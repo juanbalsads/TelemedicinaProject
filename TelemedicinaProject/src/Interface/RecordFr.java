@@ -8,6 +8,7 @@ package Interface;
 import BITalino.BITalino;
 import BITalino.BITalinoException;
 import BITalino.BitalinoDemo;
+import static BITalino.BitalinoDemo.frame;
 import POJOs.Answer;
 import POJOs.Phydata;
 import POJOs.SocketUtils;
@@ -183,6 +184,17 @@ public class RecordFr extends javax.swing.JFrame {
             bitalino.open(macAddress, samplingRate);
             int[] channelsToAcquire = {0};
             bitalino.start(channelsToAcquire);
+            for (int j = 0; j < samplingRate * time; j++) {
+                int block_size = 1;
+                frame = bitalino.read(block_size);
+                // for (int i = 0; i < frame.length; i++) {
+
+                valueseMG[0][cont] = cont;
+                valueseMG[1][j] = frame[0].analog[0];
+                System.out.println(cont + ", " + valuesacc[1][j]);
+                cont++;
+                //}
+            }
             bitalino.stop();
             eMGButton.setEnabled(false);
             sendMeasuresBut.setEnabled(true);
@@ -194,7 +206,7 @@ public class RecordFr extends javax.swing.JFrame {
             Logger.getLogger(BitalinoDemo.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
-                //close bluetooth connection
+
                 if (bitalino != null) {
                     bitalino.close();
                 }
@@ -212,6 +224,16 @@ public class RecordFr extends javax.swing.JFrame {
             bitalino.open(macAddress, samplingRate);
             int[] channelsToAcquire = {4};
             bitalino.start(channelsToAcquire);
+            for (int j = 0; j < samplingRate * time; j++) {
+                int block_size = 1;
+                frame = bitalino.read(block_size);
+                // for (int i = 0; i < frame.length; i++) {
+                valuesacc[0][cont] = cont;
+                valuesacc[1][j] = frame[0].analog[0];
+                System.out.println(cont + ", " + valuesacc[1][j]);
+                cont++;
+                //}
+            }
             bitalino.stop();
             accButton.setEnabled(false);
             sendMeasuresBut.setEnabled(true);
@@ -238,7 +260,6 @@ public class RecordFr extends javax.swing.JFrame {
         int input = 0;
         Date date = new Date(); // this object contains the current date value
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        System.out.println(formatter.format(date));
         Phydata phydata = new Phydata(date, valueseMG, valuesacc, symptons);
         socketUtils.writeObject(phydata);
         String[] options = new String[2];

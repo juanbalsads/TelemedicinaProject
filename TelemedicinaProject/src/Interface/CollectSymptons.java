@@ -152,7 +152,7 @@ public class CollectSymptons extends javax.swing.JFrame {
 
     private void startActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startActionPerformed
         symptons = jTextArea1.getText();
-        if (symptons == null) {
+        if (jTextArea1.getText().isEmpty()) {
             symptons = "Nothing to decleare.";
         }
         this.setVisible(false);

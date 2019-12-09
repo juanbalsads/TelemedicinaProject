@@ -223,14 +223,14 @@ public class MatchDeviceFr extends javax.swing.JFrame {
             } else {
                 time = Integer.parseInt(timeStr);
                 bitalino = new BITalino();
-                //Vector<RemoteDevice> devices = bitalino.findDevices();
-                //System.out.println(devices);
                 bitalino.open(macAddress, samplingRate);
                 this.setVisible(false);
                 CollectSymptons collectSymptons = new CollectSymptons(userPassword, bitalino, macAddress, samplingRate, time, socketUtils);
                 collectSymptons.setVisible(true);
             }
         } catch (Throwable ex) {
+            JOptionPane.showMessageDialog(new JFrame(), "Device Not found"
+                    + "", "Error", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(BitalinoDemo.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
