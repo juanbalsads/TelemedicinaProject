@@ -265,7 +265,7 @@ public class RecordFr extends javax.swing.JFrame {
         String[] options = new String[2];
         options[0] = new String("Yes");
         options[1] = new String("No");
-        input = JOptionPane.showOptionDialog(null, "Measures send\\nDo you wat to exit?",
+        input = JOptionPane.showOptionDialog(null, "Measures send\nDo you wat to exit?",
                 "Confirm Exit", 0, JOptionPane.INFORMATION_MESSAGE, null, options, null);
         if (input == 0) {
             System.out.println("Exit...");
