@@ -191,7 +191,7 @@ public class RecordFr extends javax.swing.JFrame {
 
                 valueseMG[0][cont] = cont;
                 valueseMG[1][j] = frame[0].analog[0];
-                System.out.println(cont + ", " + valuesacc[1][j]);
+                System.out.println(cont + ", " + valueseMG[1][j]);
                 cont++;
                 //}
             }
