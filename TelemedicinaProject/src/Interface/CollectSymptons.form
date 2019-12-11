@@ -50,24 +50,23 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                           <Component id="jLabel4" min="-2" pref="128" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
-                          <Component id="jLabel1" min="-2" pref="290" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
+                          <Component id="jLabel1" min="-2" pref="371" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="238" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="175" max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" min="-2" pref="448" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="253" max="-2" attributes="0"/>
                           <Component id="jLabel3" min="-2" pref="290" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="321" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="350" max="-2" attributes="0"/>
                           <Component id="start" min="-2" pref="88" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="0" pref="162" max="32767" attributes="0"/>
-                  <Component id="jScrollPane1" min="-2" pref="448" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="192" max="-2" attributes="0"/>
+                  <EmptySpace pref="179" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -94,13 +93,13 @@
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Century Gothic" size="18" style="1"/>
+              <Font name="Century Gothic" size="24" style="1"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="How are you feeling Today?"/>
+            <Property name="text" type="java.lang.String" value="How are you feeling today?"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="start">

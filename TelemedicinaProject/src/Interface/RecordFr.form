@@ -39,32 +39,26 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
-                          <Component id="sendMeasuresBut" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="133" max="-2" attributes="0"/>
-                          <Component id="repeatMeasuresBut" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel3" min="-2" pref="128" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
-                                  <Component id="jLabel1" min="-2" pref="360" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="138" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="accButton" min="-2" pref="184" max="-2" attributes="0"/>
-                                      <Component id="eMGButton" min="-2" pref="184" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                          </Group>
-                      </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jLabel3" min="-2" pref="128" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
+                  <Component id="jLabel1" min="-2" pref="360" max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="137" max="-2" attributes="0"/>
+                  <Component id="sendMeasuresBut" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="192" max="32767" attributes="0"/>
+                  <Component id="repeatMeasuresBut" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="126" max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="306" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="accButton" min="-2" pref="184" max="-2" attributes="0"/>
+                      <Component id="eMGButton" min="-2" pref="184" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="0" pref="201" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -76,9 +70,9 @@
                       <Component id="jLabel1" min="-2" pref="78" max="-2" attributes="0"/>
                       <Component id="jLabel3" min="-2" pref="120" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
                   <Component id="eMGButton" min="-2" pref="44" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                   <Component id="accButton" min="-2" pref="52" max="-2" attributes="0"/>
                   <EmptySpace pref="97" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -168,7 +162,7 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Starting To measure"/>
+            <Property name="text" type="java.lang.String" value="Starting to measure"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
