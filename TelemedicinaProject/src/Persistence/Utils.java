@@ -8,6 +8,8 @@ package Persistence;
 import POJOs.Answer;
 import POJOs.SocketUtils;
 import POJOs.UserPassword;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Enumeration;
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
@@ -138,4 +140,23 @@ public final class Utils extends Object {
         }
         return true;
     }
+    public static String getMD5(String password) {
+
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest(password.getBytes());
+
+            StringBuffer sb = new StringBuffer();
+
+            for (int i = 0; i < messageDigest.length; i++) {
+                sb.append(Integer.toHexString(0xff & messageDigest[i]));
+            }
+            return sb.toString();
+
+        } catch (NoSuchAlgorithmException ex) {
+            throw new RuntimeException(ex);
+        }
+
+    }
+
 }

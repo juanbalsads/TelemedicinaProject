@@ -9,6 +9,7 @@ import POJOs.AgeName;
 import POJOs.SocketUtils;
 import POJOs.UserPassword;
 import Persistence.Utils;
+import static Persistence.Utils.getMD5;
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JFrame;
